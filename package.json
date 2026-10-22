@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "node src/server.js",
-    "test": "node --test",
-    "coverage": "node --test --experimental-test-coverage --test-coverage-include=src/**/*.js --test-coverage-include=public/js/format.js --test-coverage-lines=80"
+    "test": "node --test \"test/**/*.test.js\"",
+    "coverage": "node --test --experimental-test-coverage --test-coverage-include=src/**/*.js --test-coverage-include=public/js/format.js --test-coverage-lines=80 \"test/**/*.test.js\""
   },
   "dependencies": {
     "express": "5.1.0",
