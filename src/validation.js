@@ -1,12 +1,6 @@
 const MAX_PRICE = 1_000_000_000;
 const MAX_QTY = 100_000;
 
-const PRICE_FIELDS = [
-  ['price_retail', 'Harga umum'],
-  ['price_member', 'Harga langganan'],
-  ['price_wholesale', 'Harga grosir'],
-];
-
 class ValidationError extends Error {}
 
 function text(body, field, label, { min = 1, max }) {
@@ -42,12 +36,12 @@ function run(body, build) {
 }
 
 function partFields(body) {
-  const value = {
+  return {
     part_number: text(body, 'part_number', 'Part number', { max: 64 }),
-    description: text(body, 'description', 'Deskripsi', { max: 500 }),
+    name: text(body, 'name', 'Nama barang', { max: 200 }),
+    description: text(body, 'description', 'Deskripsi', { min: 0, max: 500 }),
+    price: integer(body, 'price', 'Harga', 0, MAX_PRICE),
   };
-  for (const [field, label] of PRICE_FIELDS) value[field] = integer(body, field, label, 0, MAX_PRICE);
-  return value;
 }
 
 export function validatePartCreate(body) {

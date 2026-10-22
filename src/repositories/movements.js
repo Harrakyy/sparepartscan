@@ -11,7 +11,7 @@ export function createMovementsRepo(db) {
     VALUES (?, ?, ?, ?, ?, ?)`);
   const getMovement = db.prepare('SELECT * FROM movements WHERE id = ?');
   const recentStmt = db.prepare(`
-    SELECT m.*, p.part_number, p.description
+    SELECT m.*, p.part_number, p.name, p.description
     FROM movements m JOIN parts p ON p.id = m.part_id
     ORDER BY m.created_at DESC, m.id DESC LIMIT ?`);
 

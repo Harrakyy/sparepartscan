@@ -5,10 +5,9 @@ import { validatePartCreate, validatePartUpdate, validateMovement, parseLimit } 
 const valid = {
   barcode: '0012345678905',
   part_number: 'BP-01',
-  description: 'Kampas rem',
-  price_retail: 150000,
-  price_member: 140000,
-  price_wholesale: 130000,
+  name: 'Kampas rem',
+  description: 'Untuk Innova Reborn',
+  price: 150000,
 };
 const { barcode: _omit, ...validWithoutBarcode } = valid;
 
@@ -26,24 +25,53 @@ test('part create: rejects barcode longer than 64', () => {
   assert.equal(validatePartCreate({ ...valid, barcode: 'x'.repeat(65) }).ok, false);
 });
 
+test('part create: name is required', () => {
+  const r = validatePartCreate({ ...valid, name: '  ' });
+  assert.equal(r.ok, false);
+  assert.match(r.error, /Nama barang/);
+});
+
+test('part create: rejects name longer than 200', () => {
+  assert.equal(validatePartCreate({ ...valid, name: 'x'.repeat(201) }).ok, false);
+});
+
+test('part create: description is optional and defaults to empty', () => {
+  const { description: _d, ...withoutDescription } = valid;
+  const r = validatePartCreate(withoutDescription);
+  assert.equal(r.ok, true);
+  assert.equal(r.value.description, '');
+});
+
+test('part create: price is required', () => {
+  const { price: _p, ...withoutPrice } = valid;
+  const r = validatePartCreate(withoutPrice);
+  assert.equal(r.ok, false);
+  assert.match(r.error, /Harga/);
+});
+
+test('part create: value contains only the new fields', () => {
+  const r = validatePartCreate({ ...valid, price_member: 1 });
+  assert.deepEqual(Object.keys(r.value).sort(), ['barcode', 'description', 'name', 'part_number', 'price']);
+});
+
 test('part create: rejects description longer than 500', () => {
   assert.equal(validatePartCreate({ ...valid, description: 'x'.repeat(501) }).ok, false);
 });
 
 test('part create: rejects non-integer price', () => {
-  assert.equal(validatePartCreate({ ...valid, price_retail: 1.5 }).ok, false);
+  assert.equal(validatePartCreate({ ...valid, price: 1.5 }).ok, false);
 });
 
 test('part create: rejects numeric string price', () => {
-  assert.equal(validatePartCreate({ ...valid, price_retail: '5000' }).ok, false);
+  assert.equal(validatePartCreate({ ...valid, price: '5000' }).ok, false);
 });
 
 test('part create: rejects negative price', () => {
-  assert.equal(validatePartCreate({ ...valid, price_retail: -1 }).ok, false);
+  assert.equal(validatePartCreate({ ...valid, price: -1 }).ok, false);
 });
 
 test('part create: rejects price above 1.000.000.000', () => {
-  assert.equal(validatePartCreate({ ...valid, price_retail: 1_000_000_001 }).ok, false);
+  assert.equal(validatePartCreate({ ...valid, price: 1_000_000_001 }).ok, false);
 });
 
 test('part create: error message names the field', () => {

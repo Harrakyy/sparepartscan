@@ -25,8 +25,7 @@ export async function request(baseUrl, method, path, body) {
 export const samplePart = {
   barcode: '0012345678905',
   part_number: 'BP-01',
-  description: 'Kampas rem',
-  price_retail: 150000,
-  price_member: 140000,
-  price_wholesale: 130000,
+  name: 'Kampas rem',
+  description: 'Untuk Innova Reborn',
+  price: 150000,
 };

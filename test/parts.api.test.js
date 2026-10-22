@@ -26,7 +26,7 @@ test('POST /api/parts with duplicate barcode returns 409', async () => {
 });
 
 test('POST /api/parts with non-integer price returns 400', async () => {
-  const r = await create({ price_retail: 1.5 });
+  const r = await create({ price: 1.5 });
   assert.equal(r.status, 400);
   assert.equal(r.body.success, false);
 });
@@ -41,21 +41,21 @@ test('GET by-barcode finds exact barcode only', async () => {
   assert.equal(missing.body.success, false);
 });
 
-test('GET /api/parts?q= matches description case-insensitively', async () => {
+test('GET /api/parts?q= matches name case-insensitively', async () => {
   await create();
   const r = await call('GET', '/api/parts?q=kampas');
   assert.equal(r.body.data.length, 1);
 });
 
 test('GET /api/parts?q= treats % literally', async () => {
-  await create({ barcode: '1', description: 'Diskon 50% oli' });
-  await create({ barcode: '2', description: 'Filter udara' });
+  await create({ barcode: '1', name: 'Diskon 50% oli', description: '' });
+  await create({ barcode: '2', name: 'Filter udara', description: '' });
   const r = await call('GET', '/api/parts?q=' + encodeURIComponent('50%'));
   assert.deepEqual(r.body.data.map(p => p.barcode), ['1']);
 });
 
 test('GET /api/parts?q= treats _ literally', async () => {
-  await create({ barcode: '1', description: 'axb' });
+  await create({ barcode: '1', name: 'axb', description: '' });
   const r = await call('GET', '/api/parts?q=a_b');
   assert.equal(r.body.data.length, 0);
 });
@@ -96,4 +96,20 @@ test('unknown API path returns 404 envelope', async () => {
   const r = await call('GET', '/api/tidak-ada');
   assert.equal(r.status, 404);
   assert.equal(r.body.success, false);
+});
+
+test('GET /api/parts?q= also matches description', async () => {
+  await create();
+  const r = await call('GET', '/api/parts?q=reborn');
+  assert.equal(r.body.data.length, 1);
+});
+
+test('POST /api/parts without description stores an empty description', async () => {
+  const { description: _d, ...withoutDescription } = samplePart;
+  const r = await call('POST', '/api/parts', withoutDescription);
+  assert.equal(r.status, 201);
+  assert.equal(r.body.data.description, '');
+  assert.equal(r.body.data.name, 'Kampas rem');
+  assert.equal(r.body.data.price, 150000);
+  assert.equal('price_member' in r.body.data, false);
 });
