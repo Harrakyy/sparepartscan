@@ -1,30 +1,24 @@
-/* Aplikasi gudang: satu kolom, tombol besar untuk dipakai sambil memegang barang */
+/* Aplikasi gudang: satu kolom, tombol besar untuk dipakai sambil memegang barang.
+   Warna: putih lembut + hitam lembut. Sengaja bukan #fff/#000 (kontras 21:1 terasa silau);
+   teks utama ±15:1, teks sekunder ±6:1, semua di atas batas WCAG AA 4.5:1. */
 :root {
-  --bg: #eef1f0;
-  --surface: #ffffff;
-  --fg: #17201d;
-  --muted: #5b6863;
-  --line: #d3dad7;
-  --accent: #0f6d5c;
-  --accent-fg: #ffffff;
-  --in: #1f7a3f;
-  --out: #b4471c;
-  --in-solid: #1f7a3f;
-  --out-solid: #b4471c;
-  --danger: #b42318;
-  --danger-bg: #fdecea;
-  --ok-bg: #e6f4ea;
+  --bg: #f7f7f5;         /* putih lembut, latar halaman */
+  --surface: #fdfdfc;    /* kartu, sedikit lebih terang dari latar */
+  --fg: #232323;         /* hitam lembut, teks utama */
+  --muted: #5f5f5f;      /* teks sekunder */
+  --line: #e3e3e0;       /* garis tepi */
+  --accent: #2a2a2a;     /* tombol utama dan pilihan aktif */
+  --accent-fg: #fafaf8;
+  --in: #2f6b45;         /* Masuk: hijau redup, hanya untuk penanda */
+  --out: #a24a22;        /* Keluar: oranye bata redup */
+  --in-solid: #2f6b45;
+  --out-solid: #a24a22;
+  --danger: #a8321f;
+  --danger-bg: #fbedea;
+  --ok-bg: #eef5f0;
   --font: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
   --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
   color-scheme: light;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #111715; --surface: #1a2220; --fg: #e5ebe8; --muted: #9aa8a2; --line: #2e3a36;
-    --accent: #3fb59b; --accent-fg: #0b1412; --in: #5cc684; --out: #f08a5d;
-    --danger: #ff8a80; --danger-bg: #3a1d1a; --ok-bg: #173022;
-    color-scheme: dark;
-  }
 }
 
 * { box-sizing: border-box; }
@@ -54,8 +48,8 @@ h1 { font-size: 22px; margin: 0; }
   color: var(--fg); font: 600 16px var(--font); cursor: pointer;
 }
 .segmented button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
-.segmented button[data-mode="in"][aria-pressed="true"] { background: var(--in-solid); border-color: var(--in-solid); color: #fff; }
-.segmented button[data-mode="out"][aria-pressed="true"] { background: var(--out-solid); border-color: var(--out-solid); color: #fff; }
+.segmented button[data-mode="in"][aria-pressed="true"] { background: var(--in-solid); border-color: var(--in-solid); color: var(--accent-fg); }
+.segmented button[data-mode="out"][aria-pressed="true"] { background: var(--out-solid); border-color: var(--out-solid); color: var(--accent-fg); }
 
 
 .field { display: flex; flex-direction: column; gap: 4px; }
@@ -76,8 +70,8 @@ h1 { font-size: 22px; margin: 0; }
   background: var(--surface); color: var(--fg); font: 600 16px var(--font); cursor: pointer;
 }
 .btn-primary { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
-.btn-in { background: var(--in-solid); border-color: var(--in-solid); color: #fff; }
-.btn-out { background: var(--out-solid); border-color: var(--out-solid); color: #fff; }
+.btn-in { background: var(--in-solid); border-color: var(--in-solid); color: var(--accent-fg); }
+.btn-out { background: var(--out-solid); border-color: var(--out-solid); color: var(--accent-fg); }
 .btn:disabled { opacity: .6; cursor: wait; }
 .btn-block { width: 100%; }
 
@@ -91,7 +85,7 @@ h1 { font-size: 22px; margin: 0; }
 .prices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .prices div { background: var(--bg); border-radius: 8px; padding: 8px; min-width: 0; }
 .prices dt { font-size: 12px; color: var(--muted); }
-.prices dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.prices dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; font-size: clamp(13px, 3.6vw, 16px); }
 .stock { font-size: 18px; }
 .stock b { font-size: 24px; font-variant-numeric: tabular-nums; }
 
@@ -104,15 +98,15 @@ h1 { font-size: 22px; margin: 0; }
 .list .num { font-variant-numeric: tabular-nums; font-weight: 700; }
 
 .history li { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 2px; }
-.badge { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; color: #fff; }
+.badge { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; color: var(--accent-fg); }
 .badge-in { background: var(--in-solid); }
 .badge-out { background: var(--out-solid); }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 .cam-controls { display: flex; flex-wrap: wrap; gap: 8px; }
 .cam-controls .btn { flex: 1 1 30%; min-width: 0; }
-#torch[aria-pressed="true"] { background: #f5c518; border-color: #f5c518; color: #1a1a1a; }
-.viewfinder { position: relative; width: 100%; border-radius: 10px; overflow: hidden; background: #000; min-height: 200px; }
+#torch[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+.viewfinder { position: relative; width: 100%; border-radius: 10px; overflow: hidden; background: #1c1c1c; min-height: 200px; }
 .viewfinder video { display: block; width: 100%; height: auto; touch-action: none; }
 .viewfinder canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .scan-hint { margin: 0; font-weight: 600; text-align: center; }
