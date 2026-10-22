@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Scan Part · Gudang Sparepart</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <main>
+    <h1>Scan Part</h1>
+
+    <div class="segmented" role="group" aria-label="Mode scan">
+      <button type="button" data-mode="check" aria-pressed="true">Cek</button>
+      <button type="button" data-mode="in" aria-pressed="false">Masuk</button>
+      <button type="button" data-mode="out" aria-pressed="false">Keluar</button>
+    </div>
+
+    <section id="scan-area" class="card">
+      <div id="reader"></div>
+      <p id="camera-msg" class="msg-error" hidden></p>
+      <form id="manual-form" class="row" autocomplete="off">
+        <div class="field">
+          <label for="manual-barcode">Atau ketik barcode</label>
+          <input id="manual-barcode" inputmode="numeric" maxlength="64" required>
+        </div>
+        <button class="btn" type="submit">Cari</button>
+      </form>
+    </section>
+
+    <p id="status" hidden></p>
+
+    <section id="result" class="card" hidden>
+      <div>
+        <div id="r-part-number" class="part-number"></div>
+        <div id="r-description"></div>
+        <div class="muted mono">Barcode: <span id="r-barcode"></span></div>
+      </div>
+      <dl class="prices" style="margin:0">
+        <div><dt>Umum</dt><dd id="r-price-retail"></dd></div>
+        <div><dt>Langganan</dt><dd id="r-price-member"></dd></div>
+        <div><dt>Grosir</dt><dd id="r-price-wholesale"></dd></div>
+      </dl>
+      <div class="stock">Stok: <b id="r-stock"></b></div>
+
+      <form id="move-form" autocomplete="off" hidden>
+        <div class="row">
+          <div class="field">
+            <label for="move-qty">Jumlah</label>
+            <input id="move-qty" type="number" inputmode="numeric" min="1" max="100000" step="1" value="1" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="move-note">Catatan (opsional)</label>
+          <input id="move-note" maxlength="200">
+        </div>
+        <button id="move-submit" class="btn btn-block" type="submit"></button>
+      </form>
+    </section>
+
+    <section id="register" class="card" hidden>
+      <p class="msg-error" style="margin:0">Barcode belum terdaftar</p>
+      <h2 style="margin:0;font-size:18px">Daftarkan part</h2>
+      <form id="register-form" autocomplete="off" style="display:flex;flex-direction:column;gap:12px">
+        <div class="field">
+          <label for="reg-barcode">Barcode</label>
+          <input id="reg-barcode" readonly>
+        </div>
+        <div class="field">
+          <label for="reg-part-number">Part number</label>
+          <input id="reg-part-number" maxlength="64" required>
+        </div>
+        <div class="field">
+          <label for="reg-description">Deskripsi</label>
+          <input id="reg-description" maxlength="500" required>
+        </div>
+        <div class="grid3">
+          <div class="field">
+            <label for="reg-price-retail">Harga umum</label>
+            <input id="reg-price-retail" type="number" inputmode="numeric" min="0" step="1" required>
+          </div>
+          <div class="field">
+            <label for="reg-price-member">Harga langganan</label>
+            <input id="reg-price-member" type="number" inputmode="numeric" min="0" step="1" required>
+          </div>
+          <div class="field">
+            <label for="reg-price-wholesale">Harga grosir</label>
+            <input id="reg-price-wholesale" type="number" inputmode="numeric" min="0" step="1" required>
+          </div>
+        </div>
+        <button id="reg-submit" class="btn btn-primary btn-block" type="submit">Simpan part</button>
+      </form>
+    </section>
+
+    <button id="scan-again" class="btn btn-block" type="button" hidden>Scan lagi</button>
+  </main>
+
+  <nav class="tabbar" aria-label="Menu utama">
+    <a href="/" aria-current="page">Scan</a>
+    <a href="/parts.html">Part</a>
+    <a href="/history.html">Riwayat</a>
+  </nav>
+
+  <script src="/vendor/html5-qrcode.min.js"></script>
+  <script type="module" src="/js/scan.js"></script>
+</body>
+</html>

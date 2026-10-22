@@ -9,6 +9,8 @@
   --accent-fg: #ffffff;
   --in: #1f7a3f;
   --out: #b4471c;
+  --in-solid: #1f7a3f;
+  --out-solid: #b4471c;
   --danger: #b42318;
   --danger-bg: #fdecea;
   --ok-bg: #e6f4ea;
@@ -52,8 +54,8 @@ h1 { font-size: 22px; margin: 0; }
   color: var(--fg); font: 600 16px var(--font); cursor: pointer;
 }
 .segmented button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
-.segmented button[data-mode="in"][aria-pressed="true"] { background: var(--in); border-color: var(--in); color: #fff; }
-.segmented button[data-mode="out"][aria-pressed="true"] { background: var(--out); border-color: var(--out); color: #fff; }
+.segmented button[data-mode="in"][aria-pressed="true"] { background: var(--in-solid); border-color: var(--in-solid); color: #fff; }
+.segmented button[data-mode="out"][aria-pressed="true"] { background: var(--out-solid); border-color: var(--out-solid); color: #fff; }
 
 #reader { width: 100%; border-radius: 10px; overflow: hidden; background: #000; min-height: 200px; }
 #reader video { width: 100% !important; height: auto !important; }
@@ -76,8 +78,8 @@ h1 { font-size: 22px; margin: 0; }
   background: var(--surface); color: var(--fg); font: 600 16px var(--font); cursor: pointer;
 }
 .btn-primary { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
-.btn-in { background: var(--in); border-color: var(--in); color: #fff; }
-.btn-out { background: var(--out); border-color: var(--out); color: #fff; }
+.btn-in { background: var(--in-solid); border-color: var(--in-solid); color: #fff; }
+.btn-out { background: var(--out-solid); border-color: var(--out-solid); color: #fff; }
 .btn:disabled { opacity: .6; cursor: wait; }
 .btn-block { width: 100%; }
 
@@ -105,7 +107,7 @@ h1 { font-size: 22px; margin: 0; }
 
 .history li { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 2px; }
 .badge { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; color: #fff; }
-.badge-in { background: var(--in); }
-.badge-out { background: var(--out); }
+.badge-in { background: var(--in-solid); }
+.badge-out { background: var(--out-solid); }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
