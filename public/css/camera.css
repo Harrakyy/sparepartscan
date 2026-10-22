@@ -1,0 +1,112 @@
+/* Halaman Scan bergaya aplikasi kamera: video penuh layar, kontrol melayang,
+   info part di lembar bawah (bottom sheet). Warna mode dibuat lembut. */
+.camera-page {
+  --cam-bg: #1e1e1e;
+  --cam-fg: #f1efe8;
+  --cam-chip: rgba(30, 30, 30, 0.55);
+  --mode-check: #f1efe8;
+  --mode-in: #a9d1b4;       /* hijau sage lembut, label di atas kamera */
+  --mode-out: #e8b497;      /* terakota lembut */
+  --in-solid: #3f7a57;      /* tombol Simpan masuk */
+  --out-solid: #9a5a3c;     /* tombol Simpan keluar */
+  --mode-color: var(--mode-check);
+  height: 100dvh;
+  overflow: hidden;
+  padding: 0;
+  background: var(--cam-bg);
+  overscroll-behavior: none;
+}
+.camera-page[data-mode="in"] { --mode-color: var(--mode-in); }
+.camera-page[data-mode="out"] { --mode-color: var(--mode-out); }
+
+.camera { position: fixed; inset: 0; color: var(--cam-fg); max-width: none; display: block; touch-action: none; user-select: none; }
+.camera video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: var(--cam-bg); }
+.cam-shade { position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(rgba(0,0,0,.45), transparent 18%, transparent 62%, rgba(0,0,0,.6)); }
+
+.cam-top {
+  position: absolute; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between;
+  padding: calc(10px + env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 10px max(16px, env(safe-area-inset-left));
+}
+.cam-title { font-weight: 600; font-size: 15px; letter-spacing: .02em; }
+.cam-icon {
+  width: 44px; height: 44px; border-radius: 50%; border: 0; display: inline-flex; align-items: center; justify-content: center;
+  background: var(--cam-chip); color: var(--cam-fg); position: relative; text-decoration: none; cursor: pointer;
+}
+.cam-icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.cam-icon[aria-pressed="true"] { background: var(--cam-fg); color: var(--cam-bg); }
+.cam-icon[aria-pressed="true"] svg { fill: currentColor; }
+.cam-top > .cam-icon[hidden] + .cam-title { margin-left: 44px; }
+.cam-icon-lg { width: 52px; height: 52px; }
+
+.scan-frame {
+  position: absolute; left: 10%; right: 10%; top: 34%; height: 18%; max-height: 160px;
+  border: 2px solid rgba(241, 239, 232, .85); border-radius: 16px; transition: border-color .15s, box-shadow .15s;
+}
+.scan-frame.detected { border-color: var(--mode-in); box-shadow: 0 0 0 4px rgba(169, 209, 180, .35); }
+.scan-hint, .toast, .camera-msg {
+  position: absolute; left: 50%; transform: translateX(-50%); margin: 0; max-width: calc(100% - 32px);
+  padding: 6px 14px; border-radius: 999px; font-size: 14px; font-weight: 600; text-align: center; background: var(--cam-chip);
+}
+.scan-hint { top: calc(34% + min(18%, 160px) + 14px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.toast { top: calc(64px + env(safe-area-inset-top)); background: #e6f0e8; color: #2f5e40; }
+.toast.out { background: #f6eae3; color: #7a4128; }
+.camera-msg { top: 40%; border-radius: 12px; background: #fbedea; color: #a8321f; }
+
+.cam-bottom {
+  position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; gap: 14px;
+  padding: 0 max(16px, env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+}
+.zoom-chips { display: flex; gap: 6px; padding: 4px; border-radius: 999px; background: var(--cam-chip); }
+.zoom-chips button {
+  min-width: 40px; height: 40px; border-radius: 50%; border: 0; background: transparent; color: var(--cam-fg);
+  font: 600 13px var(--font); cursor: pointer;
+}
+.zoom-chips button[aria-pressed="true"] { background: var(--cam-fg); color: var(--cam-bg); }
+.modes { display: flex; gap: 6px; }
+.modes button {
+  border: 0; background: transparent; color: rgba(241, 239, 232, .65); font: 700 14px var(--font); letter-spacing: .08em;
+  padding: 10px 12px; min-height: 44px; cursor: pointer;
+}
+.modes button[aria-pressed="true"] { color: var(--mode-color); }
+.cam-actions { width: 100%; max-width: 420px; display: flex; align-items: center; justify-content: space-between; }
+.shutter {
+  width: 76px; height: 76px; border-radius: 50%; border: 4px solid var(--cam-fg); background: rgba(241,239,232,.12);
+  color: var(--cam-fg); display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.shutter svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+.last-stock {
+  position: absolute; top: -4px; right: -4px; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px;
+  background: var(--cam-fg); color: var(--cam-bg); font: 700 12px/22px var(--font); text-align: center;
+}
+.cam-icon:focus-visible, .shutter:focus-visible, .modes button:focus-visible, .zoom-chips button:focus-visible {
+  outline: 2px solid var(--mode-color); outline-offset: 2px;
+}
+
+.backdrop { position: fixed; inset: 0; background: rgba(0, 0, 0, .35); }
+.sheet {
+  position: fixed; left: 0; right: 0; bottom: 0; max-height: 88dvh; overflow-y: auto; overscroll-behavior: contain;
+  background: var(--bg); color: var(--fg); border-radius: 20px 20px 0 0; display: flex; flex-direction: column; gap: 12px;
+  padding: 0 max(16px, env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  animation: sheet-up .2s ease-out; transition: transform .2s ease-out;
+}
+.sheet > div[id^="view-"] { display: flex; flex-direction: column; gap: 10px; }
+.sheet > div[hidden] { display: none; }
+@keyframes sheet-up { from { transform: translateY(100%); } }
+.sheet-grab { padding: 10px 0 2px; display: flex; justify-content: center; cursor: grab; touch-action: none; }
+.sheet-grab span { width: 40px; height: 5px; border-radius: 3px; background: var(--line); }
+.sheet-title { margin: 0; font-size: 18px; }
+.sheet-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.sheet .prices { margin: 0; }
+.quick-actions { display: flex; gap: 8px; }
+.quick-actions .btn { min-height: 40px; padding: 6px 12px; font-size: 14px; }
+.stepper { display: flex; align-items: center; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.stepper button { width: 48px; height: 48px; border: 0; background: transparent; color: var(--fg); font: 600 22px var(--font); cursor: pointer; }
+.stepper input { width: 64px; height: 48px; border: 0; background: transparent; text-align: center; font: 700 18px var(--font); color: var(--fg); }
+#move-form { display: flex; flex-direction: column; gap: 10px; }
+.stack { display: flex; flex-direction: column; gap: 12px; }
+.sheet-close { border: 0; background: transparent; color: var(--muted); font: 600 15px var(--font); min-height: 44px; cursor: pointer; }
+.camera-page .btn-in { background: var(--in-solid); border-color: var(--in-solid); }
+.camera-page .btn-out { background: var(--out-solid); border-color: var(--out-solid); }
+
+@media (prefers-reduced-motion: reduce) { .sheet { animation: none; transition: none; } }

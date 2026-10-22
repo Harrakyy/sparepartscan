@@ -5,14 +5,22 @@ import { createLiveScanner } from './live-scanner.js';
 
 const MODE_KEY = 'scanMode';
 const MODES = ['check', 'in', 'out'];
+const MODE_LABEL = { in: 'masuk', out: 'keluar' };
 const DUPLICATE_WINDOW_MS = 2000;
-const CAMERA_ERROR = 'Kamera tidak bisa dibuka. Izinkan akses kamera di pengaturan browser, atau ketik barcode di bawah.';
+const TOAST_MS = 2500;
+const SWIPE_PX = 50;
+const SHEET_CLOSE_PX = 80;
+const MAX_QTY = 100000;
+const CAMERA_ERROR = 'Kamera tidak bisa dibuka. Izinkan akses kamera di pengaturan browser, atau ketuk tombol keyboard untuk mengetik barcode.';
+const VIEWS = ['view-manual', 'view-part', 'view-register'];
 
 const $ = id => document.getElementById(id);
 
 let mode = loadMode();
 let currentPart = null;
 let lastScan = { code: '', at: 0 };
+let camera = null;
+let toastTimer = null;
 // EAN/UPC sudah dijaga digit cek, cukup 2 bacaan sama. Format lain butuh 3.
 const confirmChecked = createReadConfirmer({ required: 2 });
 const confirmOther = createReadConfirmer({ required: 3 });
@@ -29,8 +37,14 @@ function loadMode() {
 function setMode(next) {
   mode = next;
   try { localStorage.setItem(MODE_KEY, next); } catch { /* penyimpanan browser tidak tersedia */ }
-  document.querySelectorAll('[data-mode]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === next)));
-  if (currentPart) renderPart(currentPart);
+  document.body.dataset.mode = next;
+  document.querySelectorAll('#modes [data-mode]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === next)));
+  if (currentPart && !$('sheet').hidden) renderPart(currentPart);
+}
+
+function shiftMode(step) {
+  const i = MODES.indexOf(mode) + step;
+  if (i >= 0 && i < MODES.length) setMode(MODES[i]);
 }
 
 function showStatus(text, kind) {
@@ -40,10 +54,38 @@ function showStatus(text, kind) {
   el.hidden = !text;
 }
 
+function showToast(text, kind) {
+  const el = $('toast');
+  el.textContent = text;
+  el.className = `toast ${kind === 'out' ? 'out' : ''}`;
+  el.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { el.hidden = true; }, TOAST_MS);
+}
+
+// --- Lembar bawah (bottom sheet) ---
+
+function openSheet(view) {
+  VIEWS.forEach(id => { $(id).hidden = id !== view; });
+  $('sheet').style.transform = '';
+  $('sheet').hidden = false;
+  $('backdrop').hidden = false;
+  camera?.pause();
+}
+
+function closeSheet() {
+  currentPart = null;
+  $('sheet').hidden = true;
+  $('backdrop').hidden = true;
+  showStatus('');
+  $('move-qty').value = '1';
+  $('move-note').value = '';
+  camera?.resume();
+}
+
 function renderPart(part) {
   currentPart = part;
-  $('register').hidden = true;
-  $('result').hidden = false;
+  openSheet('view-part');
   $('r-part-number').textContent = part.part_number;
   $('r-description').textContent = part.description;
   $('r-barcode').textContent = part.barcode;
@@ -52,43 +94,33 @@ function renderPart(part) {
   $('r-price-wholesale').textContent = formatRupiah(part.price_wholesale);
   $('r-stock').textContent = part.stock;
 
-  const form = $('move-form');
-  form.hidden = mode === 'check';
+  const recording = mode !== 'check';
+  $('quick-actions').hidden = recording;
+  $('move-form').hidden = !recording;
   const submit = $('move-submit');
-  submit.textContent = mode === 'in' ? 'Simpan Masuk' : 'Simpan Keluar';
+  submit.textContent = `Simpan ${MODE_LABEL[mode] ?? ''}`;
   submit.className = `btn btn-block ${mode === 'in' ? 'btn-in' : 'btn-out'}`;
 }
 
 function showRegister(barcode) {
   currentPart = null;
-  $('result').hidden = true;
-  $('register').hidden = false;
+  openSheet('view-register');
   $('register-form').reset();
   $('reg-barcode').value = barcode;
-  $('reg-part-number').focus();
-}
-
-function resetView() {
-  currentPart = null;
-  $('result').hidden = true;
-  $('register').hidden = true;
-  $('scan-again').hidden = true;
-  showStatus('');
-  $('move-qty').value = '1';
-  $('move-note').value = '';
 }
 
 async function lookup(rawBarcode) {
   const barcode = rawBarcode.trim();
   if (!barcode) return;
-  showStatus('');
   currentPart = null;
-  $('result').hidden = true;
-  $('register').hidden = true;
-  $('scan-again').hidden = false;
+  openSheet(null);
+  showStatus('Mencari part…', 'ok');
   try {
-    renderPart(await apiGet(`/api/parts/by-barcode/${encodeURIComponent(barcode)}`));
+    const part = await apiGet(`/api/parts/by-barcode/${encodeURIComponent(barcode)}`);
+    showStatus('');
+    renderPart(part);
   } catch (err) {
+    showStatus('');
     if (err.status === 404) showRegister(barcode);
     else showStatus(err.message);
   }
@@ -99,24 +131,25 @@ async function withBusy(button, fn) {
   try { await fn(); } finally { button.disabled = false; }
 }
 
+function stepQty(delta) {
+  const now = parseWholeNumber($('move-qty').value);
+  const next = (Number.isNaN(now) ? 1 : now) + delta;
+  $('move-qty').value = String(Math.min(MAX_QTY, Math.max(1, next)));
+}
+
 async function submitMovement(event) {
   event.preventDefault();
   if (!currentPart) return;
+  const qty = parseWholeNumber($('move-qty').value);
+  const type = mode;
   await withBusy($('move-submit'), async () => {
     try {
-      const { part } = await apiPost('/api/movements', {
-        part_id: currentPart.id,
-        type: mode,
-        qty: parseWholeNumber($('move-qty').value),
-        note: $('move-note').value,
-      });
-      renderPart(part);
-      $('move-qty').value = '1';
-      $('move-note').value = '';
-      showStatus(`Tersimpan. Stok sekarang: ${part.stock}`, 'ok');
-      // Kembali ke mode scan; lastScan tetap, jadi barcode yang sama diabaikan 2 detik.
-      $('move-form').hidden = true;
-      resumeScanner();
+      const { part } = await apiPost('/api/movements', { part_id: currentPart.id, type, qty, note: $('move-note').value });
+      // lastScan tetap, jadi barcode yang sama diabaikan 2 detik setelah kamera jalan lagi.
+      closeSheet();
+      showToast(`${type === 'in' ? 'Masuk +' : 'Keluar −'}${qty} · stok ${part.stock}`, type);
+      $('last-stock').textContent = part.stock;
+      $('last-stock').hidden = false;
     } catch (err) {
       showStatus(err.message);
     }
@@ -143,6 +176,8 @@ async function submitRegister(event) {
   });
 }
 
+// --- Kamera ---
+
 function onScan(text, formatName) {
   const code = normalizeBarcode(text, formatName);
   if (!code) return;
@@ -153,18 +188,7 @@ function onScan(text, formatName) {
   lastScan = { code, at: now };
   navigator.vibrate?.(80);
   beep();
-  pauseScanner();
   lookup(code);
-}
-
-let camera = null;
-
-function pauseScanner() {
-  camera?.pause();
-}
-
-function resumeScanner() {
-  camera?.resume();
 }
 
 // Bunyi "beep" saat barcode diterima. Browser baru mengizinkan suara setelah layar disentuh.
@@ -190,9 +214,7 @@ function beep() {
 }
 
 function showCameraError() {
-  $('viewfinder').hidden = true;
-  $('camera-controls').hidden = true;
-  $('zoom-wrap').hidden = true;
+  $('frame').hidden = true;
   $('scan-hint').hidden = true;
   $('camera-msg').textContent = CAMERA_ERROR;
   $('camera-msg').hidden = false;
@@ -202,14 +224,8 @@ async function startScanner() {
   camera = createLiveScanner({
     onScan,
     onHint: text => { $('scan-hint').textContent = text; },
-    ui: {
-      video: $('video'),
-      overlay: $('overlay'),
-      torch: $('torch'),
-      zoom: $('zoom'),
-      zoomWrap: $('zoom-wrap'),
-      switchCamera: $('switch-camera'),
-    },
+    onDetect: found => $('frame').classList.toggle('detected', found),
+    ui: { video: $('video'), torch: $('torch'), zoomChips: $('zoom-chips'), switchCamera: $('switch-camera') },
   });
   try {
     await camera.start();
@@ -220,19 +236,62 @@ async function startScanner() {
   }
 }
 
-document.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+// --- Gestur ---
+
+// Geser kiri/kanan di gambar kamera untuk ganti mode, seperti FOTO/VIDEO di aplikasi kamera.
+let swipe = null;
+$('camera').addEventListener('touchstart', e => {
+  swipe = e.touches.length === 1 && !e.target.closest('button, a')
+    ? { x: e.touches[0].clientX, y: e.touches[0].clientY }
+    : null;
+}, { passive: true });
+$('camera').addEventListener('touchend', e => {
+  if (!swipe) return;
+  const dx = e.changedTouches[0].clientX - swipe.x;
+  const dy = e.changedTouches[0].clientY - swipe.y;
+  swipe = null;
+  if (Math.abs(dx) > SWIPE_PX && Math.abs(dx) > Math.abs(dy)) shiftMode(dx < 0 ? 1 : -1);
+});
+
+// Tarik lembar ke bawah untuk menutup.
+let drag = null;
+$('sheet-grab').addEventListener('touchstart', e => { drag = e.touches[0].clientY; }, { passive: true });
+$('sheet-grab').addEventListener('touchmove', e => {
+  if (drag === null) return;
+  $('sheet').style.transform = `translateY(${Math.max(0, e.touches[0].clientY - drag)}px)`;
+}, { passive: true });
+$('sheet-grab').addEventListener('touchend', e => {
+  if (drag === null) return;
+  const dy = e.changedTouches[0].clientY - drag;
+  drag = null;
+  if (dy > SHEET_CLOSE_PX) closeSheet();
+  else $('sheet').style.transform = '';
+});
+
+// --- Tombol ---
+
+document.querySelectorAll('#modes [data-mode]').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+document.querySelectorAll('[data-quick]').forEach(b => b.addEventListener('click', () => setMode(b.dataset.quick)));
+$('open-manual').addEventListener('click', () => {
+  openSheet('view-manual');
+  $('manual-barcode').value = '';
+  $('manual-barcode').focus();
+});
 $('manual-form').addEventListener('submit', event => {
   event.preventDefault();
-  pauseScanner();
   lookup($('manual-barcode').value);
 });
+$('qty-minus').addEventListener('click', () => stepQty(-1));
+$('qty-plus').addEventListener('click', () => stepQty(1));
 $('move-form').addEventListener('submit', submitMovement);
 $('register-form').addEventListener('submit', submitRegister);
-$('scan-again').addEventListener('click', () => {
-  resetView();
-  $('manual-barcode').value = '';
+$('sheet-close').addEventListener('click', () => {
   lastScan = { code: '', at: 0 };
-  resumeScanner();
+  closeSheet();
+});
+$('backdrop').addEventListener('click', closeSheet);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && !$('sheet').hidden) closeSheet();
 });
 
 setMode(mode);

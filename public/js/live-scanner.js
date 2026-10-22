@@ -47,8 +47,10 @@ function videoConstraints(cameraId) {
   return cameraId ? { ...base, deviceId: { exact: cameraId } } : { ...base, facingMode: { ideal: 'environment' } };
 }
 
-// ui: { video, overlay, torch, zoom, zoomWrap, switchCamera }
-export function createLiveScanner({ ui, onScan, onHint }) {
+const ZOOM_STEPS = [1, 2, 3];
+
+// ui: { video, torch, zoomChips, switchCamera }. onDetect(true/false) tiap pembacaan.
+export function createLiveScanner({ ui, onScan, onHint, onDetect = () => {} }) {
   let detector = null;
   let stream = null;
   let track = null;
@@ -58,6 +60,7 @@ export function createLiveScanner({ ui, onScan, onHint }) {
   let paused = false;
   let running = false;
   let torchOn = false;
+  let zoom = 1;
   let lastDarkCheck = 0;
   let hint = '';
   const probe = document.createElement('canvas');
@@ -81,17 +84,6 @@ export function createLiveScanner({ ui, onScan, onHint }) {
     }
   };
 
-  function drawBox(box) {
-    const ctx = ui.overlay.getContext('2d');
-    ui.overlay.width = ui.video.videoWidth || ui.overlay.width;
-    ui.overlay.height = ui.video.videoHeight || ui.overlay.height;
-    ctx.clearRect(0, 0, ui.overlay.width, ui.overlay.height);
-    if (!box) return;
-    ctx.lineWidth = Math.max(4, ui.overlay.width / 200);
-    ctx.strokeStyle = '#3fb59b';
-    ctx.strokeRect(box.x, box.y, box.width, box.height);
-  }
-
   function checkDark(now) {
     if (now - lastDarkCheck < DARK_CHECK_MS) return;
     lastDarkCheck = now;
@@ -108,11 +100,11 @@ export function createLiveScanner({ ui, onScan, onHint }) {
       try {
         const [code] = await detector.detect(ui.video);
         if (code && !paused) {
-          drawBox(code.boundingBox);
+          onDetect(true);
           setHint(isSmallInFrame(code.boundingBox, ui.video.videoWidth) ? HINT.closer : HINT.idle);
           onScan(code.rawValue, toFormatName(code.format));
         } else if (!paused) {
-          drawBox(null);
+          onDetect(false);
           checkDark(now);
         }
       } catch (err) {
@@ -125,7 +117,30 @@ export function createLiveScanner({ ui, onScan, onHint }) {
   function renderTorch() {
     ui.torch.hidden = !('torch' in caps);
     ui.torch.setAttribute('aria-pressed', String(torchOn));
-    ui.torch.textContent = torchOn ? 'Flash: nyala' : 'Flash: mati';
+    ui.torch.setAttribute('aria-label', torchOn ? 'Matikan flash' : 'Nyalakan flash');
+  }
+
+  const zoomRange = () => ({ min: caps.zoom?.min ?? 1, max: caps.zoom?.max ?? 1 });
+
+  function renderZoom() {
+    const { min, max } = zoomRange();
+    ui.zoomChips.hidden = !(caps.zoom && max > 1);
+    if (ui.zoomChips.hidden) return;
+    ui.zoomChips.replaceChildren(...ZOOM_STEPS.filter(v => v >= min && v <= max).map(v => {
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.textContent = `${v}x`;
+      chip.setAttribute('aria-pressed', String(Math.abs(zoom - v) < 0.05));
+      chip.addEventListener('click', () => setZoom(v));
+      return chip;
+    }));
+  }
+
+  async function setZoom(value) {
+    const { min, max } = zoomRange();
+    const z = clampZoom(value, min, max);
+    if (await apply({ zoom: z })) zoom = z;
+    renderZoom();
   }
 
   async function setupFeatures() {
@@ -136,15 +151,10 @@ export function createLiveScanner({ ui, onScan, onHint }) {
     }
     torchOn = false;
     renderTorch();
-    ui.zoomWrap.hidden = !(caps.zoom && caps.zoom.max > 1);
-    if (!ui.zoomWrap.hidden) {
-      ui.zoom.min = String(caps.zoom.min ?? 1);
-      ui.zoom.max = String(caps.zoom.max);
-      ui.zoom.step = String(caps.zoom.step || 0.1);
-      // Zoom 2x supaya HP bisa dipegang lebih jauh, di luar jarak minimum fokus.
-      const z = clampZoom(DEFAULT_ZOOM, caps.zoom.min ?? 1, caps.zoom.max);
-      if (await apply({ zoom: z })) ui.zoom.value = String(z);
-    }
+    zoom = 1;
+    // Zoom 2x supaya HP bisa dipegang lebih jauh, di luar jarak minimum fokus.
+    if (caps.zoom && caps.zoom.max > 1) await setZoom(DEFAULT_ZOOM);
+    else renderZoom();
   }
 
   function stopStream() {
@@ -175,20 +185,19 @@ export function createLiveScanner({ ui, onScan, onHint }) {
     renderTorch();
   });
 
-  ui.zoom.addEventListener('input', () => apply({ zoom: Number(ui.zoom.value) }));
-
   // Cubit dua jari di gambar kamera untuk zoom.
   let pinch = null;
   const distance = e => Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
   ui.video.addEventListener('touchstart', e => {
-    if (e.touches.length === 2 && caps.zoom) pinch = { start: distance(e), zoom: Number(ui.zoom.value) };
+    if (e.touches.length === 2 && caps.zoom) pinch = { start: distance(e), zoom };
   }, { passive: true });
   ui.video.addEventListener('touchmove', e => {
     if (!pinch || e.touches.length !== 2) return;
     e.preventDefault();
-    const z = clampZoom(pinch.zoom * (distance(e) / pinch.start), Number(ui.zoom.min), Number(ui.zoom.max));
-    ui.zoom.value = String(z);
-    apply({ zoom: z });
+    const { min, max } = zoomRange();
+    zoom = clampZoom(pinch.zoom * (distance(e) / pinch.start), min, max);
+    apply({ zoom });
+    renderZoom();
   }, { passive: false });
   ui.video.addEventListener('touchend', () => { pinch = null; });
 
@@ -242,7 +251,7 @@ export function createLiveScanner({ ui, onScan, onHint }) {
     },
     pause() {
       paused = true;
-      drawBox(null);
+      onDetect(false);
     },
     resume() {
       paused = false;
