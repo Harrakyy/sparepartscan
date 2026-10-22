@@ -111,4 +111,6 @@ h1 { font-size: 22px; margin: 0; }
 .badge-out { background: var(--out-solid); }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
-#torch[aria-pressed="true"] { background: #f5c518; border-color: #f5c518; color: #1a1a1a; }
+.cam-controls { display: flex; flex-wrap: wrap; gap: 8px; }
+.cam-controls .btn { flex: 1 1 30%; min-width: 0; }
+#torch[aria-pressed="true"], #zoom[aria-pressed="true"] { background: #f5c518; border-color: #f5c518; color: #1a1a1a; }

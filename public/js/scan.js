@@ -1,6 +1,7 @@
 import { apiGet, apiPost } from './api.js';
 import { formatRupiah, parseWholeNumber } from './format.js';
 import { normalizeBarcode, hasCheckDigit, createReadConfirmer } from './barcode.js';
+import { createCameraScanner } from './camera-controls.js';
 
 const MODE_KEY = 'scanMode';
 const MODES = ['check', 'in', 'out'];
@@ -11,8 +12,6 @@ const $ = id => document.getElementById(id);
 
 let mode = loadMode();
 let currentPart = null;
-let scanner = null;
-let scannerPaused = false;
 let lastScan = { code: '', at: 0 };
 // EAN/UPC sudah dijaga digit cek, cukup 2 bacaan sama. Format lain butuh 3.
 const confirmChecked = createReadConfirmer({ required: 2 });
@@ -158,71 +157,40 @@ function onScan(text, result) {
   lookup(code);
 }
 
+let camera = null;
+
 function pauseScanner() {
-  if (!scanner || scannerPaused) return;
-  try { scanner.pause(true); scannerPaused = true; } catch { /* kamera belum siap */ }
+  camera?.pause();
 }
 
 function resumeScanner() {
-  if (!scanner || !scannerPaused) return;
-  try { scanner.resume(); scannerPaused = false; } catch { /* kamera sudah berhenti */ }
+  camera?.resume();
 }
 
-// Flash hanya tampil kalau kamera HP mendukungnya (umumnya Chrome Android; Safari iPhone belum).
-function setupTorch() {
-  let torch;
-  try {
-    torch = scanner.getRunningTrackCameraCapabilities().torchFeature();
-  } catch {
-    return;
-  }
-  if (!torch.isSupported()) return;
-  const button = $('torch');
-  const render = on => {
-    button.setAttribute('aria-pressed', String(on));
-    button.textContent = on ? 'Matikan flash' : 'Nyalakan flash';
-  };
-  render(Boolean(torch.value()));
-  button.hidden = false;
-  button.addEventListener('click', async () => {
-    const next = !torch.value();
-    try {
-      await torch.apply(next);
-      render(next);
-    } catch (err) {
-      console.error(err);
-      showStatus('Flash tidak bisa dinyalakan di HP ini.');
-    }
-  });
+function showCameraError() {
+  $('reader').hidden = true;
+  $('camera-controls').hidden = true;
+  $('camera-msg').textContent = CAMERA_ERROR;
+  $('camera-msg').hidden = false;
 }
 
 async function startScanner() {
   const lib = window.__Html5QrcodeLibrary__;
-  if (!lib) {
-    $('camera-msg').textContent = CAMERA_ERROR;
-    $('camera-msg').hidden = false;
-    return;
-  }
+  if (!lib) return showCameraError();
   const F = lib.Html5QrcodeSupportedFormats;
-  scanner = new lib.Html5Qrcode('reader', {
-    verbose: false,
-    formatsToSupport: [F.EAN_13, F.EAN_8, F.UPC_A, F.UPC_E, F.CODE_128, F.CODE_39, F.QR_CODE],
-    experimentalFeatures: { useBarCodeDetectorIfSupported: true },
+  camera = createCameraScanner({
+    lib,
+    readerId: 'reader',
+    formats: [F.EAN_13, F.EAN_8, F.UPC_A, F.UPC_E, F.CODE_128, F.CODE_39, F.QR_CODE],
+    onScan,
+    ui: { torch: $('torch'), zoom: $('zoom'), switchCamera: $('switch-camera'), reader: $('reader') },
   });
   try {
-    await scanner.start({ facingMode: 'environment' }, {
-      fps: 15,
-      // Area baca lebar dan pendek, sesuai bentuk barcode 1D.
-      qrbox: (w, h) => ({ width: Math.max(50, Math.floor(w * 0.85)), height: Math.max(50, Math.floor(h * 0.4)) }),
-      videoConstraints: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } },
-    }, onScan, () => {});
-    setupTorch();
+    await camera.start();
   } catch (err) {
     console.error(err);
-    scanner = null;
-    $('reader').hidden = true;
-    $('camera-msg').textContent = CAMERA_ERROR;
-    $('camera-msg').hidden = false;
+    camera = null;
+    showCameraError();
   }
 }
 

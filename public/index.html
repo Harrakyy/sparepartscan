@@ -18,7 +18,12 @@
 
     <section id="scan-area" class="card">
       <div id="reader"></div>
-      <button id="torch" class="btn btn-block" type="button" aria-pressed="false" hidden>Nyalakan flash</button>
+      <div id="camera-controls" class="cam-controls">
+        <button id="torch" class="btn" type="button" aria-pressed="false" hidden>Flash: mati</button>
+        <button id="zoom" class="btn" type="button" aria-pressed="false" hidden>Zoom: 1x</button>
+        <button id="switch-camera" class="btn" type="button" hidden>Ganti kamera</button>
+      </div>
+      <p class="muted" style="margin:0;font-size:14px">Pegang HP ±15 cm dari barcode. Ketuk gambar kamera untuk fokus ulang.</p>
       <p id="camera-msg" class="msg-error" hidden></p>
       <form id="manual-form" class="row" autocomplete="off">
         <div class="field">
