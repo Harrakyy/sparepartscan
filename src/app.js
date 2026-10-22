@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { partsRouter } from './routes/parts.js';
+import { movementsRouter } from './routes/movements.js';
 import { fail } from './respond.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -13,6 +14,7 @@ export function createApp({ db }) {
   app.use(express.json({ limit: '10kb' }));
 
   app.use('/api/parts', partsRouter(db));
+  app.use('/api/movements', movementsRouter(db));
   app.use('/api', (req, res) => fail(res, 404, 'Alamat API tidak ditemukan'));
 
   app.get('/vendor/html5-qrcode.min.js', (req, res) => res.sendFile(SCANNER_LIB));
