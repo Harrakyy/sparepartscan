@@ -1,5 +1,6 @@
 import { apiGet, apiPost } from './api.js';
 import { formatRupiah, parseWholeNumber } from './format.js';
+import { normalizeBarcode, hasCheckDigit, createReadConfirmer } from './barcode.js';
 
 const MODE_KEY = 'scanMode';
 const MODES = ['check', 'in', 'out'];
@@ -13,6 +14,9 @@ let currentPart = null;
 let scanner = null;
 let scannerPaused = false;
 let lastScan = { code: '', at: 0 };
+// EAN/UPC sudah dijaga digit cek, cukup 2 bacaan sama. Format lain butuh 3.
+const confirmChecked = createReadConfirmer({ required: 2 });
+const confirmOther = createReadConfirmer({ required: 3 });
 
 function loadMode() {
   try {
@@ -140,7 +144,12 @@ async function submitRegister(event) {
   });
 }
 
-function onScan(code) {
+function onScan(text, result) {
+  const formatName = result?.result?.format?.formatName;
+  const code = normalizeBarcode(text, formatName);
+  if (!code) return;
+  const confirm = hasCheckDigit(formatName) ? confirmChecked : confirmOther;
+  if (!confirm(code)) return;
   const now = Date.now();
   if (code === lastScan.code && now - lastScan.at < DUPLICATE_WINDOW_MS) return;
   lastScan = { code, at: now };
@@ -159,6 +168,34 @@ function resumeScanner() {
   try { scanner.resume(); scannerPaused = false; } catch { /* kamera sudah berhenti */ }
 }
 
+// Flash hanya tampil kalau kamera HP mendukungnya (umumnya Chrome Android; Safari iPhone belum).
+function setupTorch() {
+  let torch;
+  try {
+    torch = scanner.getRunningTrackCameraCapabilities().torchFeature();
+  } catch {
+    return;
+  }
+  if (!torch.isSupported()) return;
+  const button = $('torch');
+  const render = on => {
+    button.setAttribute('aria-pressed', String(on));
+    button.textContent = on ? 'Matikan flash' : 'Nyalakan flash';
+  };
+  render(Boolean(torch.value()));
+  button.hidden = false;
+  button.addEventListener('click', async () => {
+    const next = !torch.value();
+    try {
+      await torch.apply(next);
+      render(next);
+    } catch (err) {
+      console.error(err);
+      showStatus('Flash tidak bisa dinyalakan di HP ini.');
+    }
+  });
+}
+
 async function startScanner() {
   const lib = window.__Html5QrcodeLibrary__;
   if (!lib) {
@@ -173,7 +210,13 @@ async function startScanner() {
     experimentalFeatures: { useBarCodeDetectorIfSupported: true },
   });
   try {
-    await scanner.start({ facingMode: 'environment' }, { fps: 10, qrbox: { width: 260, height: 160 } }, onScan, () => {});
+    await scanner.start({ facingMode: 'environment' }, {
+      fps: 15,
+      // Area baca lebar dan pendek, sesuai bentuk barcode 1D.
+      qrbox: (w, h) => ({ width: Math.max(50, Math.floor(w * 0.85)), height: Math.max(50, Math.floor(h * 0.4)) }),
+      videoConstraints: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } },
+    }, onScan, () => {});
+    setupTorch();
   } catch (err) {
     console.error(err);
     scanner = null;
