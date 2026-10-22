@@ -9,6 +9,7 @@ const DB_PATH = process.env.DB_PATH || 'data/sparepart.db';
 fs.mkdirSync(path.dirname(path.resolve(DB_PATH)), { recursive: true });
 const db = openDb(DB_PATH);
 
-createApp({ db }).listen(PORT, () => {
+// Hanya localhost: HP masuk lewat cloudflared, bukan langsung dari WiFi toko.
+createApp({ db }).listen(PORT, '127.0.0.1', () => {
   console.log(`Server jalan di http://localhost:${PORT}`);
 });

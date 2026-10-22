@@ -1,4 +1,5 @@
 import { apiGet, apiPut } from './api.js';
+import { parseWholeNumber } from './format.js';
 
 const SEARCH_DEBOUNCE_MS = 300;
 const $ = id => document.getElementById(id);
@@ -81,9 +82,9 @@ async function save(event) {
     await apiPut(`/api/parts/${editing.id}`, {
       part_number: $('e-part-number').value,
       description: $('e-description').value,
-      price_retail: Number($('e-price-retail').value),
-      price_member: Number($('e-price-member').value),
-      price_wholesale: Number($('e-price-wholesale').value),
+      price_retail: parseWholeNumber($('e-price-retail').value),
+      price_member: parseWholeNumber($('e-price-member').value),
+      price_wholesale: parseWholeNumber($('e-price-wholesale').value),
     });
     closeEdit();
     showStatus('Tersimpan', 'ok');

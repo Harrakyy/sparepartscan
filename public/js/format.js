@@ -10,6 +10,12 @@ const wibParts = new Intl.DateTimeFormat('en-GB', {
   hourCycle: 'h23',
 });
 
+// "50.000" → 50000. Titik adalah pemisah ribuan; selain digit, hasilnya NaN.
+export function parseWholeNumber(raw) {
+  const digits = String(raw).replace(/[\s.]/g, '');
+  return /^\d+$/.test(digits) ? Number(digits) : NaN;
+}
+
 export function formatRupiah(n) {
   return rupiah.format(n);
 }

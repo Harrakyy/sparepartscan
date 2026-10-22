@@ -1,5 +1,5 @@
 import { apiGet, apiPost } from './api.js';
-import { formatRupiah } from './format.js';
+import { formatRupiah, parseWholeNumber } from './format.js';
 
 const MODE_KEY = 'scanMode';
 const MODES = ['check', 'in', 'out'];
@@ -79,6 +79,9 @@ async function lookup(rawBarcode) {
   const barcode = rawBarcode.trim();
   if (!barcode) return;
   showStatus('');
+  currentPart = null;
+  $('result').hidden = true;
+  $('register').hidden = true;
   $('scan-again').hidden = false;
   try {
     renderPart(await apiGet(`/api/parts/by-barcode/${encodeURIComponent(barcode)}`));
@@ -101,13 +104,16 @@ async function submitMovement(event) {
       const { part } = await apiPost('/api/movements', {
         part_id: currentPart.id,
         type: mode,
-        qty: Number($('move-qty').value),
+        qty: parseWholeNumber($('move-qty').value),
         note: $('move-note').value,
       });
       renderPart(part);
       $('move-qty').value = '1';
       $('move-note').value = '';
       showStatus(`Tersimpan. Stok sekarang: ${part.stock}`, 'ok');
+      // Kembali ke mode scan; lastScan tetap, jadi barcode yang sama diabaikan 2 detik.
+      $('move-form').hidden = true;
+      resumeScanner();
     } catch (err) {
       showStatus(err.message);
     }
@@ -122,9 +128,9 @@ async function submitRegister(event) {
         barcode: $('reg-barcode').value,
         part_number: $('reg-part-number').value,
         description: $('reg-description').value,
-        price_retail: Number($('reg-price-retail').value),
-        price_member: Number($('reg-price-member').value),
-        price_wholesale: Number($('reg-price-wholesale').value),
+        price_retail: parseWholeNumber($('reg-price-retail').value),
+        price_member: parseWholeNumber($('reg-price-member').value),
+        price_wholesale: parseWholeNumber($('reg-price-wholesale').value),
       });
       renderPart(part);
       showStatus('Part terdaftar.', 'ok');
