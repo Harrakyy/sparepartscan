@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Daftar Part · Gudang Sparepart</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <main>
+    <h1>Daftar Part</h1>
+
+    <div class="field">
+      <label for="search">Cari part number, deskripsi, atau barcode</label>
+      <input id="search" type="search" maxlength="64" autocomplete="off">
+    </div>
+
+    <p id="status" hidden></p>
+
+    <section id="edit" class="card" hidden>
+      <h2 style="margin:0;font-size:18px">Edit part</h2>
+      <div class="muted mono">Barcode: <span id="e-barcode"></span> · Stok: <span id="e-stock"></span></div>
+      <form id="edit-form" autocomplete="off" style="display:flex;flex-direction:column;gap:12px">
+        <div class="field">
+          <label for="e-part-number">Part number</label>
+          <input id="e-part-number" maxlength="64" required>
+        </div>
+        <div class="field">
+          <label for="e-description">Deskripsi</label>
+          <input id="e-description" maxlength="500" required>
+        </div>
+        <div class="grid3">
+          <div class="field">
+            <label for="e-price-retail">Harga umum</label>
+            <input id="e-price-retail" type="number" inputmode="numeric" min="0" step="1" required>
+          </div>
+          <div class="field">
+            <label for="e-price-member">Harga langganan</label>
+            <input id="e-price-member" type="number" inputmode="numeric" min="0" step="1" required>
+          </div>
+          <div class="field">
+            <label for="e-price-wholesale">Harga grosir</label>
+            <input id="e-price-wholesale" type="number" inputmode="numeric" min="0" step="1" required>
+          </div>
+        </div>
+        <div class="row">
+          <button id="e-submit" class="btn btn-primary" type="submit">Simpan</button>
+          <button id="e-cancel" class="btn" type="button">Batal</button>
+        </div>
+      </form>
+    </section>
+
+    <ul id="list" class="list"></ul>
+    <p id="empty" class="muted" hidden>Tidak ada part yang cocok.</p>
+  </main>
+
+  <nav class="tabbar" aria-label="Menu utama">
+    <a href="/">Scan</a>
+    <a href="/parts.html" aria-current="page">Part</a>
+    <a href="/history.html">Riwayat</a>
+  </nav>
+
+  <script type="module" src="/js/parts.js"></script>
+</body>
+</html>
