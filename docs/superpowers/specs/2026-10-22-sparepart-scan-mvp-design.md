@@ -203,10 +203,11 @@ terbaru part tersebut.
   kompilasi database terpisah.
 - **Frontend:** HTML, CSS, dan JavaScript biasa, tanpa framework dan tanpa
   build step.
-- **Pembaca barcode:** library `html5-qrcode` (dipasang lewat npm dan disajikan
-  dari server sendiri). Format yang diaktifkan: EAN-13, EAN-8, UPC-A, UPC-E,
-  Code 128, Code 39, dan QR. Library ini berjalan di Chrome Android maupun
-  Safari iOS.
+- **Pembaca barcode:** `BarcodeDetector` bawaan browser (Chrome Android).
+  Browser yang belum punya (Safari iOS, Firefox) memakai polyfill
+  `barcode-detector` (zxing-cpp WASM), disajikan dari server sendiri.
+  Gambar kamera dibaca setiap 80 ms. Format yang diaktifkan: EAN-13, EAN-8,
+  UPC-A, UPC-E, Code 128, Code 39, dan QR.
 - **Akses dari HP:** `cloudflared tunnel --url http://localhost:3000`
   menghasilkan URL `https://….trycloudflare.com`. HTTPS diperlukan agar browser
   mengizinkan kamera. Gratis, tanpa akun.

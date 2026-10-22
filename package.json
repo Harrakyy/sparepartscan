@@ -9,7 +9,7 @@
     "coverage": "node --test --experimental-test-coverage --test-coverage-include=src/**/*.js --test-coverage-include=public/js/format.js --test-coverage-lines=80 \"test/**/*.test.js\""
   },
   "dependencies": {
-    "express": "5.1.0",
-    "html5-qrcode": "2.3.8"
+    "barcode-detector": "3.2.2",
+    "express": "5.1.0"
   }
 }

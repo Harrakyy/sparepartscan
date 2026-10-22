@@ -6,7 +6,11 @@ import { movementsRouter } from './routes/movements.js';
 import { fail } from './respond.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const SCANNER_LIB = path.join(ROOT, 'node_modules', 'html5-qrcode', 'html5-qrcode.min.js');
+const VENDOR_FILES = {
+  // Polyfill BarcodeDetector untuk browser yang belum punya (Safari iPhone, Firefox).
+  '/vendor/barcode-detector.js': path.join(ROOT, 'node_modules', 'barcode-detector', 'dist', 'iife', 'polyfill.js'),
+  '/vendor/zxing_reader.wasm': path.join(ROOT, 'node_modules', 'zxing-wasm', 'dist', 'reader', 'zxing_reader.wasm'),
+};
 
 export function createApp({ db }) {
   const app = express();
@@ -17,7 +21,9 @@ export function createApp({ db }) {
   app.use('/api/movements', movementsRouter(db));
   app.use('/api', (req, res) => fail(res, 404, 'Alamat API tidak ditemukan'));
 
-  app.get('/vendor/html5-qrcode.min.js', (req, res) => res.sendFile(SCANNER_LIB));
+  for (const [route, file] of Object.entries(VENDOR_FILES)) {
+    app.get(route, (req, res) => res.sendFile(file));
+  }
   app.use(express.static(path.join(ROOT, 'public')));
 
   // eslint-disable-next-line no-unused-vars

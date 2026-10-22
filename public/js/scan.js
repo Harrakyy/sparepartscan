@@ -1,7 +1,7 @@
 import { apiGet, apiPost } from './api.js';
 import { formatRupiah, parseWholeNumber } from './format.js';
 import { normalizeBarcode, hasCheckDigit, createReadConfirmer } from './barcode.js';
-import { createCameraScanner } from './camera-controls.js';
+import { createLiveScanner } from './live-scanner.js';
 
 const MODE_KEY = 'scanMode';
 const MODES = ['check', 'in', 'out'];
@@ -143,8 +143,7 @@ async function submitRegister(event) {
   });
 }
 
-function onScan(text, result) {
-  const formatName = result?.result?.format?.formatName;
+function onScan(text, formatName) {
   const code = normalizeBarcode(text, formatName);
   if (!code) return;
   const confirm = hasCheckDigit(formatName) ? confirmChecked : confirmOther;
@@ -153,6 +152,7 @@ function onScan(text, result) {
   if (code === lastScan.code && now - lastScan.at < DUPLICATE_WINDOW_MS) return;
   lastScan = { code, at: now };
   navigator.vibrate?.(80);
+  beep();
   pauseScanner();
   lookup(code);
 }
@@ -167,23 +167,49 @@ function resumeScanner() {
   camera?.resume();
 }
 
+// Bunyi "beep" saat barcode diterima. Browser baru mengizinkan suara setelah layar disentuh.
+let audioCtx = null;
+document.addEventListener('pointerdown', () => {
+  try {
+    audioCtx ??= new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+  } catch { /* suara tidak tersedia */ }
+}, { once: true });
+
+function beep() {
+  if (!audioCtx) return;
+  try {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.frequency.value = 880;
+    gain.gain.value = 0.08;
+    osc.connect(gain).connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.12);
+  } catch { /* suara tidak tersedia */ }
+}
+
 function showCameraError() {
-  $('reader').hidden = true;
+  $('viewfinder').hidden = true;
   $('camera-controls').hidden = true;
+  $('zoom-wrap').hidden = true;
+  $('scan-hint').hidden = true;
   $('camera-msg').textContent = CAMERA_ERROR;
   $('camera-msg').hidden = false;
 }
 
 async function startScanner() {
-  const lib = window.__Html5QrcodeLibrary__;
-  if (!lib) return showCameraError();
-  const F = lib.Html5QrcodeSupportedFormats;
-  camera = createCameraScanner({
-    lib,
-    readerId: 'reader',
-    formats: [F.EAN_13, F.EAN_8, F.UPC_A, F.UPC_E, F.CODE_128, F.CODE_39, F.QR_CODE],
+  camera = createLiveScanner({
     onScan,
-    ui: { torch: $('torch'), zoom: $('zoom'), switchCamera: $('switch-camera'), reader: $('reader') },
+    onHint: text => { $('scan-hint').textContent = text; },
+    ui: {
+      video: $('video'),
+      overlay: $('overlay'),
+      torch: $('torch'),
+      zoom: $('zoom'),
+      zoomWrap: $('zoom-wrap'),
+      switchCamera: $('switch-camera'),
+    },
   });
   try {
     await camera.start();
