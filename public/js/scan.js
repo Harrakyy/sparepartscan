@@ -87,11 +87,11 @@ function renderPart(part) {
   currentPart = part;
   openSheet('view-part');
   $('r-part-number').textContent = part.part_number;
+  $('r-name').textContent = part.name;
   $('r-description').textContent = part.description;
+  $('r-description').hidden = !part.description;
   $('r-barcode').textContent = part.barcode;
-  $('r-price-retail').textContent = formatRupiah(part.price_retail);
-  $('r-price-member').textContent = formatRupiah(part.price_member);
-  $('r-price-wholesale').textContent = formatRupiah(part.price_wholesale);
+  $('r-price').textContent = formatRupiah(part.price);
   $('r-stock').textContent = part.stock;
 
   const recording = mode !== 'check';
@@ -163,10 +163,9 @@ async function submitRegister(event) {
       const part = await apiPost('/api/parts', {
         barcode: $('reg-barcode').value,
         part_number: $('reg-part-number').value,
+        name: $('reg-name').value,
         description: $('reg-description').value,
-        price_retail: parseWholeNumber($('reg-price-retail').value),
-        price_member: parseWholeNumber($('reg-price-member').value),
-        price_wholesale: parseWholeNumber($('reg-price-wholesale').value),
+        price: parseWholeNumber($('reg-price').value),
       });
       renderPart(part);
       showStatus('Part terdaftar.', 'ok');

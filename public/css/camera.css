@@ -97,7 +97,6 @@
 .sheet-grab span { width: 40px; height: 5px; border-radius: 3px; background: var(--line); }
 .sheet-title { margin: 0; font-size: 18px; }
 .sheet-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.sheet .prices { margin: 0; }
 .quick-actions { display: flex; gap: 8px; }
 .quick-actions .btn { min-height: 40px; padding: 6px 12px; font-size: 14px; }
 .stepper { display: flex; align-items: center; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }

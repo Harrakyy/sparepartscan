@@ -29,7 +29,7 @@ function renderList(parts) {
     pn.textContent = part.part_number;
     const desc = document.createElement('div');
     desc.className = 'muted';
-    desc.textContent = part.description;
+    desc.textContent = part.name;
     info.append(pn, desc);
     const stock = document.createElement('div');
     stock.className = 'num';
@@ -60,10 +60,9 @@ function openEdit(part) {
   $('e-barcode').textContent = part.barcode;
   $('e-stock').textContent = part.stock;
   $('e-part-number').value = part.part_number;
+  $('e-name').value = part.name;
+  $('e-price').value = part.price.toLocaleString('id-ID');
   $('e-description').value = part.description;
-  $('e-price-retail').value = part.price_retail;
-  $('e-price-member').value = part.price_member;
-  $('e-price-wholesale').value = part.price_wholesale;
   $('edit').scrollIntoView({ block: 'start' });
   $('e-part-number').focus();
 }
@@ -81,10 +80,9 @@ async function save(event) {
   try {
     await apiPut(`/api/parts/${editing.id}`, {
       part_number: $('e-part-number').value,
+      name: $('e-name').value,
       description: $('e-description').value,
-      price_retail: parseWholeNumber($('e-price-retail').value),
-      price_member: parseWholeNumber($('e-price-member').value),
-      price_wholesale: parseWholeNumber($('e-price-wholesale').value),
+      price: parseWholeNumber($('e-price').value),
     });
     closeEdit();
     showStatus('Tersimpan', 'ok');

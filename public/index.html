@@ -68,15 +68,14 @@
 
     <div id="view-part" hidden>
       <div id="r-part-number" class="part-number"></div>
-      <div id="r-description"></div>
+      <div id="r-name" class="part-name"></div>
+      <div id="r-description" class="muted"></div>
       <div class="muted mono">Barcode: <span id="r-barcode"></span></div>
-      <dl class="prices">
-        <div><dt>Umum</dt><dd id="r-price-retail"></dd></div>
-        <div><dt>Langganan</dt><dd id="r-price-member"></dd></div>
-        <div><dt>Grosir</dt><dd id="r-price-wholesale"></dd></div>
-      </dl>
       <div class="sheet-row">
+        <span class="price" id="r-price"></span>
         <span class="stock">Stok: <b id="r-stock"></b></span>
+      </div>
+      <div class="sheet-row">
         <div id="quick-actions" class="quick-actions">
           <button type="button" class="btn" data-quick="in">Catat masuk</button>
           <button type="button" class="btn" data-quick="out">Catat keluar</button>
@@ -104,31 +103,26 @@
       <p class="msg-error" style="margin:0">Barcode belum terdaftar</p>
       <h2 class="sheet-title">Daftarkan part</h2>
       <form id="register-form" autocomplete="off" class="stack">
+        <p class="req-note"><span class="req" aria-hidden="true">*</span> wajib diisi</p>
         <div class="field">
           <label for="reg-barcode">Barcode</label>
           <input id="reg-barcode" readonly>
         </div>
         <div class="field">
-          <label for="reg-part-number">Part number</label>
-          <input id="reg-part-number" maxlength="64" required>
+          <label for="reg-part-number">Part number <span class="req" aria-hidden="true">*</span></label>
+          <input id="reg-part-number" maxlength="64" required placeholder="04465-0K240">
         </div>
         <div class="field">
-          <label for="reg-description">Deskripsi</label>
-          <input id="reg-description" maxlength="500" required>
+          <label for="reg-name">Nama barang <span class="req" aria-hidden="true">*</span></label>
+          <input id="reg-name" maxlength="200" required placeholder="Kampas rem depan">
         </div>
-        <div class="grid3">
-          <div class="field">
-            <label for="reg-price-retail">Harga umum</label>
-            <input id="reg-price-retail" inputmode="numeric" placeholder="contoh: 50.000" required>
-          </div>
-          <div class="field">
-            <label for="reg-price-member">Harga langganan</label>
-            <input id="reg-price-member" inputmode="numeric" placeholder="contoh: 50.000" required>
-          </div>
-          <div class="field">
-            <label for="reg-price-wholesale">Harga grosir</label>
-            <input id="reg-price-wholesale" inputmode="numeric" placeholder="contoh: 50.000" required>
-          </div>
+        <div class="field">
+          <label for="reg-price">Harga <span class="req" aria-hidden="true">*</span></label>
+          <input id="reg-price" inputmode="numeric" required placeholder="450.000">
+        </div>
+        <div class="field">
+          <label for="reg-description">Deskripsi <span class="opt">(opsional)</span></label>
+          <textarea id="reg-description" maxlength="500" rows="2" placeholder="Untuk Innova Reborn"></textarea>
         </div>
         <button id="reg-submit" class="btn btn-primary btn-block" type="submit">Simpan part</button>
       </form>

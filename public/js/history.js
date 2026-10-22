@@ -22,7 +22,7 @@ function renderRow(m) {
     el('span', 'num', `${m.type === 'in' ? '+' : '−'}${m.qty}`),
   );
   head.lastChild.style.marginLeft = 'auto';
-  li.append(head, el('div', 'muted', m.description));
+  li.append(head, el('div', 'muted', m.name));
   const meta = el('div', 'muted', `${formatWib(m.created_at)} · stok jadi ${m.stock_after}`);
   meta.style.fontSize = '14px';
   li.append(meta);

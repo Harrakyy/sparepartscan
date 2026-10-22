@@ -126,10 +126,9 @@ Database SQLite dalam satu file: `data/sparepart.db`.
 | id | INTEGER | primary key |
 | barcode | TEXT | wajib, unik, 1–64 karakter |
 | part_number | TEXT | wajib, 1–64 karakter |
-| description | TEXT | wajib, 1–500 karakter |
-| price_retail | INTEGER | Rupiah, ≥ 0, harga umum |
-| price_member | INTEGER | Rupiah, ≥ 0, harga langganan |
-| price_wholesale | INTEGER | Rupiah, ≥ 0, harga grosir |
+| name | TEXT | wajib, 1–200 karakter, nama barang |
+| description | TEXT | opsional, 0–500 karakter |
+| price | INTEGER | wajib, Rupiah, 0–1.000.000.000 (satu harga) |
 | stock | INTEGER | ≥ 0, bawaan 0 |
 | created_at | TEXT | waktu ISO 8601 (UTC) |
 | updated_at | TEXT | waktu ISO 8601 (UTC) |
