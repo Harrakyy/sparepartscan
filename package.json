@@ -1,0 +1,15 @@
+{
+  "name": "sparepart-scan",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test",
+    "coverage": "node --test --experimental-test-coverage --test-coverage-include=src/**/*.js --test-coverage-include=public/js/format.js --test-coverage-lines=80"
+  },
+  "dependencies": {
+    "express": "5.1.0",
+    "html5-qrcode": "2.3.8"
+  }
+}
