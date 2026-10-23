@@ -8,9 +8,10 @@ const MAX_NOISE_TOKENS = 3;
 const MAX_NOISE_LENGTH = 2;
 // "Pes" = "Pcs" yang salah baca OCR.
 const UNITS = 'Pcs|Pes|Pc|Set|Unit|Box|Dus|Psg|Pasang|Btl|Lbr|Roll|Mtr';
-// "<nama> <jumlah> <satuan> <harga...>". Diambil pasangan jumlah+satuan yang paling akhir
-// (sebaiknya yang diikuti angka harga), karena nama barang bisa memuat kata seperti "SET".
-const QTY_BEFORE_PRICE = new RegExp(`^(.*)\\s+(\\S+)\\s+(?:${UNITS})\\s+[\\d.,]+`, 'i');
+// Baris barang Zahir diakhiri "<jumlah> <satuan> <harga> <disc> <subtotal>". Jumlah diambil dari
+// pola di akhir baris (boleh diikuti noda OCR pendek), sehingga angka di dalam nama tidak terambil.
+const QTY_AT_END = /^(.*)\s+(\S+)\s+[A-Za-z]{2,8}\s+[\d.,]+\s+[\d.,]+\s+[\d.,]+(?:\s+\S{1,3})*\s*$/;
+// Cadangan untuk baris tanpa kolom harga lengkap.
 const QTY_BEFORE_UNIT = new RegExp(`^(.*)\\s+(\\S+)\\s+(?:${UNITS})\\b`, 'i');
 const ITEMS_HEADER = /Nama\s+Barang/i;
 const ITEMS_FOOTER = /Dasar\s+Pengenaan|\bJuta\b|\bRibu\b|\bRatus\b|Apabila|PENERIMA|Total\s*:/i;
@@ -57,12 +58,13 @@ function itemSection(lines) {
   const start = lines.findIndex(l => ITEMS_HEADER.test(l));
   if (start === -1) return { section: lines, joinContinuations: false };
   const rest = lines.slice(start + 1);
-  const end = rest.findIndex(l => ITEMS_FOOTER.test(l));
+  // Baris berkode part tidak pernah dianggap penutup, walau namanya memuat kata seperti "RATUS".
+  const end = rest.findIndex(l => ITEMS_FOOTER.test(l) && !splitCodeLine(l));
   return { section: end === -1 ? rest : rest.slice(0, end), joinContinuations: true };
 }
 
 function parseItemLine(code, rest) {
-  const m = rest.match(QTY_BEFORE_PRICE) ?? rest.match(QTY_BEFORE_UNIT);
+  const m = rest.match(QTY_AT_END) ?? rest.match(QTY_BEFORE_UNIT);
   if (!m) return { code, name: rest.trim(), qty: null };
   const qty = /^\d+$/.test(m[2]) ? Number(m[2]) : null;
   return { code, name: m[1].trim(), qty };
@@ -87,6 +89,9 @@ export function parseInvoice(lines) {
     const split = splitCodeLine(line);
     if (split) {
       items.push(parseItemLine(...split));
+    } else if (QTY_AT_END.test(line)) {
+      // Berbentuk baris barang tapi kodenya tidak terbaca (misalnya "$-MCS-005"): jangan digabung ke nama.
+      warnings.push(`Baris tidak dikenali, periksa dan tambahkan manual: ${line}`);
     } else if (joinContinuations && items.length && isMeaningful(line)) {
       const last = items[items.length - 1];
       last.name = `${last.name} ${line}`.trim();

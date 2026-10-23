@@ -181,14 +181,34 @@ function validate(payload) {
   return null;
 }
 
-async function save(event) {
-  event.preventDefault();
+// Nomor faktur sudah ada: tanyakan dulu, karena nomor hasil OCR bisa salah dan menimpa faktur lain.
+function askReplace(message) {
+  const el = $('status');
+  el.className = 'msg msg-warn';
+  el.replaceChildren(`${message} `);
+  const yes = document.createElement('button');
+  yes.type = 'button';
+  yes.className = 'btn btn-primary';
+  yes.textContent = 'Ganti faktur';
+  yes.addEventListener('click', () => save(null, true));
+  const no = document.createElement('button');
+  no.type = 'button';
+  no.className = 'btn';
+  no.textContent = 'Periksa nomor dulu';
+  no.addEventListener('click', () => { showStatus(''); $('number').focus(); });
+  el.append(yes, ' ', no);
+  el.hidden = false;
+}
+
+async function save(event, replace = false) {
+  event?.preventDefault();
   const payload = {
     number: $('number').value.trim(),
     customer_name: $('customer').value.trim(),
     invoice_date: $('date').value.trim() || null,
     source_type: sourceType,
     items: collectItems(),
+    replace,
   };
   const error = validate(payload);
   if (error) return showStatus(error, 'bad');
@@ -209,7 +229,8 @@ async function save(event) {
     el.append(link);
     el.hidden = false;
   } catch (err) {
-    showStatus(err.message, 'bad');
+    if (err.data?.needs_confirmation) askReplace(err.message);
+    else showStatus(err.message, 'bad');
   } finally {
     $('save').disabled = false;
   }

@@ -81,14 +81,53 @@ class InvoiceApiTest extends TestCase
         $this->assertSame('Clock spring', $items[0]->part_name);
     }
 
-    public function test_reupload_without_scans_replaces_items(): void
+    public function test_reupload_asks_for_confirmation_before_replacing(): void
+    {
+        $this->upload();
+        $oldPath = Invoice::first()->file_path;
+
+        $r = $this->upload(['customer_name' => 'TOKO LAIN', 'items' => [['code' => 'S-SCS-002', 'name' => 'Saklar', 'qty' => 5]]]);
+
+        $r->assertStatus(409)
+            ->assertJsonPath('error', 'Faktur 00066365 (Kepada AKBAR JAYA MOTOR HSF) sudah ada. Ganti dengan faktur ini?')
+            ->assertJsonPath('data.needs_confirmation', true);
+        $this->assertSame(9, Invoice::first()->items()->count());
+        Storage::disk('local')->assertExists($oldPath);
+    }
+
+    public function test_confirmed_reupload_replaces_items_and_old_file(): void
     {
         $first = $this->upload()->json('data.id');
+        $oldPath = Invoice::first()->file_path;
 
-        $r = $this->upload(['items' => [['code' => 'S-SCS-002', 'name' => 'Saklar', 'qty' => 5]]]);
+        $r = $this->upload(['replace' => true, 'items' => [['code' => 'S-SCS-002', 'name' => 'Saklar', 'qty' => 5]]]);
 
         $r->assertStatus(201)->assertJsonPath('data.id', $first)->assertJsonCount(1, 'data.items');
         $this->assertSame(1, Invoice::count());
+        Storage::disk('local')->assertMissing($oldPath);
+        Storage::disk('local')->assertExists(Invoice::first()->file_path);
+    }
+
+    public function test_detail_contains_all_scan_events(): void
+    {
+        $id = $this->upload()->json('data.id');
+        $invoice = Invoice::find($id);
+        for ($i = 0; $i < 35; $i++) {
+            $invoice->scanEvents()->create(['stage' => 'pick', 'code' => "X-{$i}", 'result' => 'not_in_invoice', 'manual' => false]);
+        }
+
+        $this->getJson("/api/invoices/{$id}")->assertJsonCount(35, 'data.scan_events');
+    }
+
+    public function test_expired_session_returns_envelope_with_reload_message(): void
+    {
+        \Illuminate\Support\Facades\Route::middleware('web')->post('/api/_expired', function () {
+            throw new \Illuminate\Session\TokenMismatchException;
+        });
+
+        $this->postJson('/api/_expired')->assertStatus(419)
+            ->assertJsonPath('success', false)
+            ->assertJsonPath('error', 'Sesi halaman kedaluwarsa. Muat ulang halaman (F5) lalu coba lagi.');
     }
 
     public function test_reupload_after_scan_is_rejected_and_keeps_data(): void

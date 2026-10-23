@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\ConfirmationRequiredException;
 use App\Exceptions\DomainRuleException;
 use App\Models\Invoice;
 use Illuminate\Http\UploadedFile;
@@ -11,8 +12,6 @@ use Throwable;
 
 class InvoiceService
 {
-    private const DETAIL_EVENT_LIMIT = 30;
-
     /**
      * Simpan faktur hasil konfirmasi admin. Nomor yang sudah ada diganti
      * selama belum ada scan; kalau sudah ada scan, ditolak.
@@ -29,6 +28,12 @@ class InvoiceService
                 $invoice = Invoice::where('number', $data['number'])->lockForUpdate()->first();
                 if ($invoice && $invoice->scanEvents()->exists()) {
                     throw new DomainRuleException("Faktur {$data['number']} sudah mulai di-scan, tidak bisa diganti");
+                }
+                // Nomor bisa salah baca OCR dan menimpa faktur lain, jadi penggantian harus dikonfirmasi.
+                if ($invoice && ! ($data['replace'] ?? false)) {
+                    throw new ConfirmationRequiredException(
+                        "Faktur {$data['number']} (Kepada {$invoice->customer_name}) sudah ada. Ganti dengan faktur ini?"
+                    );
                 }
                 $oldPath = $invoice?->file_path;
                 $invoice ??= new Invoice(['number' => $data['number']]);
@@ -87,7 +92,8 @@ class InvoiceService
     public function detail(Invoice $invoice): array
     {
         $invoice->load('items');
-        $events = $invoice->scanEvents()->latest('id')->limit(self::DETAIL_EVENT_LIMIT)->get();
+        // Semua kejadian dikirim: daftar "tidak ada di faktur" di layar gudang dibangun dari sini.
+        $events = $invoice->scanEvents()->latest('id')->get();
 
         return array_merge($invoice->toArray(), [
             'has_file' => $invoice->file_path !== null,

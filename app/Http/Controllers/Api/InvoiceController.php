@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exceptions\ConfirmationRequiredException;
 use App\Exceptions\DomainRuleException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreInvoiceRequest;
@@ -45,6 +46,8 @@ class InvoiceController extends Controller
     {
         try {
             $invoice = $this->invoices->save($request->validated(), $request->file('file'));
+        } catch (ConfirmationRequiredException $e) {
+            return ApiResponse::fail($e->getMessage(), 409, ['needs_confirmation' => true]);
         } catch (DomainRuleException $e) {
             return ApiResponse::fail($e->getMessage(), 409);
         }

@@ -121,6 +121,7 @@ function render(flashId) {
 }
 
 async function sendScan(code, manual) {
+  if (!invoice) return showToast('Data faktur belum termuat. Muat ulang halaman.');
   if (isLocked()) return showToast('Sesi ini sudah selesai');
   try {
     const { scan, invoice: fresh } = await apiPost(`/api/invoices/${invoiceId}/scans`, { code, stage, manual });
@@ -141,12 +142,19 @@ async function sendScan(code, manual) {
 }
 
 // Scan diproses berurutan supaya urutan dan hitungan tetap benar walau scanner cepat.
-const enqueueScan = (code, manual) => { queue = queue.then(() => sendScan(code, manual)); };
+// Kegagalan satu scan tidak boleh menghentikan antrian untuk scan berikutnya.
+const enqueueScan = (code, manual) => {
+  queue = queue.then(() => sendScan(code, manual)).catch(err => {
+    console.error(err);
+    buzzError();
+    showToast('Scan gagal diproses. Muat ulang halaman bila terus terjadi.');
+  });
+};
 
 const wedge = createKeyboardWedge();
 document.addEventListener('keydown', e => {
   if (e.target.closest('input, textarea, select')) return;
-  const code = wedge.key(e.key);
+  const code = wedge.key(e.key, e.timeStamp);
   if (!code) return;
   e.preventDefault(); // Enter dari scanner tidak boleh menekan tombol yang sedang fokus
   enqueueScan(code, false);

@@ -52,6 +52,34 @@ test('real Tesseract output of the photo is read completely', () => {
   assert.deepEqual(r.warnings, []);
 });
 
+const header = ['No Faktur : 123', 'Kepada : TOKO A', 'Nama Barang / Pesanan Jumlah Satuan Harga Satuan Disc. Sub Total'];
+
+test('quantity is taken from the end of the line, not from numbers in the name', () => {
+  const r = parseInvoice([...header, 'K-TIE-100 KABEL TIES 100 PCS 1 Pak 25,000.00 20.00 20,000.00']);
+  assert.deepEqual(r.items, [{ code: 'K-TIE-100', name: 'KABEL TIES 100 PCS', qty: 1 }]);
+});
+
+test('an item name containing RIBU or RATUS does not end the item list', () => {
+  const r = parseInvoice([
+    ...header,
+    'S-RBU-001 LAMPU SERIBU RATUS WATT 1 Pcs 10,000.00 0.00 10,000.00',
+    'S-SCS-002 SAKLAR SIGN 2 Pcs 280,000.00 20.00 448,000.00',
+    'Dua Juta Enam Ratus Enam Puluh Satu Ribu',
+  ]);
+  assert.deepEqual(r.items.map(i => i.code), ['S-RBU-001', 'S-SCS-002']);
+});
+
+test('an unrecognized line that looks like an item becomes a warning, not part of a name', () => {
+  const r = parseInvoice([
+    ...header,
+    'S-SCS-002 SAKLAR SIGN 2 Pcs 280,000.00 20.00 448,000.00',
+    '$-MCS-005 SAKLAR SIGN MITS.CANTER 1 Pcs 349,000.00 20.00 279,200.00',
+  ]);
+  assert.equal(r.items.length, 1);
+  assert.equal(r.items[0].name, 'SAKLAR SIGN');
+  assert.ok(r.warnings.some(w => w.startsWith('Baris tidak dikenali') && w.includes('$-MCS-005')), r.warnings.join(' | '));
+});
+
 test('missing invoice number and customer produce warnings', () => {
   const r = parseInvoice(['Nama Barang / Pesanan', 'S-SCS-002 SAKLAR 2 Pcs 1.00 0 1.00']);
   assert.equal(r.number, '');

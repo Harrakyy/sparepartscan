@@ -61,6 +61,18 @@ test('the buffer resets after a scan', () => {
   assert.equal(s.key('Enter'), null);
 });
 
+test('event timestamps are used when given, so a slow handler does not cut a scan', () => {
+  let clock = 0;
+  const wedge = createKeyboardWedge({ maxGapMs: 50, minLength: 4, now: () => clock });
+  // Tombol ditekan tiap 10 ms, tapi pemrosesannya sempat tertunda 300 ms di tengah.
+  [...'S-SCS-002'].forEach((ch, i) => {
+    clock = i < 4 ? i * 10 : 300 + i * 10;
+    wedge.key(ch, i * 10);
+  });
+  clock = 400;
+  assert.equal(wedge.key('Enter', 90), 'S-SCS-002');
+});
+
 test('a slow Enter after a fast burst is not a scan', () => {
   const s = typer(10);
   s.type('8999999580773');

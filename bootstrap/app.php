@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -28,6 +29,14 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (ValidationException $e, Request $request) use ($isApi) {
             if ($isApi($request)) {
                 return ApiResponse::fail(collect($e->errors())->flatten()->first() ?? 'Data tidak valid', 422);
+            }
+        });
+
+        // Sesi Laravel habis (default 2 jam) saat halaman scan dibiarkan terbuka.
+        // Laravel sudah mengubah TokenMismatchException menjadi HttpException 419 sebelum sampai di sini.
+        $exceptions->render(function (HttpException $e, Request $request) use ($isApi) {
+            if ($isApi($request) && $e->getStatusCode() === 419) {
+                return ApiResponse::fail('Sesi halaman kedaluwarsa. Muat ulang halaman (F5) lalu coba lagi.', 419);
             }
         });
 

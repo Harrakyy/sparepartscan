@@ -6,9 +6,10 @@ export function createKeyboardWedge({ maxGapMs = 50, minLength = 4, now = () => 
   let last = 0;
 
   return {
-    // `k` = KeyboardEvent.key. Mengembalikan isi barcode saat scan selesai, selain itu null.
-    key(k) {
-      const t = now();
+    // `k` = KeyboardEvent.key, `t` = KeyboardEvent.timeStamp (waktu tombol ditekan, bukan waktu
+    // diproses; halaman yang sedang sibuk tidak memotong scan). Mengembalikan isi barcode saat
+    // scan selesai, selain itu null.
+    key(k, t = now()) {
       const fast = buffer && t - last <= maxGapMs;
       if (k === 'Enter') {
         const code = fast && buffer.length >= minLength ? buffer : null;

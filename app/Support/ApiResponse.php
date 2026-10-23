@@ -11,8 +11,8 @@ class ApiResponse
         return response()->json(['success' => true, 'data' => $data, 'error' => null], $status);
     }
 
-    public static function fail(string $message, int $status): JsonResponse
+    public static function fail(string $message, int $status, mixed $data = null): JsonResponse
     {
-        return response()->json(['success' => false, 'data' => null, 'error' => $message], $status);
+        return response()->json(['success' => false, 'data' => $data, 'error' => $message], $status);
     }
 }

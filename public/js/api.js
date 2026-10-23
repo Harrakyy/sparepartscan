@@ -22,7 +22,9 @@ async function call(method, path, body) {
   } catch {
     throw Object.assign(new Error(SERVER_ERROR), { status: res.status });
   }
-  if (!payload.success) throw Object.assign(new Error(payload.error || SERVER_ERROR), { status: res.status });
+  if (!payload.success) {
+    throw Object.assign(new Error(payload.error || payload.message || SERVER_ERROR), { status: res.status, data: payload.data ?? null });
+  }
   return payload.data;
 }
 

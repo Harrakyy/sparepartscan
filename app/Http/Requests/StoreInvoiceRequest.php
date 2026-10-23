@@ -24,6 +24,7 @@ class StoreInvoiceRequest extends FormRequest
             'invoice_date' => $payload['invoice_date'] ?? null,
             'source_type' => $payload['source_type'] ?? null,
             'items' => $payload['items'] ?? null,
+            'replace' => (bool) ($payload['replace'] ?? false),
         ]);
     }
 
@@ -39,6 +40,7 @@ class StoreInvoiceRequest extends FormRequest
             'items.*.code' => ['required', 'string', 'max:64'],
             'items.*.name' => ['required', 'string', 'max:255'],
             'items.*.qty' => ['required', 'integer', 'min:1', 'max:10000'],
+            'replace' => ['boolean'],
         ];
     }
 
