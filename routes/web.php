@@ -1,5 +1,13 @@
 <?php
 
+use App\Models\Invoice;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 Route::redirect('/', '/gudang');
+
+Route::get('/files/invoices/{invoice}', function (Invoice $invoice) {
+    abort_if($invoice->file_path === null || ! Storage::disk('local')->exists($invoice->file_path), 404);
+
+    return Storage::disk('local')->response($invoice->file_path);
+});
