@@ -1,59 +1,77 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Verifikasi Faktur Gudang
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi untuk mencegah salah ambil barang. Setiap faktur penjualan dari Zahir menjadi
+**sesi**; gudang men-scan label barcode barang dan sistem langsung menandai:
 
-## About Laravel
+- **hijau ✓**: kode ada di faktur dan jumlahnya sudah lengkap,
+- **merah ✗**: kode tidak ada di faktur (dengan saran kode termirip),
+- **notif merah**: barang sudah lengkap tetapi di-scan lagi (tidak dihitung).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Desain lengkap: [docs/superpowers/specs/2026-10-23-verifikasi-faktur-design.md](docs/superpowers/specs/2026-10-23-verifikasi-faktur-design.md).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+> **Belum ada login.** Aman untuk dijalankan lokal. Sebelum dipasang di hosting dengan data
+> klien asli, pasang minimal kata sandi bersama.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Prasyarat
 
-## Learning Laravel
+- PHP 8.2+ dan MySQL 8 (Laragon sudah menyediakan keduanya)
+- Composer
+- Node.js — hanya untuk menjalankan test JavaScript dan menyalin library (`npm run vendor`)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## Menjalankan di laptop
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+composer install
+cp .env.example .env
+php artisan key:generate
+```
 
-## Laravel Sponsors
+Buat database `sparepart` di MySQL (lewat HeidiSQL di Laragon atau perintah
+`CREATE DATABASE sparepart;`), lalu:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+php artisan migrate
+php artisan serve
+```
 
-### Premium Partners
+Buka `http://localhost:8000`.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Penghapusan otomatis foto/PDF faktur yang berumur lebih dari 60 hari berjalan lewat scheduler:
 
-## Contributing
+- lokal: `php artisan schedule:work`
+- hosting: cron setiap menit `php /path/ke/artisan schedule:run`
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Cara pakai
 
-## Code of Conduct
+**Admin (komputer Zahir)**
+1. Cetak faktur di Zahir ke **Microsoft Print to PDF** (atau foto/scan kertas fakturnya).
+2. Buka **Faktur baru**, pilih file. PDF dibaca langsung; foto dibaca dengan OCR di browser (offline).
+3. Cek hasil bacaan di samping gambar faktur. Bagian kuning perlu diperiksa. Lalu **Simpan faktur**.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**Gudang (komputer dengan scanner)**
+1. Buka **Gudang**, pilih faktur di tab "Perlu di-scan".
+2. Scan label setiap barang. Jumlah 2 berarti scan 2 kali.
+3. Setelah semua baris hijau, klik **Selesai**.
+4. (Opsional) Klik **Mulai scan QC** untuk pengecekan ulang, lalu **Selesai QC**.
 
-## Security Vulnerabilities
+Label rusak bisa diketik di kotak "Ketik kode"; di riwayat ditandai "diketik".
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Laporan** menampilkan barang keluar per rentang tanggal (WIB) dan total per kode part.
 
-## License
+## Test
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+php artisan test
+npm test
+```
+
+## Library pembaca faktur
+
+`pdf.js` dan `Tesseract.js` (beserta data bahasa Inggris) disimpan di `public/vendor/`
+supaya jalan tanpa CDN dan tanpa build di hosting. Setelah mengubah versinya di
+`package.json`:
+
+```bash
+npm install
+npm run vendor
+```

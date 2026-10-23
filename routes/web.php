@@ -16,3 +16,5 @@ Route::get('/files/invoices/{invoice}', function (Invoice $invoice) {
 
 Route::view('/gudang', 'warehouse.index');
 Route::get('/gudang/sesi/{invoice}', fn (Invoice $invoice) => view('warehouse.session', compact('invoice')));
+
+Route::view('/laporan', 'reports.outgoing');
