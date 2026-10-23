@@ -1,0 +1,107 @@
+// Mengurai teks faktur penjualan Zahir (dari PDF atau OCR) menjadi data terstruktur.
+// Fungsi murni: tidak menyentuh DOM, supaya bisa diuji dengan node --test.
+
+// Kode part: huruf/angka, strip, lalu minimal dua segmen (contoh S-SCS-002, H-MTE-009/010, S-EFP-EP-T11).
+const CODE_LINE = /^([A-Z0-9]-[A-Z0-9]+(?:-[A-Z0-9/]+)+)(?:\s+(.*))?$/i;
+const UNITS = 'Pcs|Pc|Set|Unit|Box|Dus|Psg|Pasang|Btl|Lbr|Roll|Mtr';
+// "<nama> <jumlah> <satuan> <harga...>". Diambil pasangan jumlah+satuan yang paling akhir
+// (sebaiknya yang diikuti angka harga), karena nama barang bisa memuat kata seperti "SET".
+const QTY_BEFORE_PRICE = new RegExp(`^(.*)\\s+(\\S+)\\s+(?:${UNITS})\\s+[\\d.,]+`, 'i');
+const QTY_BEFORE_UNIT = new RegExp(`^(.*)\\s+(\\S+)\\s+(?:${UNITS})\\b`, 'i');
+const ITEMS_HEADER = /Nama\s+Barang/i;
+const ITEMS_FOOTER = /Dasar\s+Pengenaan|\bJuta\b|\bRibu\b|\bRatus\b|Apabila|PENERIMA|Total\s*:/i;
+// Label lain yang bisa berada di baris yang sama dengan "Kepada" atau "Tanggal".
+const TRAILING_LABEL = /\s+(?:Up\.?|Tanggal|Term|Alamat|NPWP|No\.?\s*Faktur)\s*:.*$/i;
+const MAX_QTY = 10000;
+
+function labelValue(lines, label) {
+  for (const line of lines) {
+    const m = line.match(new RegExp(`${label}\\s*:?\\s*(.+)$`, 'i'));
+    if (m) return m[1].replace(TRAILING_LABEL, '').trim();
+  }
+  return '';
+}
+
+function invoiceNumber(lines) {
+  for (const line of lines) {
+    const m = line.match(/No\.?\s*Faktur\s*:?\s*(\d+)/i);
+    if (m) return m[1];
+  }
+  return '';
+}
+
+// Huruf O di segmen yang seharusnya angka (contoh "OO2") biasanya salah baca dari 0.
+function looksMisread(code) {
+  return code.split('-').some(seg => /^[0-9O/]+$/.test(seg) && seg.includes('O'));
+}
+
+function itemSection(lines) {
+  const start = lines.findIndex(l => ITEMS_HEADER.test(l));
+  if (start === -1) return { section: lines, joinContinuations: false };
+  const rest = lines.slice(start + 1);
+  const end = rest.findIndex(l => ITEMS_FOOTER.test(l));
+  return { section: end === -1 ? rest : rest.slice(0, end), joinContinuations: true };
+}
+
+function parseItemLine(code, rest) {
+  const m = rest.match(QTY_BEFORE_PRICE) ?? rest.match(QTY_BEFORE_UNIT);
+  if (!m) return { code, name: rest.trim(), qty: null };
+  const qty = /^\d+$/.test(m[2]) ? Number(m[2]) : null;
+  return { code, name: m[1].trim(), qty };
+}
+
+/**
+ * @param {string[]} lines baris teks dari atas ke bawah
+ * @returns {{number: string, customer: string, date: string, items: {code: string, name: string, qty: number|null}[], warnings: string[]}}
+ */
+export function parseInvoice(lines) {
+  const clean = lines.map(l => String(l).replace(/\s+/g, ' ').trim()).filter(Boolean);
+  const warnings = [];
+  const number = invoiceNumber(clean);
+  const customer = labelValue(clean, 'Kepada');
+  const date = labelValue(clean, 'Tanggal');
+  if (!number) warnings.push('Nomor faktur tidak terbaca');
+  if (!customer) warnings.push('Nama penerima tidak terbaca');
+
+  const { section, joinContinuations } = itemSection(clean);
+  const items = [];
+  for (const line of section) {
+    const m = line.match(CODE_LINE);
+    if (m) {
+      items.push(parseItemLine(m[1].toUpperCase(), m[2] ?? ''));
+    } else if (joinContinuations && items.length) {
+      const last = items[items.length - 1];
+      last.name = `${last.name} ${line}`.trim();
+    }
+  }
+
+  for (const item of items) {
+    if (looksMisread(item.code)) warnings.push(`Kode ${item.code} mungkin salah baca (huruf O dan angka 0)`);
+    if (item.qty === null) warnings.push(`Jumlah untuk ${item.code} tidak terbaca`);
+    else if (item.qty < 1 || item.qty > MAX_QTY) warnings.push(`Jumlah untuk ${item.code} tidak wajar (${item.qty})`);
+  }
+  if (!items.length) warnings.push('Tidak ada barang yang terbaca');
+
+  return { number, customer, date, items, warnings };
+}
+
+/**
+ * Menggabungkan potongan teks pdf.js menjadi baris. `y` memakai koordinat PDF
+ * (nilai lebih besar = lebih atas), jadi baris diurutkan dari y terbesar.
+ * @param {{str: string, x: number, y: number}[]} items
+ * @returns {string[]}
+ */
+export function groupTextItems(items, tolerance = 3) {
+  const rows = [];
+  const sorted = items.filter(i => i.str && i.str.trim()).sort((a, b) => b.y - a.y);
+  for (const item of sorted) {
+    const row = rows.find(r => Math.abs(r.y - item.y) <= tolerance);
+    if (row) row.items.push(item);
+    else rows.push({ y: item.y, items: [item] });
+  }
+  return rows.map(r => r.items
+    .sort((a, b) => a.x - b.x)
+    .map(i => i.str.trim())
+    .join(' ')
+    .replace(/\s+/g, ' '));
+}
