@@ -21,6 +21,13 @@
             </div>
         </header>
 
+        <form id="manual-form" class="scan-bar" autocomplete="off">
+            <button id="scan-ready" class="scan-ready" type="button" hidden>Klik di sini, lalu scan</button>
+            <input id="manual-code" class="mono" maxlength="64" aria-label="Kode part"
+                   placeholder="Langsung scan barang. Label rusak? Ketik kodenya lalu Enter.">
+            <button class="btn" type="submit">Kirim</button>
+        </form>
+
         <p id="toast" class="toast" role="alert" hidden></p>
 
         <div class="card">
@@ -36,13 +43,6 @@
         </div>
 
         <div class="session-actions">
-            <form id="manual-form" class="row" autocomplete="off" style="flex:1">
-                <div class="field">
-                    <label for="manual-code">Ketik kode bila label tidak bisa di-scan</label>
-                    <input id="manual-code" class="mono" maxlength="64">
-                </div>
-                <button class="btn" type="submit">Kirim</button>
-            </form>
             <button id="complete" class="btn btn-ok btn-big" type="button" disabled>Selesai</button>
             <button id="start-qc" class="btn btn-primary btn-big" type="button" hidden>Mulai scan QC</button>
         </div>

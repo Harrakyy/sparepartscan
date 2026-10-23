@@ -126,3 +126,11 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 @media (max-width: 900px) { .session-head { grid-template-columns: 1fr; text-align: left; } .session-card { grid-template-columns: 1fr; } }
 .report-invoices { display: flex; flex-direction: column; gap: 16px; }
 .report-invoice { border-top: 1px solid var(--line); padding-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+.session-actions { justify-content: flex-end; }
+.scan-bar { display: flex; gap: 10px; align-items: center; }
+.scan-bar input { flex: 1; min-width: 0; font-size: 18px; }
+.scan-ready {
+  border: 1px solid var(--bad); background: var(--bad-bg); color: var(--bad);
+  border-radius: 999px; padding: 8px 14px; font: 700 15px var(--font); white-space: nowrap; cursor: pointer;
+}
+.scan-ready.ready { border-color: var(--ok); background: var(--ok-bg); color: var(--ok); cursor: default; }
