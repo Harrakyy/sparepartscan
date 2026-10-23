@@ -2,6 +2,7 @@ import { apiGet, apiPost } from './api.js';
 import { formatRupiah, parseWholeNumber } from './format.js';
 import { normalizeBarcode, hasCheckDigit, createReadConfirmer } from './barcode.js';
 import { createLiveScanner } from './live-scanner.js';
+import { createKeyboardWedge } from './keyboard-wedge.js';
 
 const MODE_KEY = 'scanMode';
 const MODES = ['check', 'in', 'out'];
@@ -234,6 +235,31 @@ async function startScanner() {
     showCameraError();
   }
 }
+
+// --- Scanner USB/Bluetooth (mode keyboard) ---
+
+// Alat scanner sudah akurat, jadi tidak perlu konfirmasi baca berulang seperti kamera.
+// Scan barang yang sama saat lembarnya terbuka di mode Masuk/Keluar = jumlah +1.
+function onHardwareScan(rawCode) {
+  const code = rawCode.trim();
+  const sameOpenPart = currentPart && currentPart.barcode === code && !$('sheet').hidden;
+  navigator.vibrate?.(80);
+  beep();
+  if (sameOpenPart && mode !== 'check') return stepQty(1);
+  lastScan = { code, at: Date.now() };
+  lookup(code);
+}
+
+const wedge = createKeyboardWedge();
+document.addEventListener('keydown', e => {
+  // Biarkan ketikan biasa di kolom isian; kolom barcode manual menangani scan sendiri lewat Enter.
+  if (e.target.closest('input, textarea, select')) return;
+  const code = wedge.key(e.key);
+  if (!code) return;
+  // Cegah Enter dari scanner menekan tombol yang sedang fokus (misalnya Simpan).
+  e.preventDefault();
+  onHardwareScan(code);
+}, true);
 
 // --- Gestur ---
 
