@@ -38,6 +38,20 @@ test('OCR misreads keep the line and produce warnings', () => {
   assert.ok(r.warnings.some(w => w.includes('H-KTE-001') && w.includes('Jumlah')), r.warnings.join(' | '));
 });
 
+test('real Tesseract output of the photo is read completely', () => {
+  const r = parseInvoice(lines('faktur-00066365-tesseract.txt'));
+  assert.equal(r.number, '00066365');
+  assert.equal(r.customer, 'AKBAR JAYA MOTOR HSF');
+  assert.equal(r.date, 'Thursday, October 22, 2026');
+  assert.deepEqual(r.items.map(i => [i.code, i.qty]), [
+    ['S-SCS-002', 2], ['H-KTE-001', 2], ['S-MCS-005', 1], ['H-MYJ-005', 1], ['H-MTE-009/010', 1],
+    ['H-SYJ-002', 1], ['H-TCB-N13', 1], ['S-TKS-002', 2], ['S-EFP-EP-T11', 3],
+  ]);
+  assert.equal(r.items[7].name, 'CLOCK SPRING GRAND NEW AVANZA TYPE G (2017 - on ) (84306-BZ200)');
+  assert.equal(r.items[8].name, 'FUEL PUMP ZEBRA S89 86-95 (23100-87515)');
+  assert.deepEqual(r.warnings, []);
+});
+
 test('missing invoice number and customer produce warnings', () => {
   const r = parseInvoice(['Nama Barang / Pesanan', 'S-SCS-002 SAKLAR 2 Pcs 1.00 0 1.00']);
   assert.equal(r.number, '');

@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Storage;
 
 Route::redirect('/', '/gudang');
 
+Route::view('/faktur/baru', 'invoices.create');
+
 Route::get('/files/invoices/{invoice}', function (Invoice $invoice) {
     abort_if($invoice->file_path === null || ! Storage::disk('local')->exists($invoice->file_path), 404);
 

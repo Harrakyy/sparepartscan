@@ -2,6 +2,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test \"tests-js/**/*.test.js\""
+    "test": "node --test \"tests-js/**/*.test.js\"",
+    "vendor": "node scripts/copy-vendor.mjs"
+  },
+  "devDependencies": {
+    "@tesseract.js-data/eng": "1.0.0",
+    "pdfjs-dist": "6.4.299",
+    "tesseract.js": "7.0.0",
+    "tesseract.js-core": "7.0.0"
   }
 }
