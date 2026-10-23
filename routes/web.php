@@ -13,3 +13,6 @@ Route::get('/files/invoices/{invoice}', function (Invoice $invoice) {
 
     return Storage::disk('local')->response($invoice->file_path);
 });
+
+Route::view('/gudang', 'warehouse.index');
+Route::get('/gudang/sesi/{invoice}', fn (Invoice $invoice) => view('warehouse.session', compact('invoice')));

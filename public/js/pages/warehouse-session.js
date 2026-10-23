@@ -1,0 +1,193 @@
+import { apiGet, apiPost } from '../api.js';
+import { formatWib } from '../format.js';
+import { createKeyboardWedge } from '../keyboard-wedge.js';
+import { suggestCode } from '../similar-code.js';
+import { beepOk, buzzError } from '../sound.js';
+
+const TOAST_MS = 3000;
+const FLASH_MS = 900;
+const RESULT_LABEL = { ok: 'Cocok', over_qty: 'Kelebihan', not_in_invoice: 'Tidak ada di faktur' };
+const STAGE_LABEL = { pick: 'Scan pertama', qc: 'Scan QC' };
+const $ = id => document.getElementById(id);
+const invoiceId = $('session').dataset.invoiceId;
+
+let invoice = null;
+let stage = 'pick';
+let toastTimer = null;
+let queue = Promise.resolve();
+
+function el(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== undefined) node.textContent = text;
+  return node;
+}
+
+const column = () => (stage === 'qc' ? 'qc_qty' : 'picked_qty');
+const allComplete = () => invoice.items.every(i => i[column()] >= i.qty);
+
+// Tahap yang sedang aktif mengikuti status faktur; setelah scan pertama selesai,
+// tombol "Mulai scan QC" memindahkan tampilan ke tahap QC.
+function stageFromStatus(status) {
+  return ['qc', 'qc_done'].includes(status) ? 'qc' : 'pick';
+}
+
+function isLocked() {
+  return (stage === 'pick' && !['waiting', 'picking'].includes(invoice.status))
+    || (stage === 'qc' && invoice.status === 'qc_done');
+}
+
+function showToast(text, kind = 'bad') {
+  const t = $('toast');
+  t.textContent = text;
+  t.className = `toast toast-${kind}`;
+  t.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.hidden = true; }, TOAST_MS);
+}
+
+function renderHeader() {
+  const total = invoice.items.reduce((s, i) => s + i.qty, 0);
+  const done = invoice.items.reduce((s, i) => s + Math.min(i[column()], i.qty), 0);
+  let label = STAGE_LABEL[stage];
+  if (stage === 'pick' && isLocked()) label = 'Scan pertama selesai';
+  if (stage === 'qc' && isLocked()) label = 'Selesai QC';
+  $('stage-label').textContent = label;
+  $('progress-bar').style.width = `${total ? (done / total) * 100 : 0}%`;
+  $('progress-text').textContent = `${done} dari ${total} barang`;
+}
+
+function renderItems(flashId) {
+  $('items').replaceChildren(...invoice.items.map(item => {
+    const n = item[column()];
+    const complete = n >= item.qty;
+    const tr = el('tr', complete ? 'row-ok' : n > 0 ? 'row-partial' : '');
+    if (item.id === flashId) tr.classList.add('row-flash');
+    tr.append(
+      el('td', 'icon', complete ? '✓' : ''),
+      el('td', 'code mono', item.part_code),
+      el('td', '', item.part_name),
+      el('td', 'num count', `${n}/${item.qty}`),
+    );
+    return tr;
+  }));
+}
+
+function renderWrong() {
+  const codes = invoice.items.map(i => i.part_code);
+  const counts = new Map();
+  for (const e of invoice.scan_events) {
+    if (e.stage === stage && e.result === 'not_in_invoice') counts.set(e.code, (counts.get(e.code) ?? 0) + 1);
+  }
+  $('wrong').replaceChildren(...[...counts].map(([code, n]) => {
+    const tr = el('tr', 'row-bad');
+    const suggestion = suggestCode(code, codes);
+    const info = el('td', '', `Tidak ada di faktur${n > 1 ? ` (${n}×)` : ''}`);
+    if (suggestion) info.append(el('span', 'muted', ` · Mungkin maksudnya ${suggestion}?`));
+    tr.append(el('td', 'icon', '✗'), el('td', 'code mono', code), info, el('td', 'num', ''));
+    return tr;
+  }));
+}
+
+function renderHistory() {
+  $('history').replaceChildren(...invoice.scan_events.map(e => {
+    const li = el('li', `history-${e.result}`);
+    li.append(
+      el('span', 'muted', formatWib(e.created_at)),
+      el('span', '', STAGE_LABEL[e.stage]),
+      el('span', 'mono', e.code),
+      el('span', '', RESULT_LABEL[e.result] + (e.manual ? ' · diketik' : '')),
+    );
+    return li;
+  }));
+}
+
+function renderActions() {
+  const locked = isLocked();
+  $('complete').hidden = locked;
+  $('complete').disabled = !allComplete();
+  $('complete').textContent = stage === 'qc' ? 'Selesai QC' : 'Selesai';
+  $('start-qc').hidden = !(stage === 'pick' && invoice.status === 'picked');
+  $('manual-form').hidden = locked;
+}
+
+function render(flashId) {
+  renderHeader();
+  renderItems(flashId);
+  renderWrong();
+  renderHistory();
+  renderActions();
+  if (flashId) setTimeout(() => document.querySelector('.row-flash')?.classList.remove('row-flash'), FLASH_MS);
+}
+
+async function sendScan(code, manual) {
+  if (isLocked()) return showToast('Sesi ini sudah selesai');
+  try {
+    const { scan, invoice: fresh } = await apiPost(`/api/invoices/${invoiceId}/scans`, { code, stage, manual });
+    invoice = fresh;
+    if (scan.result === 'ok') {
+      beepOk();
+      render(scan.item_id);
+      document.querySelector('.row-flash')?.scrollIntoView({ block: 'nearest' });
+    } else {
+      buzzError();
+      render();
+      showToast(scan.message);
+    }
+  } catch (err) {
+    buzzError();
+    showToast(err.message);
+  }
+}
+
+// Scan diproses berurutan supaya urutan dan hitungan tetap benar walau scanner cepat.
+const enqueueScan = (code, manual) => { queue = queue.then(() => sendScan(code, manual)); };
+
+const wedge = createKeyboardWedge();
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input, textarea, select')) return;
+  const code = wedge.key(e.key);
+  if (!code) return;
+  e.preventDefault(); // Enter dari scanner tidak boleh menekan tombol yang sedang fokus
+  enqueueScan(code, false);
+}, true);
+
+$('manual-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const code = $('manual-code').value.trim();
+  if (!code) return;
+  $('manual-code').value = '';
+  $('manual-code').blur(); // kembali siap menerima scanner
+  enqueueScan(code, true);
+});
+
+$('complete').addEventListener('click', async () => {
+  $('complete').disabled = true;
+  try {
+    invoice = await apiPost(`/api/invoices/${invoiceId}/complete`, { stage });
+    beepOk();
+    showToast(stage === 'qc' ? 'Scan QC selesai' : 'Scan pertama selesai', 'ok');
+    render();
+  } catch (err) {
+    buzzError();
+    showToast(err.message);
+    renderActions();
+  }
+});
+
+$('start-qc').addEventListener('click', () => {
+  stage = 'qc';
+  render();
+});
+
+async function load() {
+  try {
+    invoice = await apiGet(`/api/invoices/${invoiceId}`);
+    stage = stageFromStatus(invoice.status);
+    render();
+  } catch (err) {
+    $('stage-label').textContent = err.message;
+  }
+}
+
+load();
