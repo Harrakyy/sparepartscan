@@ -1,15 +1,7 @@
 {
-  "name": "sparepart-scan",
-  "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node src/server.js",
-    "test": "node --test \"test/**/*.test.js\"",
-    "coverage": "node --test --experimental-test-coverage --test-coverage-include=src/**/*.js --test-coverage-include=public/js/format.js --test-coverage-lines=80 \"test/**/*.test.js\""
-  },
-  "dependencies": {
-    "barcode-detector": "3.2.2",
-    "express": "5.1.0"
+    "test": "node --test \"tests-js/**/*.test.js\""
   }
 }

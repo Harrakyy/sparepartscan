@@ -1,76 +1,59 @@
-# Gudang Sparepart — Scan MVP
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-Aplikasi web internal untuk gudang sparepart. Barcode part di-scan dengan kamera HP untuk:
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-- **Cek**: melihat part number, deskripsi, harga (umum/langganan/grosir), dan stok.
-- **Masuk**: mencatat barang dari supplier masuk ke gudang (stok bertambah).
-- **Keluar**: mencatat barang dari gudang ke toko (stok berkurang, tidak bisa minus).
+## About Laravel
 
-Barcode yang belum terdaftar bisa langsung didaftarkan dari layar scan.
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-Desain lengkapnya ada di [docs/superpowers/specs/2026-10-22-sparepart-scan-mvp-design.md](docs/superpowers/specs/2026-10-22-sparepart-scan-mvp-design.md).
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-## Prasyarat
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-- Node.js 24 atau lebih baru (`node --version`)
-- cloudflared, untuk mengakses aplikasi dari HP:
+## Learning Laravel
 
-  ```bash
-  winget install --id Cloudflare.cloudflared
-  ```
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
 
-## Menjalankan
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-```bash
-npm install
-npm start
-```
+## Laravel Sponsors
 
-Server jalan di `http://localhost:3000`. Data tersimpan di `data/sparepart.db`.
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-Pengaturan lewat environment variable:
+### Premium Partners
 
-| Variabel | Bawaan | Fungsi |
-|---|---|---|
-| `PORT` | `3000` | Port server |
-| `DB_PATH` | `data/sparepart.db` | Lokasi file database |
+- **[Vehikl](https://vehikl.com)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
+- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
+- **[Redberry](https://redberry.international/laravel-development)**
+- **[Active Logic](https://activelogic.com)**
 
-## Membuka dari HP
+## Contributing
 
-Kamera HP hanya bisa dipakai di situs HTTPS. Di terminal kedua, jalankan:
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-```bash
-cloudflared tunnel --url http://localhost:3000
-```
+## Code of Conduct
 
-Salin link `https://….trycloudflare.com` yang muncul, lalu buka di browser HP dan izinkan akses kamera. Link ini berganti setiap kali tunnel dijalankan ulang. Gratis dan tanpa akun.
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Keamanan selama testing
+## Security Vulnerabilities
 
-Aplikasi ini **belum punya login**. Siapa pun yang tahu link tunnel bisa membaca dan mengubah data. Karena itu:
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-- Bagikan link hanya ke tim.
-- Pakai data barang contoh, bukan data harga asli customer.
-- Matikan tunnel (Ctrl+C) setelah selesai testing.
+## License
 
-Login wajib ditambahkan sebelum aplikasi dipakai dengan data asli.
-
-## Test
-
-```bash
-npm test
-npm run coverage
-```
-
-`npm run coverage` gagal kalau line coverage di bawah 80%.
-
-## Uji manual di HP
-
-1. Buka link tunnel di Chrome Android, izinkan kamera.
-2. Scan barang yang belum terdaftar, lalu daftarkan.
-3. Mode Masuk: scan dan simpan 5 unit. Stok menjadi 5.
-4. Mode Keluar: simpan 2 unit. Stok menjadi 3.
-5. Mode Keluar: coba 10 unit. Muncul "Stok tidak cukup (stok: 3)" dan stok tetap 3.
-6. Mode Cek: scan barang yang sama. Info dan stok 3 tampil.
-7. Riwayat menampilkan dua pergerakan dengan waktu WIB yang benar.
-8. Ulangi langkah 1, 2, dan 6 di iPhone (Safari) bila tersedia.
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
