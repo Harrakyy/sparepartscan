@@ -182,7 +182,7 @@
 // fixture OCR (S-SCS-OO2, qty '2' terbaca 'Z') → tetap 9 items, warnings menyebut 'S-SCS-OO2' dan baris qty tak terbaca (qty null)
 // tanpa 'No Faktur' → warning 'Nomor faktur tidak terbaca'
 // groupTextItems: 3 item y=100 x acak + 1 item y=120 → 2 baris, urutan x benar
-// editDistance('S-SCS-002','S-MCS-005') === 3 ; editDistance('abc','abc') === 0
+// editDistance('S-SCS-002','S-MCS-005') === 2 ; editDistance('abc','abc') === 0
 // suggestCode('S-TKS-003', kodeFaktur) === 'S-TKS-002' ; suggestCode('ZZZ', kodeFaktur) === null
 ```
 - [ ] **Step 2:** `npm test` → FAIL. **Step 3:** implementasi. **Step 4:** PASS.
