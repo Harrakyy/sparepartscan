@@ -1,5 +1,6 @@
 // Mengurai teks faktur penjualan Zahir (dari PDF atau OCR) menjadi data terstruktur.
 // Fungsi murni: tidak menyentuh DOM, supaya bisa diuji dengan node --test.
+import { editDistance } from './similar-code.js';
 
 // Kode part: huruf/angka, strip, lalu minimal dua segmen (contoh S-SCS-002, H-MTE-009/010, S-EFP-EP-T11).
 const CODE_TOKEN = /^[A-Z0-9]-[A-Z0-9]+(?:-[A-Z0-9/]+)+$/i;
@@ -15,16 +16,40 @@ const QTY_AT_END = /^(.*)\s+(\S+)\s+[A-Za-z]{2,8}\s+[\d.,]+\s+[\d.,]+\s+[\d.,]+(
 const QTY_BEFORE_UNIT = new RegExp(`^(.*)\\s+(\\S+)\\s+(?:${UNITS})\\b`, 'i');
 const ITEMS_HEADER = /Nama\s+Barang/i;
 const ITEMS_FOOTER = /Dasar\s+Pengenaan|\bJuta\b|\bRibu\b|\bRatus\b|Apabila|PENERIMA|Total\s*:/i;
-// Label lain yang bisa berada di baris yang sama dengan "Kepada" atau "Tanggal".
-const TRAILING_LABEL = /\s+(?:Up\.?|Tanggal|Term|Alamat|NPWP|No\.?\s*Faktur)\s*:.*$/i;
+// Label lain yang bisa berada di baris yang sama dengan "Kepada" (kolom kanan faktur: Up., Tanggal, Term).
+const TRAILING_LABEL = /\s+(?:Up\.|Up\s*[:©=]|Tanggal\b|Term\b|Alamat\b|NPWP\b|No\.?\s*Faktur\b).*$/i;
+// Pemisah setelah label. OCR sering membaca ":" sebagai "-", "=", "©", atau ";".
+const LABEL_SEPARATOR = /^[\s:;=\-–—©®.,|»«]+/;
+// Label boleh salah eja sampai 2 huruf (contoh "Kepada" terbaca "iPpada").
+const MAX_LABEL_EDITS = 2;
+const DATE_TEXT = /\b(?:Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day,?\s+[A-Za-z]+\s+\d{1,2},?\s+\d{4}\b/i;
 const MAX_QTY = 10000;
 
+function cleanValue(text) {
+  return text.replace(LABEL_SEPARATOR, '').replace(TRAILING_LABEL, '').replace(/[^\p{L}\p{N})]+$/u, '').trim();
+}
+
+// Nilai setelah label (misalnya "Kepada"), mencocokkan label secara longgar karena hasil OCR.
 function labelValue(lines, label) {
   for (const line of lines) {
-    const m = line.match(new RegExp(`${label}\\s*:?\\s*(.+)$`, 'i'));
-    if (m) return m[1].replace(TRAILING_LABEL, '').replace(/[^\p{L}\p{N})]+$/u, '').trim();
+    const tokens = line.split(' ');
+    for (let i = 0; i < tokens.length; i++) {
+      const word = tokens[i].replace(/[^A-Za-z]/g, '').toLowerCase();
+      if (Math.abs(word.length - label.length) > MAX_LABEL_EDITS) continue;
+      if (editDistance(word, label) > MAX_LABEL_EDITS) continue;
+      const value = cleanValue(tokens.slice(i + 1).join(' '));
+      if (value) return value;
+    }
   }
   return '';
+}
+
+function invoiceDate(lines) {
+  for (const line of lines) {
+    const m = line.match(DATE_TEXT);
+    if (m) return m[0];
+  }
+  return labelValue(lines, 'tanggal');
 }
 
 // "No Faktur : 00066365"; OCR bisa membacanya "Nofakiur : 00066365".
@@ -78,8 +103,8 @@ export function parseInvoice(lines) {
   const clean = lines.map(l => String(l).replace(/\s+/g, ' ').trim()).filter(Boolean);
   const warnings = [];
   const number = invoiceNumber(clean);
-  const customer = labelValue(clean, 'Kepada');
-  const date = labelValue(clean, 'Tanggal');
+  const customer = labelValue(clean, 'kepada');
+  const date = invoiceDate(clean);
   if (!number) warnings.push('Nomor faktur tidak terbaca');
   if (!customer) warnings.push('Nama penerima tidak terbaca');
 

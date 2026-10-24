@@ -52,6 +52,32 @@ test('real Tesseract output of the photo is read completely', () => {
   assert.deepEqual(r.warnings, []);
 });
 
+test('faktur 2: misread "Kepada" label (iPpada) still yields the customer', () => {
+  const r = parseInvoice(lines('faktur-00051034-tesseract.txt'));
+  assert.equal(r.number, '00051034');
+  assert.equal(r.customer, 'ARYA MANDIRI MOTOR');
+  assert.equal(r.date, 'Thursday, October 22, 2026');
+  assert.equal(r.items.length, 9);
+  assert.equal(r.items.reduce((s, i) => s + i.qty, 0), 14);
+  assert.deepEqual(r.warnings, []);
+});
+
+test('faktur 3: separator read as a dash is not part of the customer name', () => {
+  const r = parseInvoice(lines('faktur-00051189-tesseract.txt'));
+  assert.equal(r.number, '00051189');
+  assert.equal(r.customer, 'MEGA JAYA MOTOR');
+  assert.equal(r.date, 'Thursday, October 22, 2026');
+  assert.deepEqual(r.items.slice(0, 2).map(i => [i.code, i.qty]), [['S-SCS-015', 2], ['S-SCS-005', 2]]);
+  assert.equal(r.items.length, 9);
+  assert.deepEqual(r.warnings, []);
+});
+
+test('customer label with other separators and trailing "Up." label is cleaned', () => {
+  for (const line of ['Kepada = TOKO A Up. : B', 'Kepada © TOKO A Up. © B', 'Kepada ; TOKO A', 'Kepada TOKO A']) {
+    assert.equal(parseInvoice([line]).customer, 'TOKO A', line);
+  }
+});
+
 const header = ['No Faktur : 123', 'Kepada : TOKO A', 'Nama Barang / Pesanan Jumlah Satuan Harga Satuan Disc. Sub Total'];
 
 test('quantity is taken from the end of the line, not from numbers in the name', () => {
