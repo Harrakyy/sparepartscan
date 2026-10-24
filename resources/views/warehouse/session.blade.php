@@ -78,7 +78,6 @@
             <div class="receipt-title">BUKTI CEK BARANG</div>
         </header>
         <dl id="receipt-meta" class="receipt-meta"></dl>
-        <div class="receipt-line receipt-cols"><span>Kode / nama barang</span><span>Jml</span></div>
         <ol id="receipt-items" class="receipt-items"></ol>
         <p id="receipt-total" class="receipt-total"></p>
         <p id="receipt-status" class="receipt-status"></p>

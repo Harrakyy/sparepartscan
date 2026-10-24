@@ -270,13 +270,10 @@ function renderReceipt() {
 
   $('receipt-items').replaceChildren(...invoice.items.map(item => {
     const short = item.picked_qty < item.qty;
-    const line = el('div', 'receipt-line');
-    line.append(
-      el('span', 'receipt-code', item.part_code),
-      el('span', 'receipt-qty', short ? `${item.picked_qty}/${item.qty} KURANG` : String(item.qty)),
-    );
+    const text = el('span', 'receipt-item');
+    text.append(el('span', 'receipt-code', item.part_code), ` ${item.part_name}`);
     const li = el('li');
-    li.append(line, el('div', 'receipt-name', item.part_name));
+    li.append(text, el('span', 'receipt-qty', short ? `${item.picked_qty}/${item.qty} KURANG` : String(item.qty)));
     return li;
   }));
 
