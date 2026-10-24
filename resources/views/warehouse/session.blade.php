@@ -4,6 +4,7 @@
 @section('body-class', 'warehouse')
 
 @section('content')
+    <div id="error-flash" class="error-flash" aria-hidden="true"></div>
     <section id="session" class="session" data-invoice-id="{{ $invoice->id }}">
         <div class="session-toolbar no-print">
             <a href="{{ url('/gudang') }}" class="btn"><i class="bi bi-arrow-left" aria-hidden="true"></i> Daftar sesi</a>

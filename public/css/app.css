@@ -285,3 +285,16 @@ details.card summary { cursor: pointer; }
   font-size: 11px; font-weight: 700; line-height: 18px; text-align: center; font-variant-numeric: tabular-nums;
   box-shadow: 0 0 0 2px #fff;
 }
+
+/* Kedip merah satu layar saat salah barang / kelebihan, supaya terlihat dari jauh. */
+.error-flash {
+  position: fixed; inset: 0; z-index: 50; pointer-events: none; opacity: 0;
+  background: rgba(240, 68, 56, .55); box-shadow: inset 0 0 0 14px var(--bad-solid);
+}
+.error-flash.is-on { animation: error-flash 1s ease-out; }
+@keyframes error-flash { 0%, 30%, 60% { opacity: 1; } 15%, 45% { opacity: .35; } 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .error-flash.is-on { animation: error-flash-still 1s step-end; }
+  @keyframes error-flash-still { 0% { opacity: .8; } 100% { opacity: 0; } }
+}
+@media print { .error-flash { display: none; } }

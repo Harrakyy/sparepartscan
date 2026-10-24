@@ -136,6 +136,14 @@ function render(flashId) {
   if (flashId) setTimeout(() => document.querySelector('.row-flash')?.classList.remove('row-flash'), FLASH_MS);
 }
 
+// Seluruh layar berkedip merah ~1 detik: salah barang harus terlihat walau bunyi kalah oleh bising gudang.
+function flashError() {
+  const overlay = $('error-flash');
+  overlay.classList.remove('is-on');
+  void overlay.offsetWidth; // mulai ulang animasi bila dua kesalahan berturut-turut
+  overlay.classList.add('is-on');
+}
+
 async function sendScan(code, manual) {
   if (!invoice) return showToast('Data faktur belum termuat. Muat ulang halaman.');
   if (isLocked()) return showToast('Sesi ini sudah selesai');
@@ -148,6 +156,7 @@ async function sendScan(code, manual) {
       document.querySelector('.row-flash')?.scrollIntoView({ block: 'nearest' });
     } else {
       buzzError();
+      flashError();
       render();
       showToast(scan.message);
     }
