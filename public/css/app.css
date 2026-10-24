@@ -281,8 +281,9 @@ details.card summary { cursor: pointer; }
 @media print {
   /* Ukuran kertas sengaja tidak diatur di sini: driver TP809 hanya punya ukuran tetap
      (72×297, 72×420, 72×3276 mm), dan bila @page size tidak cocok Chrome memperkecil atau
-     memusatkan struk. Pilih kertas 72mm * 3276mm sekali di jendela cetak; Chrome mengingatnya. */
-  @page { margin: 0; }
+     memusatkan struk. Pilih kertas 72mm * 3276mm sekali di jendela cetak; Chrome mengingatnya.
+     Arah dikunci portrait karena Chrome mengingat pilihan Layout terakhir. */
+  @page { size: portrait; margin: 0; }
   body { background: #fff; }
   .topbar, #session, .error-flash { display: none !important; }
   .page { width: 100%; margin: 0; padding: 0; }
