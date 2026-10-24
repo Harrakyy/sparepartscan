@@ -263,9 +263,7 @@ details.card summary { cursor: pointer; }
 
 /* ── Cetak: struk 72 mm untuk printer thermal (TP809). Hanya hitam pekat dan huruf tebal,
    karena abu-abu tercetak pucat di kertas thermal. ── */
-/* Di layar struk diletakkan di luar pandangan (bukan display:none) supaya tingginya bisa diukur
-   untuk ukuran kertas; lihat renderReceipt(). */
-.receipt { position: absolute; top: 0; left: -10000px; box-sizing: border-box; width: 72mm; padding: 1mm 2mm 2mm; background: #fff; color: #000; font: 600 11px/1.25 Inter, Arial, sans-serif; }
+.receipt { display: none; box-sizing: border-box; width: 72mm; padding: 1mm 2mm 2mm; background: #fff; color: #000; font: 600 11px/1.25 Inter, Arial, sans-serif; }
 .receipt-head { padding-bottom: 1mm; border-bottom: 1.5px dashed #000; text-align: center; }
 .receipt-company { font-size: 12px; font-weight: 800; }
 .receipt-title { font-size: 14px; font-weight: 800; letter-spacing: .05em; }
@@ -281,10 +279,14 @@ details.card summary { cursor: pointer; }
 .receipt-status { margin: 0; padding: .8mm; border: 2px solid #000; font-size: 12px; font-weight: 800; text-align: center; }
 .receipt-foot { margin: 1mm 0 0; font-size: 9.5px; text-align: center; }
 @media print {
+  /* Driver TP809 hanya punya kertas 72×297, 72×420, dan 72×3276 mm (tidak bisa ukuran bebas).
+     Gulungan 72×3276 membuat struk mulai dari atas tanpa header/footer Chrome; printer thermal
+     berhenti dan memotong setelah baris terakhir. Kertas 72×297 membuat struk di tengah halaman. */
+  @page { size: 72mm 3276mm; margin: 0; }
   body { background: #fff; }
   .topbar, #session, .error-flash { display: none !important; }
   .page { width: 100%; margin: 0; padding: 0; }
-  .receipt { position: static; }
+  .receipt { display: block; }
 }
 #history-panel .history { max-height: 320px; overflow-y: auto; margin-top: 0; }
 

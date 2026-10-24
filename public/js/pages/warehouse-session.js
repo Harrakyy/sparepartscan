@@ -6,9 +6,6 @@ import { beepOk, buzzError } from '../sound.js';
 
 const TOAST_MS = 3000;
 const FLASH_MS = 900;
-const RECEIPT_WIDTH_MM = 72; // lebar area cetak TP809
-const RECEIPT_EXTRA_MM = 2;
-const PX_PER_MM = 96 / 25.4;
 const RESULT_LABEL = { ok: 'Cocok', over_qty: 'Kelebihan', not_in_invoice: 'Tidak ada di faktur' };
 const STAGE_LABEL = { pick: 'Scan pertama', qc: 'Scan QC' };
 const $ = id => document.getElementById(id);
@@ -282,11 +279,6 @@ function renderReceipt() {
   $('receipt-total').textContent = `${invoice.items.length} jenis · ${total} barang`;
   $('receipt-status').textContent = verified ? 'SEMUA BARANG SESUAI FAKTUR' : 'BELUM SELESAI DICEK';
   $('receipt-printed').textContent = `Dicetak ${formatWib(new Date().toISOString())}`;
-
-  // Kertas dibuat 72 mm × tinggi struk: tanpa ini Chrome memakai kertas default driver,
-  // sehingga struk keluar landscape dan terpotong jadi beberapa lembar.
-  const heightMm = Math.ceil($('receipt').offsetHeight / PX_PER_MM) + RECEIPT_EXTRA_MM;
-  $('receipt-page').textContent = `@page { size: ${RECEIPT_WIDTH_MM}mm ${heightMm}mm; margin: 0; }`;
 }
 
 $('print').addEventListener('click', () => {

@@ -71,7 +71,6 @@
     </section>
 
     {{-- Struk 72 mm untuk printer thermal, diisi oleh JS saat tombol Cetak ditekan. --}}
-    <style id="receipt-page"></style>
     <section id="receipt" class="receipt" aria-hidden="true">
         <header class="receipt-head">
             <div class="receipt-company">{{ config('app.company') }}</div>
