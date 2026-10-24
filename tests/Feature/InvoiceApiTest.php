@@ -181,6 +181,24 @@ class InvoiceApiTest extends TestCase
             ->assertJsonPath('data.scan_events', []);
     }
 
+    public function test_summary_counts_open_and_done_without_list_limit(): void
+    {
+        Invoice::factory()->count(55)->create(['status' => 'waiting']);
+        Invoice::factory()->count(2)->create(['status' => 'picking']);
+        Invoice::factory()->count(3)->create(['status' => 'picked']);
+
+        $this->getJson('/api/invoices/summary')->assertOk()
+            ->assertJsonPath('data.open', 57)
+            ->assertJsonPath('data.done', 3);
+    }
+
+    public function test_layout_shows_open_count_badge_on_warehouse_menu(): void
+    {
+        Invoice::factory()->count(2)->create(['status' => 'waiting']);
+
+        $this->get('/gudang')->assertOk()->assertSee('id="nav-open-count"', false)->assertSeeText('2');
+    }
+
     public function test_unknown_invoice_returns_404_envelope(): void
     {
         $this->getJson('/api/invoices/999')->assertStatus(404)->assertJsonPath('success', false);

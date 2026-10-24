@@ -219,6 +219,7 @@ async function save(event, replace = false) {
   $('save').disabled = true;
   try {
     const invoice = await apiPost('/api/invoices', form);
+    document.dispatchEvent(new Event('invoices-changed'));
     resetPage();
     const el = $('status');
     el.className = 'msg msg-ok';

@@ -231,6 +231,7 @@ $('complete').addEventListener('click', async () => {
   $('complete').disabled = true;
   try {
     invoice = await apiPost(`/api/invoices/${invoiceId}/complete`, { stage });
+    document.dispatchEvent(new Event('invoices-changed'));
     beepOk();
     showToast(stage === 'qc' ? 'Scan QC selesai' : 'Scan pertama selesai', 'ok');
     render();

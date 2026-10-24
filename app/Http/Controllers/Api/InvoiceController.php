@@ -42,6 +42,15 @@ class InvoiceController extends Controller
         return ApiResponse::ok($list);
     }
 
+    /** Jumlah sesi per kelompok status, untuk badge menu Gudang (tanpa batas 50 baris daftar). */
+    public function summary(): JsonResponse
+    {
+        return ApiResponse::ok([
+            'open' => Invoice::whereIn('status', Invoice::OPEN_STATUSES)->count(),
+            'done' => Invoice::whereIn('status', Invoice::DONE_STATUSES)->count(),
+        ]);
+    }
+
     public function store(StoreInvoiceRequest $request): JsonResponse
     {
         try {

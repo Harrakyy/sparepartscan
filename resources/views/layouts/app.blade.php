@@ -26,6 +26,7 @@
             </a>
             <a href="{{ url('/gudang') }}" @if (request()->is('gudang*')) aria-current="page" @endif>
                 <i class="bi bi-box-seam" aria-hidden="true"></i><span>Gudang</span>
+                <span id="nav-open-count" class="nav-badge" title="Faktur perlu di-scan" @if ($openInvoiceCount === 0) hidden @endif>{{ $openInvoiceCount > 99 ? '99+' : $openInvoiceCount }}</span>
             </a>
             <a href="{{ url('/laporan') }}" @if (request()->is('laporan*')) aria-current="page" @endif>
                 <i class="bi bi-table" aria-hidden="true"></i><span>Laporan</span>
@@ -35,6 +36,7 @@
     <main class="page">
         @yield('content')
     </main>
+    <script type="module" src="{{ asset('js/nav-badge.js') }}"></script>
     @stack('scripts')
 </body>
 </html>
