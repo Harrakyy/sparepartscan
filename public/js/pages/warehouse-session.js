@@ -254,9 +254,39 @@ $('complete').addEventListener('click', async () => {
 $('toggle-history').addEventListener('click', () => setHistoryOpen($('history-panel').hidden));
 $('close-history').addEventListener('click', () => setHistoryOpen(false));
 
-// Cetak hasil verifikasi (kertas A4/printer biasa; struk termal menyusul).
+// Struk ikut barang ke pelanggan. Jumlah memakai scan pertama (wajib); scan QC opsional.
+function renderReceipt() {
+  const meta = [
+    ['No faktur', invoice.number],
+    ['Kepada', invoice.customer_name],
+    ['Tgl faktur', invoice.invoice_date],
+    ['Dicek', invoice.picked_at && formatWib(invoice.picked_at)],
+    ['QC', invoice.qc_done_at && formatWib(invoice.qc_done_at)],
+  ].filter(([, value]) => value);
+  $('receipt-meta').replaceChildren(...meta.flatMap(([label, value]) => [el('dt', '', label), el('dd', '', value)]));
+
+  $('receipt-items').replaceChildren(...invoice.items.map(item => {
+    const short = item.picked_qty < item.qty;
+    const line = el('div', 'receipt-line');
+    line.append(
+      el('span', 'receipt-code', item.part_code),
+      el('span', 'receipt-qty', short ? `${item.picked_qty}/${item.qty} KURANG` : String(item.qty)),
+    );
+    const li = el('li');
+    li.append(line, el('div', 'receipt-name', item.part_name));
+    return li;
+  }));
+
+  const total = invoice.items.reduce((s, i) => s + i.qty, 0);
+  const verified = !['waiting', 'picking'].includes(invoice.status);
+  $('receipt-total').textContent = `${invoice.items.length} jenis · ${total} barang`;
+  $('receipt-status').textContent = verified ? 'SEMUA BARANG SESUAI FAKTUR' : 'BELUM SELESAI DICEK';
+  $('receipt-printed').textContent = `Dicetak ${formatWib(new Date().toISOString())}`;
+}
+
 $('print').addEventListener('click', () => {
-  $('printed-at').textContent = formatWib(new Date().toISOString());
+  if (!invoice) return showToast('Data faktur belum termuat. Muat ulang halaman.');
+  renderReceipt();
   window.print();
 });
 

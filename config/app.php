@@ -15,6 +15,9 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    // Nama perusahaan di kepala struk cetak.
+    'company' => env('APP_COMPANY', 'PT MITRA GHANIM INDOSARANA'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

@@ -6,7 +6,7 @@
 @section('content')
     <div id="error-flash" class="error-flash" aria-hidden="true"></div>
     <section id="session" class="session" data-invoice-id="{{ $invoice->id }}">
-        <div class="session-toolbar no-print">
+        <div class="session-toolbar">
             <a href="{{ url('/gudang') }}" class="btn"><i class="bi bi-arrow-left" aria-hidden="true"></i> Daftar sesi</a>
             <div class="session-toolbar-right">
                 <button id="start-qc" class="btn btn-primary" type="button" hidden><i class="bi bi-shield-check" aria-hidden="true"></i> Mulai scan QC</button>
@@ -19,15 +19,13 @@
             </div>
         </div>
 
-        <section id="history-panel" class="card no-print" hidden>
+        <section id="history-panel" class="card" hidden>
             <div class="row" style="justify-content:space-between;align-items:center">
                 <h2>Riwayat scan</h2>
                 <button id="close-history" class="btn btn-icon" type="button" aria-label="Tutup riwayat"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
             </div>
             <ul id="history" class="history"></ul>
         </section>
-
-        <p class="print-only print-meta">Dicetak <span id="printed-at"></span></p>
 
         <header class="session-head card">
             <div>
@@ -45,7 +43,7 @@
             </div>
         </header>
 
-        <form id="manual-form" class="scan-bar no-print" autocomplete="off">
+        <form id="manual-form" class="scan-bar" autocomplete="off">
             <button id="scan-ready" class="scan-ready" type="button" hidden>Klik di sini, lalu scan</button>
             <i class="bi bi-upc-scan muted" aria-hidden="true" style="font-size:20px"></i>
             <input id="manual-code" class="mono" maxlength="64" aria-label="Kode part"
@@ -53,7 +51,7 @@
             <button class="btn" type="submit"><i class="bi bi-arrow-return-left" aria-hidden="true"></i> Kirim</button>
         </form>
 
-        <p id="toast" class="toast no-print" role="alert" hidden></p>
+        <p id="toast" class="toast" role="alert" hidden></p>
 
         <div class="card card-flush">
             <div class="table-wrap">
@@ -67,8 +65,23 @@
             </div>
         </div>
 
-        <div class="session-actions no-print">
-            <button id="complete" class="btn btn-ok btn-big" type="button" disabled><i class="bi bi-check2-circle" aria-hidden="true"></i> <span>Selesai</span></button>        </div>
+        <div class="session-actions">
+            <button id="complete" class="btn btn-ok btn-big" type="button" disabled><i class="bi bi-check2-circle" aria-hidden="true"></i> <span>Selesai</span></button>
+        </div>
+    </section>
+
+    {{-- Struk 72 mm untuk printer thermal, diisi oleh JS saat tombol Cetak ditekan. --}}
+    <section id="receipt" class="receipt" aria-hidden="true">
+        <header class="receipt-head">
+            <div class="receipt-company">{{ config('app.company') }}</div>
+            <div class="receipt-title">BUKTI CEK BARANG</div>
+        </header>
+        <dl id="receipt-meta" class="receipt-meta"></dl>
+        <div class="receipt-line receipt-cols"><span>Kode / nama barang</span><span>Jml</span></div>
+        <ol id="receipt-items" class="receipt-items"></ol>
+        <p id="receipt-total" class="receipt-total"></p>
+        <p id="receipt-status" class="receipt-status"></p>
+        <p id="receipt-printed" class="receipt-foot"></p>
     </section>
 @endsection
 

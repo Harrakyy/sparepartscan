@@ -261,21 +261,30 @@ details.card summary { cursor: pointer; }
 .session-toolbar-right { display: flex; gap: 8px; }
 #toggle-history[aria-expanded="true"] { border-color: var(--accent); color: var(--fg); background: var(--accent-soft); }
 
-/* ── Cetak: hanya kepala sesi dan tabel barang ── */
-.print-only { display: none; }
+/* ── Cetak: struk 72 mm untuk printer thermal (TP809). Hanya hitam pekat dan huruf tebal,
+   karena abu-abu tercetak pucat di kertas thermal. ── */
+.receipt { display: none; }
 @media print {
-  @page { margin: 12mm; }
-  body { background: #fff; font-size: 12px; }
-  .topbar, .no-print { display: none !important; }
-  .print-only { display: block; }
-  .print-meta { margin: 0; color: var(--muted); font-size: 11px; text-align: right; }
-  .page { width: 100%; padding: 0; gap: 10px; }
-  .card { box-shadow: none; border-color: #cbd5e1; break-inside: avoid; }
-  .session-number { font-size: 20px; }
-  .session-customer { font-size: 18px; }
-  .scan-table td { font-size: 12px; padding: 6px 10px; }
-  .scan-table td.code, .scan-table td.count { font-size: 13px; }
-  .row-ok td, .row-bad td { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  @page { margin: 0; }
+  body { background: #fff; }
+  .topbar, #session, .error-flash { display: none !important; }
+  .page { width: 100%; margin: 0; padding: 0; }
+  .receipt { display: block; width: 72mm; padding: 2mm 3mm 8mm; color: #000; font: 600 12px/1.35 Inter, Arial, sans-serif; }
+  .receipt-head { padding-bottom: 2mm; border-bottom: 1.5px dashed #000; text-align: center; }
+  .receipt-company { font-size: 13px; font-weight: 800; }
+  .receipt-title { font-size: 15px; font-weight: 800; letter-spacing: .05em; }
+  .receipt-meta { display: grid; grid-template-columns: auto 1fr; gap: 1px 6px; margin: 2mm 0; }
+  .receipt-meta dd { margin: 0; font-weight: 800; overflow-wrap: anywhere; }
+  .receipt-line { display: flex; justify-content: space-between; gap: 6px; }
+  .receipt-cols { padding: 1mm 0; border-top: 1.5px dashed #000; border-bottom: 1px solid #000; font-size: 11px; }
+  .receipt-items { margin: 0; padding: 0; list-style: none; }
+  .receipt-items li { padding: 1.2mm 0; border-bottom: 1px dashed #000; break-inside: avoid; }
+  .receipt-code { font-size: 13px; font-weight: 800; }
+  .receipt-qty { font-size: 14px; font-weight: 800; white-space: nowrap; }
+  .receipt-name { font-size: 11px; overflow-wrap: anywhere; }
+  .receipt-total { margin: 2mm 0 1.5mm; font-weight: 800; }
+  .receipt-status { margin: 0; padding: 1.5mm; border: 2px solid #000; font-size: 13px; font-weight: 800; text-align: center; }
+  .receipt-foot { margin: 2mm 0 0; font-size: 10px; text-align: center; }
 }
 #history-panel .history { max-height: 320px; overflow-y: auto; margin-top: 0; }
 
@@ -297,4 +306,3 @@ details.card summary { cursor: pointer; }
   .error-flash.is-on { animation: error-flash-still 1s step-end; }
   @keyframes error-flash-still { 0% { opacity: .8; } 100% { opacity: 0; } }
 }
-@media print { .error-flash { display: none; } }
