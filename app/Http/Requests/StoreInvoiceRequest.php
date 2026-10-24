@@ -50,6 +50,7 @@ class StoreInvoiceRequest extends FormRequest
             'file.required' => 'File faktur wajib diunggah',
             'file.mimes' => 'File harus PDF, JPG, atau PNG',
             'file.max' => 'Ukuran file maksimal 10 MB',
+            'file.uploaded' => 'File gagal terkirim, kemungkinan terlalu besar untuk server. Coba foto dengan resolusi lebih kecil atau gunakan PDF.',
             'number.required' => 'Nomor faktur wajib diisi',
             'number.regex' => 'Nomor faktur hanya berisi angka',
             'customer_name.required' => 'Nama penerima wajib diisi',

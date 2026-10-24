@@ -7,6 +7,11 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = '/vendor/pdfjs/pdf.worker.min.mjs';
 const MAX_FILE_BYTES = 10 * 1024 * 1024;
 const MIN_PDF_TEXT = 20; // PDF hasil scan tidak punya teks: dibaca lewat OCR
 const PREVIEW_SCALE = 2;
+// Foto HP bisa >2 MB, melebihi batas upload PHP. Yang disimpan cukup arsip yang masih terbaca,
+// jadi foto dikecilkan sebelum dikirim (OCR tetap memakai foto asli).
+const UPLOAD_MAX_SIDE = 2000;
+const UPLOAD_JPEG_QUALITY = 0.8;
+const UPLOAD_COMPRESS_FROM = 1024 * 1024;
 const $ = id => document.getElementById(id);
 
 let currentFile = null;
@@ -65,6 +70,20 @@ async function readImage(file) {
   img.src = URL.createObjectURL(file);
   img.hidden = false;
   return ocr(file);
+}
+
+async function uploadableFile(file) {
+  if (file.type === 'application/pdf' || file.size <= UPLOAD_COMPRESS_FROM) return file;
+  const bitmap = await createImageBitmap(file);
+  const scale = Math.min(1, UPLOAD_MAX_SIDE / Math.max(bitmap.width, bitmap.height));
+  const canvas = document.createElement('canvas');
+  canvas.width = Math.round(bitmap.width * scale);
+  canvas.height = Math.round(bitmap.height * scale);
+  canvas.getContext('2d').drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  bitmap.close();
+  const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', UPLOAD_JPEG_QUALITY));
+  if (!blob || blob.size >= file.size) return file;
+  return new File([blob], file.name.replace(/\.\w+$/, '') + '.jpg', { type: 'image/jpeg' });
 }
 
 function rowHtmlInput(className, value, attrs) {
@@ -213,11 +232,11 @@ async function save(event, replace = false) {
   const error = validate(payload);
   if (error) return showStatus(error, 'bad');
 
-  const form = new FormData();
-  form.append('file', currentFile);
-  form.append('payload', JSON.stringify(payload));
   $('save').disabled = true;
   try {
+    const form = new FormData();
+    form.append('file', await uploadableFile(currentFile));
+    form.append('payload', JSON.stringify(payload));
     const invoice = await apiPost('/api/invoices', form);
     document.dispatchEvent(new Event('invoices-changed'));
     resetPage();
