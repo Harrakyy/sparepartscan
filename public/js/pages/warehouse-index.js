@@ -16,27 +16,42 @@ function el(tag, className, text) {
   return node;
 }
 
-function card(invoice) {
-  const a = el('a', 'session-card');
-  a.href = `/gudang/sesi/${invoice.id}`;
-  const left = el('div');
-  left.append(el('div', 'session-card-number mono', invoice.number), el('div', 'muted', formatWib(invoice.created_at)));
-  const mid = el('div', 'session-card-customer', invoice.customer_name);
-  const right = el('div');
-  right.style.textAlign = 'right';
-  right.append(el('div', `badge badge-${invoice.status}`, STATUS_LABEL[invoice.status] ?? invoice.status),
-    el('div', 'muted', `${invoice.picked_total}/${invoice.total_qty} barang`));
-  a.append(left, mid, right);
-  return a;
+function row(invoice, index) {
+  const tr = el('tr', 'clickable');
+  const open = () => { window.location.href = `/gudang/sesi/${invoice.id}`; };
+  tr.addEventListener('click', open);
+  tr.tabIndex = 0;
+  tr.addEventListener('keydown', e => { if (e.key === 'Enter') open(); });
+  const number = el('td');
+  number.append(el('span', 'code-chip', invoice.number));
+  const customer = el('td', '', invoice.customer_name);
+  customer.style.fontWeight = '600';
+  customer.style.color = 'var(--fg)';
+  const badge = el('td');
+  badge.append(el('span', `badge badge-${invoice.status}`, STATUS_LABEL[invoice.status] ?? invoice.status));
+  tr.append(
+    el('td', 'rownum', String(index + 1)),
+    number,
+    customer,
+    el('td', 'muted', formatWib(invoice.created_at)),
+    badge,
+    el('td', 'num', `${invoice.picked_total}/${invoice.total_qty}`),
+  );
+  return tr;
 }
+
+const listUrl = (which, q) => `/api/invoices?status=${which}${q ? `&q=${encodeURIComponent(q)}` : ''}`;
 
 async function load() {
   const mySeq = ++seq;
   const q = $('search').value.trim();
   try {
-    const list = await apiGet(`/api/invoices?status=${status}${q ? `&q=${encodeURIComponent(q)}` : ''}`);
+    const [open, done] = await Promise.all([apiGet(listUrl('open', q)), apiGet(listUrl('done', q))]);
     if (mySeq !== seq) return;
-    $('list').replaceChildren(...list.map(card));
+    const list = status === 'open' ? open : done;
+    $('count-open').textContent = open.length;
+    $('count-done').textContent = done.length;
+    $('list').replaceChildren(...list.map(row));
     $('empty').hidden = list.length > 0;
     $('status').hidden = true;
   } catch (err) {

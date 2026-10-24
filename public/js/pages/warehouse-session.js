@@ -23,6 +23,14 @@ function el(tag, className, text) {
   return node;
 }
 
+function iconCell(icon) {
+  const td = el('td', 'icon');
+  const i = el('i', `bi ${icon}`);
+  i.setAttribute('aria-hidden', 'true');
+  td.append(i);
+  return td;
+}
+
 const column = () => (stage === 'qc' ? 'qc_qty' : 'picked_qty');
 const allComplete = () => invoice.items.every(i => i[column()] >= i.qty);
 
@@ -64,7 +72,7 @@ function renderItems(flashId) {
     const tr = el('tr', complete ? 'row-ok' : n > 0 ? 'row-partial' : '');
     if (item.id === flashId) tr.classList.add('row-flash');
     tr.append(
-      el('td', 'icon', complete ? '✓' : ''),
+      iconCell(complete ? 'bi-check-circle-fill' : n > 0 ? 'bi-circle-half' : 'bi-circle'),
       el('td', 'code mono', item.part_code),
       el('td', '', item.part_name),
       el('td', 'num count', `${n}/${item.qty}`),
@@ -84,7 +92,7 @@ function renderWrong() {
     const suggestion = suggestCode(code, codes);
     const info = el('td', '', `Tidak ada di faktur${n > 1 ? ` (${n}×)` : ''}`);
     if (suggestion) info.append(el('span', 'muted', ` · Mungkin maksudnya ${suggestion}?`));
-    tr.append(el('td', 'icon', '✗'), el('td', 'code mono', code), info, el('td', 'num', ''));
+    tr.append(iconCell('bi-x-circle-fill'), el('td', 'code mono', code), info, el('td', 'num', ''));
     return tr;
   }));
 }
@@ -106,7 +114,7 @@ function renderActions() {
   const locked = isLocked();
   $('complete').hidden = locked;
   $('complete').disabled = !allComplete();
-  $('complete').textContent = stage === 'qc' ? 'Selesai QC' : 'Selesai';
+  $('complete').querySelector('span').textContent = stage === 'qc' ? 'Selesai QC' : 'Selesai';
   $('start-qc').hidden = !(stage === 'pick' && invoice.status === 'picked');
   $('manual-form').hidden = locked;
 }

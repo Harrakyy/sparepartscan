@@ -14,6 +14,9 @@ const copies = [
   ['node_modules/tesseract.js-core/tesseract-core-simd-lstm.wasm.js', 'public/vendor/tesseract/core/tesseract-core-simd-lstm.wasm.js'],
   ['node_modules/tesseract.js-core/tesseract-core-relaxedsimd-lstm.wasm.js', 'public/vendor/tesseract/core/tesseract-core-relaxedsimd-lstm.wasm.js'],
   ['node_modules/@tesseract.js-data/eng/4.0.0_best_int/eng.traineddata.gz', 'public/vendor/tesseract/lang/eng.traineddata.gz'],
+  ['node_modules/bootstrap-icons/font/bootstrap-icons.min.css', 'public/vendor/bootstrap-icons/bootstrap-icons.min.css'],
+  ['node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2', 'public/vendor/bootstrap-icons/fonts/bootstrap-icons.woff2'],
+  ['node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff', 'public/vendor/bootstrap-icons/fonts/bootstrap-icons.woff'],
 ];
 
 for (const [from, to] of copies) {

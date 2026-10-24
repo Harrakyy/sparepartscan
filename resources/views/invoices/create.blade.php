@@ -3,12 +3,15 @@
 @section('title', 'Faktur baru')
 
 @section('content')
-    <div>
-        <h1>Faktur baru</h1>
-        <p class="muted" style="margin:4px 0 0">Unggah PDF dari Zahir (Microsoft Print to PDF) atau foto faktur. Hasil bacaan dicek dulu sebelum disimpan.</p>
+    <div class="page-head">
+        <div>
+            <h1>Faktur baru</h1>
+            <p class="page-sub">Unggah PDF dari Zahir (Microsoft Print to PDF) atau foto faktur. Hasil bacaan dicek dulu sebelum disimpan.</p>
+        </div>
     </div>
 
     <label id="dropzone" class="dropzone" for="file">
+        <i class="bi bi-file-earmark-arrow-up" aria-hidden="true"></i><br>
         <strong>Pilih file faktur</strong> atau tarik ke sini
         <div class="muted">PDF, JPG, atau PNG · maks. 10 MB</div>
         <input id="file" type="file" accept="application/pdf,image/jpeg,image/png" style="display:none">
@@ -46,7 +49,7 @@
                 <input id="date" maxlength="60">
             </div>
             <div class="table-wrap">
-                <table>
+                <table class="grid">
                     <thead>
                         <tr><th style="width:28%">Kode part</th><th>Nama barang</th><th class="num" style="width:90px">Jumlah</th><th style="width:48px"></th></tr>
                     </thead>

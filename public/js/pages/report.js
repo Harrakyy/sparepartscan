@@ -10,9 +10,15 @@ function el(tag, className, text) {
   return node;
 }
 
-function row(cells) {
+function codeCell(code) {
+  const td = el('td');
+  td.append(el('span', 'code-chip', code));
+  return td;
+}
+
+function itemRow(index, code, name, qty) {
   const tr = el('tr');
-  for (const [text, className] of cells) tr.append(el('td', className, String(text)));
+  tr.append(el('td', 'rownum', String(index + 1)), codeCell(code), el('td', '', name), el('td', 'num', String(qty)));
   return tr;
 }
 
@@ -23,12 +29,12 @@ function todayWib() {
 
 function invoiceBlock(inv) {
   const box = el('div', 'report-invoice');
-  const head = el('div', 'row');
-  head.style.justifyContent = 'space-between';
-  head.append(el('strong', 'mono', inv.number), el('span', '', inv.customer_name), el('span', 'muted', formatWib(inv.picked_at)));
-  const table = el('table');
+  const head = el('div', 'report-invoice-head');
+  const customer = el('strong', '', inv.customer_name);
+  head.append(el('span', 'code-chip', inv.number), customer, el('span', 'muted', formatWib(inv.picked_at)));
+  const table = el('table', 'grid');
   const body = el('tbody');
-  body.append(...inv.items.map(i => row([[i.part_code, 'mono'], [i.part_name, ''], [i.qty, 'num']])));
+  body.append(...inv.items.map((i, n) => itemRow(n, i.part_code, i.part_name, i.qty)));
   table.append(body);
   box.append(head, table);
   return box;
@@ -40,9 +46,11 @@ async function load(event) {
   if ($('q').value.trim()) params.set('q', $('q').value.trim());
   try {
     const { invoices, totals } = await apiGet(`/api/reports/outgoing?${params}`);
-    $('totals').replaceChildren(...totals.map(t => row([[t.part_code, 'mono'], [t.part_name, ''], [t.qty, 'num']])));
+    $('totals').replaceChildren(...totals.map((t, n) => itemRow(n, t.part_code, t.part_name, t.qty)));
     $('invoices').replaceChildren(...invoices.map(invoiceBlock));
     $('empty').hidden = totals.length > 0;
+    $('stat-invoices').textContent = invoices.length;
+    $('stat-qty').textContent = totals.reduce((sum, t) => sum + t.qty, 0);
     $('status').hidden = true;
   } catch (err) {
     $('status').textContent = err.message;
