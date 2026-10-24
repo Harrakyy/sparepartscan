@@ -33,19 +33,12 @@
     <p id="status" class="msg msg-bad" hidden></p>
 
     <section class="card card-flush">
-        <div class="card-head"><h2>Total per kode part</h2></div>
-        <div class="table-wrap">
-            <table class="grid">
-                <thead><tr><th class="rownum">#</th><th>Kode part</th><th>Nama barang</th><th class="num">Jumlah</th></tr></thead>
-                <tbody id="totals"></tbody>
-            </table>
+        <div class="card-head">
+            <h2>Per faktur</h2>
+            <button id="toggle-all" class="btn btn-icon" type="button"><i class="bi bi-arrows-expand" aria-hidden="true"></i> <span>Buka semua</span></button>
         </div>
-        <p id="empty" class="muted" style="margin:0;padding:24px;text-align:center" hidden>Tidak ada barang keluar pada rentang ini.</p>
-    </section>
-
-    <section class="card card-flush">
-        <div class="card-head"><h2>Per faktur</h2></div>
         <div id="invoices" class="report-invoices"></div>
+        <p id="empty" class="muted" style="margin:0;padding:24px;text-align:center" hidden>Tidak ada barang keluar pada rentang ini.</p>
     </section>
 @endsection
 

@@ -236,10 +236,45 @@ details.card summary { cursor: pointer; }
 /* ── Laporan ── */
 .report-invoices { display: flex; flex-direction: column; }
 .report-invoice { border-top: 1px solid var(--line); }
-.report-invoice-head { display: flex; gap: 16px; align-items: center; padding: 12px 20px; background: var(--surface-2); flex-wrap: wrap; }
+.report-invoice:first-child { border-top: 0; }
+.report-invoice-head {
+  width: 100%; display: flex; gap: 16px; align-items: center; padding: 14px 20px; background: #fff; border: 0;
+  font: inherit; color: inherit; text-align: left; cursor: pointer; flex-wrap: wrap;
+}
+.report-invoice-head:hover { background: var(--surface-2); }
+.report-invoice.is-open .report-invoice-head { background: var(--surface-2); border-bottom: 1px solid var(--line); }
+.report-customer { color: var(--fg); }
+.report-invoice-head .chevron {
+  margin-left: auto; width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--line); background: #fff;
+  display: inline-flex; align-items: center; justify-content: center; color: var(--muted); transition: transform .25s cubic-bezier(.16, 1, .3, 1);
+}
+.report-invoice.is-open .chevron { transform: rotate(180deg); color: var(--accent); border-color: var(--accent-line); }
 .stats { display: flex; gap: 10px; flex-wrap: wrap; }
 .stat {
   display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 99px;
   background: var(--surface-2); border: 1px solid var(--line); font-size: 13px; color: #475569;
 }
 .stat strong { color: var(--fg); }
+
+/* ── Toolbar sesi ── */
+.session-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.session-toolbar-right { display: flex; gap: 8px; }
+#toggle-history[aria-expanded="true"] { border-color: var(--accent); color: var(--fg); background: var(--accent-soft); }
+
+/* ── Cetak: hanya kepala sesi dan tabel barang ── */
+.print-only { display: none; }
+@media print {
+  @page { margin: 12mm; }
+  body { background: #fff; font-size: 12px; }
+  .topbar, .no-print { display: none !important; }
+  .print-only { display: block; }
+  .print-meta { margin: 0; color: var(--muted); font-size: 11px; text-align: right; }
+  .page { width: 100%; padding: 0; gap: 10px; }
+  .card { box-shadow: none; border-color: #cbd5e1; break-inside: avoid; }
+  .session-number { font-size: 20px; }
+  .session-customer { font-size: 18px; }
+  .scan-table td { font-size: 12px; padding: 6px 10px; }
+  .scan-table td.code, .scan-table td.count { font-size: 13px; }
+  .row-ok td, .row-bad td { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+#history-panel .history { max-height: 320px; overflow-y: auto; margin-top: 0; }

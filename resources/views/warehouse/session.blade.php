@@ -5,7 +5,27 @@
 
 @section('content')
     <section id="session" class="session" data-invoice-id="{{ $invoice->id }}">
-        <a href="{{ url('/gudang') }}" class="btn" style="align-self:flex-start"><i class="bi bi-arrow-left" aria-hidden="true"></i> Daftar sesi</a>
+        <div class="session-toolbar no-print">
+            <a href="{{ url('/gudang') }}" class="btn"><i class="bi bi-arrow-left" aria-hidden="true"></i> Daftar sesi</a>
+            <div class="session-toolbar-right">
+                <button id="toggle-history" class="btn" type="button" aria-expanded="false" aria-controls="history-panel">
+                    <i class="bi bi-clock-history" aria-hidden="true"></i> Riwayat scan <span id="history-count" class="count-pill">0</span>
+                </button>
+                <button id="print" class="btn" type="button" title="Cetak hasil verifikasi">
+                    <i class="bi bi-printer" aria-hidden="true"></i> Cetak
+                </button>
+            </div>
+        </div>
+
+        <section id="history-panel" class="card no-print" hidden>
+            <div class="row" style="justify-content:space-between;align-items:center">
+                <h2>Riwayat scan</h2>
+                <button id="close-history" class="btn btn-icon" type="button" aria-label="Tutup riwayat"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+            </div>
+            <ul id="history" class="history"></ul>
+        </section>
+
+        <p class="print-only print-meta">Dicetak <span id="printed-at"></span></p>
 
         <header class="session-head card">
             <div>
@@ -23,7 +43,7 @@
             </div>
         </header>
 
-        <form id="manual-form" class="scan-bar" autocomplete="off">
+        <form id="manual-form" class="scan-bar no-print" autocomplete="off">
             <button id="scan-ready" class="scan-ready" type="button" hidden>Klik di sini, lalu scan</button>
             <i class="bi bi-upc-scan muted" aria-hidden="true" style="font-size:20px"></i>
             <input id="manual-code" class="mono" maxlength="64" aria-label="Kode part"
@@ -31,7 +51,7 @@
             <button class="btn" type="submit"><i class="bi bi-arrow-return-left" aria-hidden="true"></i> Kirim</button>
         </form>
 
-        <p id="toast" class="toast" role="alert" hidden></p>
+        <p id="toast" class="toast no-print" role="alert" hidden></p>
 
         <div class="card card-flush">
             <div class="table-wrap">
@@ -45,15 +65,10 @@
             </div>
         </div>
 
-        <div class="session-actions">
+        <div class="session-actions no-print">
             <button id="complete" class="btn btn-ok btn-big" type="button" disabled><i class="bi bi-check2-circle" aria-hidden="true"></i> <span>Selesai</span></button>
             <button id="start-qc" class="btn btn-primary btn-big" type="button" hidden><i class="bi bi-shield-check" aria-hidden="true"></i> Mulai scan QC</button>
         </div>
-
-        <details class="card">
-            <summary><strong>Riwayat scan</strong></summary>
-            <ul id="history" class="history"></ul>
-        </details>
     </section>
 @endsection
 

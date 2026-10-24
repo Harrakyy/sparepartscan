@@ -108,6 +108,13 @@ function renderHistory() {
     );
     return li;
   }));
+  $('history-count').textContent = invoice.scan_events.length;
+  if (!invoice.scan_events.length) $('history').replaceChildren(el('li', 'muted', 'Belum ada scan.'));
+}
+
+function setHistoryOpen(open) {
+  $('history-panel').hidden = !open;
+  $('toggle-history').setAttribute('aria-expanded', String(open));
 }
 
 function renderActions() {
@@ -232,6 +239,15 @@ $('complete').addEventListener('click', async () => {
     showToast(err.message);
     renderActions();
   }
+});
+
+$('toggle-history').addEventListener('click', () => setHistoryOpen($('history-panel').hidden));
+$('close-history').addEventListener('click', () => setHistoryOpen(false));
+
+// Cetak hasil verifikasi (kertas A4/printer biasa; struk termal menyusul).
+$('print').addEventListener('click', () => {
+  $('printed-at').textContent = formatWib(new Date().toISOString());
+  window.print();
 });
 
 $('start-qc').addEventListener('click', () => {

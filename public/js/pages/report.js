@@ -10,15 +10,11 @@ function el(tag, className, text) {
   return node;
 }
 
-function codeCell(code) {
-  const td = el('td');
-  td.append(el('span', 'code-chip', code));
-  return td;
-}
-
 function itemRow(index, code, name, qty) {
   const tr = el('tr');
-  tr.append(el('td', 'rownum', String(index + 1)), codeCell(code), el('td', '', name), el('td', 'num', String(qty)));
+  const codeCell = el('td');
+  codeCell.append(el('span', 'code-chip', code));
+  tr.append(el('td', 'rownum', String(index + 1)), codeCell, el('td', '', name), el('td', 'num', String(qty)));
   return tr;
 }
 
@@ -27,17 +23,49 @@ function todayWib() {
   return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Jakarta' }).format(new Date());
 }
 
+function setOpen(box, open) {
+  box.classList.toggle('is-open', open);
+  box.querySelector('.report-invoice-head').setAttribute('aria-expanded', String(open));
+  box.querySelector('.report-invoice-body').hidden = !open;
+}
+
+// Satu faktur = baris yang bisa dibuka-tutup: klik barisnya atau tombol panah.
 function invoiceBlock(inv) {
   const box = el('div', 'report-invoice');
-  const head = el('div', 'report-invoice-head');
-  const customer = el('strong', '', inv.customer_name);
-  head.append(el('span', 'code-chip', inv.number), customer, el('span', 'muted', formatWib(inv.picked_at)));
+  const head = el('button', 'report-invoice-head');
+  head.type = 'button';
+  const qty = inv.items.reduce((sum, i) => sum + i.qty, 0);
+  const chevron = el('i', 'bi bi-chevron-down chevron');
+  chevron.setAttribute('aria-hidden', 'true');
+  head.append(
+    el('span', 'code-chip', inv.number),
+    el('strong', 'report-customer', inv.customer_name),
+    el('span', 'muted', formatWib(inv.picked_at)),
+    el('span', 'count-pill', `${inv.items.length} kode · ${qty} barang`),
+    chevron,
+  );
+  head.addEventListener('click', () => setOpen(box, !box.classList.contains('is-open')));
+
+  const body = el('div', 'report-invoice-body table-wrap');
   const table = el('table', 'grid');
-  const body = el('tbody');
-  body.append(...inv.items.map((i, n) => itemRow(n, i.part_code, i.part_name, i.qty)));
-  table.append(body);
-  box.append(head, table);
+  const thead = el('thead');
+  thead.innerHTML = '<tr><th class="rownum">#</th><th>Kode part</th><th>Nama barang</th><th class="num">Jumlah</th></tr>';
+  const tbody = el('tbody');
+  tbody.append(...inv.items.map((i, n) => itemRow(n, i.part_code, i.part_name, i.qty)));
+  table.append(thead, tbody);
+  body.append(table);
+
+  box.append(head, body);
+  setOpen(box, false);
   return box;
+}
+
+function updateToggleAll() {
+  const boxes = [...document.querySelectorAll('.report-invoice')];
+  const allOpen = boxes.length > 0 && boxes.every(b => b.classList.contains('is-open'));
+  $('toggle-all').hidden = boxes.length === 0;
+  $('toggle-all').querySelector('span').textContent = allOpen ? 'Tutup semua' : 'Buka semua';
+  $('toggle-all').querySelector('i').className = `bi ${allOpen ? 'bi-arrows-collapse' : 'bi-arrows-expand'}`;
 }
 
 async function load(event) {
@@ -45,18 +73,26 @@ async function load(event) {
   const params = new URLSearchParams({ from: $('from').value, to: $('to').value });
   if ($('q').value.trim()) params.set('q', $('q').value.trim());
   try {
-    const { invoices, totals } = await apiGet(`/api/reports/outgoing?${params}`);
-    $('totals').replaceChildren(...totals.map((t, n) => itemRow(n, t.part_code, t.part_name, t.qty)));
+    const { invoices } = await apiGet(`/api/reports/outgoing?${params}`);
     $('invoices').replaceChildren(...invoices.map(invoiceBlock));
-    $('empty').hidden = totals.length > 0;
+    $('empty').hidden = invoices.length > 0;
     $('stat-invoices').textContent = invoices.length;
-    $('stat-qty').textContent = totals.reduce((sum, t) => sum + t.qty, 0);
+    $('stat-qty').textContent = invoices.reduce((sum, inv) => sum + inv.items.reduce((s, i) => s + i.qty, 0), 0);
     $('status').hidden = true;
+    updateToggleAll();
   } catch (err) {
     $('status').textContent = err.message;
     $('status').hidden = false;
   }
 }
+
+$('invoices').addEventListener('click', updateToggleAll);
+$('toggle-all').addEventListener('click', () => {
+  const boxes = [...document.querySelectorAll('.report-invoice')];
+  const open = !boxes.every(b => b.classList.contains('is-open'));
+  boxes.forEach(b => setOpen(b, open));
+  updateToggleAll();
+});
 
 $('from').value = todayWib();
 $('to').value = todayWib();
