@@ -279,10 +279,10 @@ details.card summary { cursor: pointer; }
 .receipt-status { margin: 0; padding: .8mm; border: 2px solid #000; font-size: 12px; font-weight: 800; text-align: center; }
 .receipt-foot { margin: 1mm 0 0; font-size: 9.5px; text-align: center; }
 @media print {
-  /* Driver TP809 hanya punya kertas 72×297, 72×420, dan 72×3276 mm (tidak bisa ukuran bebas).
-     Gulungan 72×3276 membuat struk mulai dari atas tanpa header/footer Chrome; printer thermal
-     berhenti dan memotong setelah baris terakhir. Kertas 72×297 membuat struk di tengah halaman. */
-  @page { size: 72mm 3276mm; margin: 0; }
+  /* Ukuran kertas sengaja tidak diatur di sini: driver TP809 hanya punya ukuran tetap
+     (72×297, 72×420, 72×3276 mm), dan bila @page size tidak cocok Chrome memperkecil atau
+     memusatkan struk. Pilih kertas 72mm * 3276mm sekali di jendela cetak; Chrome mengingatnya. */
+  @page { margin: 0; }
   body { background: #fff; }
   .topbar, #session, .error-flash { display: none !important; }
   .page { width: 100%; margin: 0; padding: 0; }
