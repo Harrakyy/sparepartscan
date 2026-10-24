@@ -8,6 +8,7 @@
         <div class="session-toolbar no-print">
             <a href="{{ url('/gudang') }}" class="btn"><i class="bi bi-arrow-left" aria-hidden="true"></i> Daftar sesi</a>
             <div class="session-toolbar-right">
+                <button id="start-qc" class="btn btn-primary" type="button" hidden><i class="bi bi-shield-check" aria-hidden="true"></i> Mulai scan QC</button>
                 <button id="toggle-history" class="btn" type="button" aria-expanded="false" aria-controls="history-panel">
                     <i class="bi bi-clock-history" aria-hidden="true"></i> Riwayat scan <span id="history-count" class="count-pill">0</span>
                 </button>
@@ -66,9 +67,7 @@
         </div>
 
         <div class="session-actions no-print">
-            <button id="complete" class="btn btn-ok btn-big" type="button" disabled><i class="bi bi-check2-circle" aria-hidden="true"></i> <span>Selesai</span></button>
-            <button id="start-qc" class="btn btn-primary btn-big" type="button" hidden><i class="bi bi-shield-check" aria-hidden="true"></i> Mulai scan QC</button>
-        </div>
+            <button id="complete" class="btn btn-ok btn-big" type="button" disabled><i class="bi bi-check2-circle" aria-hidden="true"></i> <span>Selesai</span></button>        </div>
     </section>
 @endsection
 
