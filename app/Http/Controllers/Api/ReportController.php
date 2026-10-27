@@ -13,29 +13,28 @@ class ReportController extends Controller
 {
     private const TIMEZONE = 'Asia/Jakarta';
 
-    /** Barang keluar = faktur yang scan pertamanya sudah selesai, dalam rentang tanggal WIB. */
+    private const DATE_MESSAGES = [
+        'from.*' => 'Tanggal awal harus berformat YYYY-MM-DD',
+        'to.*' => 'Tanggal akhir harus berformat YYYY-MM-DD',
+    ];
+
+    /** Barang keluar = faktur yang sudah dicetak, menurut tanggal cetak pertama (WIB). */
     public function outgoing(Request $request): JsonResponse
     {
         $data = $request->validate([
             'from' => ['nullable', 'date_format:Y-m-d'],
             'to' => ['nullable', 'date_format:Y-m-d'],
             'q' => ['nullable', 'string', 'max:150'],
-        ], [
-            'from.*' => 'Tanggal awal harus berformat YYYY-MM-DD',
-            'to.*' => 'Tanggal akhir harus berformat YYYY-MM-DD',
-        ]);
+        ], self::DATE_MESSAGES);
 
         $today = Carbon::now(self::TIMEZONE)->toDateString();
-        $from = Carbon::parse($data['from'] ?? $today, self::TIMEZONE)->startOfDay()->utc();
-        $to = Carbon::parse($data['to'] ?? $today, self::TIMEZONE)->endOfDay()->utc();
         $q = trim($data['q'] ?? '');
 
         $invoices = Invoice::query()
-            ->whereIn('status', Invoice::DONE_STATUSES)
-            ->whereBetween('picked_at', [$from, $to])
+            ->whereBetween('printed_at', $this->range($data['from'] ?? $today, $data['to'] ?? $today))
             ->when($q !== '', fn ($query) => $query->where('customer_name', 'like', '%'.addcslashes($q, '%_\\').'%'))
             ->with('items')
-            ->orderByDesc('picked_at')
+            ->orderByDesc('printed_at')
             ->get();
 
         $totals = $invoices->flatMap->items
@@ -50,9 +49,38 @@ class ReportController extends Controller
                 'number' => $i->number,
                 'customer_name' => $i->customer_name,
                 'picked_at' => $i->picked_at,
+                'printed_at' => $i->printed_at,
                 'items' => $i->items->map->only(['part_code', 'part_name', 'qty'])->values(),
             ])->values(),
             'totals' => $totals,
         ]);
+    }
+
+    /** Tanggal (WIB, YYYY-MM-DD) yang ada barang keluarnya, untuk menandai kalender laporan. */
+    public function outgoingDays(Request $request): JsonResponse
+    {
+        $data = $request->validate([
+            'from' => ['required', 'date_format:Y-m-d'],
+            'to' => ['required', 'date_format:Y-m-d'],
+        ], self::DATE_MESSAGES);
+
+        $days = Invoice::query()
+            ->whereBetween('printed_at', $this->range($data['from'], $data['to']))
+            ->pluck('printed_at')
+            ->map(fn (Carbon $at) => $at->copy()->timezone(self::TIMEZONE)->toDateString())
+            ->unique()
+            ->sort()
+            ->values();
+
+        return ApiResponse::ok($days);
+    }
+
+    /** Rentang tanggal WIB (awal hari s.d. akhir hari) dalam UTC, sesuai penyimpanan waktu. */
+    private function range(string $from, string $to): array
+    {
+        return [
+            Carbon::parse($from, self::TIMEZONE)->startOfDay()->utc(),
+            Carbon::parse($to, self::TIMEZONE)->endOfDay()->utc(),
+        ];
     }
 }

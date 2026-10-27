@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\InvoiceController;
+use App\Http\Controllers\Api\PrintController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\ReturnController;
 use App\Http\Controllers\Api\ScanController;
@@ -12,7 +13,9 @@ Route::get('/invoices/summary', [InvoiceController::class, 'summary']);
 Route::get('/invoices/{invoice}', [InvoiceController::class, 'show']);
 Route::post('/invoices/{invoice}/scans', [ScanController::class, 'store']);
 Route::post('/invoices/{invoice}/complete', [ScanController::class, 'complete']);
+Route::post('/invoices/{invoice}/prints', [PrintController::class, 'store']);
 Route::get('/reports/outgoing', [ReportController::class, 'outgoing']);
+Route::get('/reports/outgoing-days', [ReportController::class, 'outgoingDays']);
 
 Route::get('/returns', [ReturnController::class, 'index']);
 Route::post('/returns', [ReturnController::class, 'store']);

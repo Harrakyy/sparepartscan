@@ -98,6 +98,28 @@ class InvoiceService
         return array_merge($invoice->toArray(), [
             'has_file' => $invoice->file_path !== null,
             'scan_events' => $events->toArray(),
+            'print_logs' => $invoice->printLogs()->latest('id')->get(['id', 'created_at'])->toArray(),
         ]);
+    }
+
+    /**
+     * Catat satu cetakan struk. Cetak pertama mengisi `printed_at`: sejak saat itu barang
+     * dianggap keluar (masuk laporan). Cetak ulang hanya menambah riwayat.
+     */
+    public function recordPrint(Invoice $invoice): Invoice
+    {
+        return DB::transaction(function () use ($invoice) {
+            $invoice = Invoice::lockForUpdate()->findOrFail($invoice->id);
+            if (! in_array($invoice->status, Invoice::DONE_STATUSES, true)) {
+                throw new DomainRuleException('Selesaikan scan pertama dulu');
+            }
+
+            $invoice->printLogs()->create();
+            if ($invoice->printed_at === null) {
+                $invoice->update(['printed_at' => now()]);
+            }
+
+            return $invoice;
+        });
     }
 }
