@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\GoodsReturn;
 use App\Models\Invoice;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -19,5 +20,6 @@ Route::get('/gudang/sesi/{invoice}', fn (Invoice $invoice) => view('warehouse.se
 
 Route::view('/retur', 'returns.index');
 Route::view('/retur/baru', 'returns.create');
+Route::get('/retur/{goodsReturn}', fn (GoodsReturn $goodsReturn) => view('returns.session', compact('goodsReturn')));
 
 Route::view('/laporan', 'reports.outgoing');

@@ -1,6 +1,7 @@
 import { apiGet, apiPost } from '../api.js';
 import { formatWib } from '../format.js';
-import { createKeyboardWedge } from '../keyboard-wedge.js';
+import { flashError } from '../flash.js';
+import { setupScanInput } from '../scan-input.js';
 import { suggestCode } from '../similar-code.js';
 import { beepOk, buzzError } from '../sound.js';
 
@@ -132,16 +133,8 @@ function render(flashId) {
   renderWrong();
   renderHistory();
   renderActions();
-  focusScan();
+  scanBox.focus();
   if (flashId) setTimeout(() => document.querySelector('.row-flash')?.classList.remove('row-flash'), FLASH_MS);
-}
-
-// Seluruh layar berkedip merah ~1 detik: salah barang harus terlihat walau bunyi kalah oleh bising gudang.
-function flashError() {
-  const overlay = $('error-flash');
-  overlay.classList.remove('is-on');
-  void overlay.offsetWidth; // mulai ulang animasi bila dua kesalahan berturut-turut
-  overlay.classList.add('is-on');
 }
 
 async function sendScan(code, manual) {
@@ -176,65 +169,13 @@ const enqueueScan = (code, manual) => {
   });
 };
 
-// Kotak scan selalu aktif seperti mesin kasir: scanner mengetik ke kotak ini lalu Enter,
-// tanpa perlu diklik. Kecepatan ketikan membedakan scanner dari ketikan manual.
-const scanInput = $('manual-code');
-const inputWedge = createKeyboardWedge();
-const pageWedge = createKeyboardWedge();
-
-function canScan() {
-  return invoice && !isLocked();
-}
-
-function focusScan() {
-  if (canScan() && document.activeElement !== scanInput) scanInput.focus({ preventScroll: true });
-  renderReady();
-}
-
-function renderReady() {
-  const ready = canScan() && document.hasFocus() && document.activeElement === scanInput;
-  $('scan-ready').hidden = !canScan();
-  $('scan-ready').classList.toggle('ready', ready);
-  $('scan-ready').textContent = ready ? '● Siap scan' : 'Klik di sini, lalu scan';
-}
-
-scanInput.addEventListener('keydown', e => {
-  const fastCode = inputWedge.key(e.key, e.timeStamp);
-  if (e.key !== 'Enter') return;
-  e.preventDefault();
-  const code = scanInput.value.trim();
-  scanInput.value = '';
-  if (code) enqueueScan(code, fastCode === null);
+const scanBox = setupScanInput({
+  form: $('manual-form'),
+  input: $('manual-code'),
+  ready: $('scan-ready'),
+  canScan: () => Boolean(invoice) && !isLocked(),
+  onScan: enqueueScan,
 });
-scanInput.addEventListener('focus', renderReady);
-scanInput.addEventListener('blur', () => setTimeout(renderReady));
-
-// Cadangan bila fokus sedang di tombol atau bagian lain halaman.
-document.addEventListener('keydown', e => {
-  if (e.target.closest('input, textarea, select')) return;
-  const code = pageWedge.key(e.key, e.timeStamp);
-  if (!code) return;
-  e.preventDefault(); // Enter dari scanner tidak boleh menekan tombol yang sedang fokus
-  enqueueScan(code, false);
-  focusScan();
-}, true);
-
-// Tombol "Kirim" untuk kode yang diketik manual.
-$('manual-form').addEventListener('submit', e => {
-  e.preventDefault();
-  const code = scanInput.value.trim();
-  scanInput.value = '';
-  if (code) enqueueScan(code, true);
-  focusScan();
-});
-
-// Setelah klik di mana pun (kecuali kolom isian), kotak scan aktif lagi.
-document.addEventListener('click', e => {
-  if (!e.target.closest('input, textarea, select')) setTimeout(focusScan);
-});
-window.addEventListener('focus', () => setTimeout(focusScan));
-window.addEventListener('blur', renderReady);
-$('scan-ready').addEventListener('click', focusScan);
 
 $('complete').addEventListener('click', async () => {
   $('complete').disabled = true;
