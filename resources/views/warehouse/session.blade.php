@@ -13,7 +13,10 @@
                 <button id="toggle-history" class="btn" type="button" aria-expanded="false" aria-controls="history-panel">
                     <i class="bi bi-clock-history" aria-hidden="true"></i> Riwayat scan <span id="history-count" class="count-pill">0</span>
                 </button>
-                <button id="print" class="btn" type="button" title="Cetak hasil verifikasi">
+                <button id="toggle-prints" class="btn" type="button" aria-expanded="false" aria-controls="prints-panel">
+                    <i class="bi bi-receipt" aria-hidden="true"></i> Riwayat cetak <span id="prints-count" class="count-pill">0</span>
+                </button>
+                <button id="print" class="btn" type="button" title="Cetak hasil verifikasi" disabled>
                     <i class="bi bi-printer" aria-hidden="true"></i> Cetak
                 </button>
             </div>
@@ -25,6 +28,14 @@
                 <button id="close-history" class="btn btn-icon" type="button" aria-label="Tutup riwayat"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
             </div>
             <ul id="history" class="history"></ul>
+        </section>
+
+        <section id="prints-panel" class="card" hidden>
+            <div class="row" style="justify-content:space-between;align-items:center">
+                <h2>Riwayat cetak</h2>
+                <button id="close-prints" class="btn btn-icon" type="button" aria-label="Tutup riwayat cetak"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+            </div>
+            <ul id="prints" class="history"></ul>
         </section>
 
         <header class="session-head card">

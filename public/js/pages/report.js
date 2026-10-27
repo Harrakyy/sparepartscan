@@ -44,7 +44,7 @@ function invoiceBlock(inv) {
   head.append(
     el('span', 'code-chip', inv.number),
     el('strong', 'report-customer', inv.customer_name),
-    el('span', 'muted', formatWib(inv.picked_at)),
+    el('span', 'muted', `Dicetak ${formatWib(inv.printed_at)}`),
     el('span', 'count-pill', `${inv.items.length} kode · ${qty} barang`),
     chevron,
   );
@@ -107,12 +107,50 @@ $('toggle-all').addEventListener('click', () => {
   updateToggleAll();
 });
 
-$('from').value = todayWib();
-$('to').value = todayWib();
+// Tanggal kalender (tengah malam waktu lokal) → YYYY-MM-DD.
+const ymd = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+const outgoingDays = new Set();
+
+// Tandai tanggal yang ada barang keluarnya pada bulan yang tampil, termasuk hari bulan tetangga
+// yang ikut terlihat. Diambil ulang setiap kalender dibuka supaya cetakan baru ikut hijau.
+async function markOutgoingDays(fp) {
+  const from = ymd(new Date(fp.currentYear, fp.currentMonth, -6));
+  const to = ymd(new Date(fp.currentYear, fp.currentMonth + 1, 7));
+  try {
+    const days = await apiGet(`/api/reports/outgoing-days?from=${from}&to=${to}`);
+    days.forEach(day => outgoingDays.add(day));
+    fp.redraw();
+  } catch {
+    // Tanda hijau hanya bantuan; laporan tetap bisa dipakai tanpa tanda.
+  }
+}
+
+function datePicker(input) {
+  const refresh = (_dates, _str, fp) => markOutgoingDays(fp);
+  return window.flatpickr(input, {
+    locale: 'id',
+    dateFormat: 'Y-m-d',
+    altInput: true,
+    altFormat: 'd/m/Y',
+    defaultDate: todayWib(),
+    disableMobile: true,
+    onDayCreate: (_dates, _str, _fp, day) => {
+      if (!outgoingDays.has(ymd(day.dateObj))) return;
+      day.classList.add('has-outgoing');
+      day.title = 'Ada barang keluar';
+    },
+    onReady: refresh,
+    onOpen: refresh,
+    onMonthChange: refresh,
+    onYearChange: refresh,
+    // Laporan langsung diperbarui saat tanggal diganti, tanpa harus menekan "Tampilkan".
+    onChange: () => load(),
+  });
+}
+
+datePicker($('from'));
+datePicker($('to'));
 $('filter').addEventListener('submit', load);
-// Laporan langsung diperbarui saat tanggal diganti, tanpa harus menekan "Tampilkan".
-$('from').addEventListener('change', () => load());
-$('to').addEventListener('change', () => load());
 $('q').addEventListener('input', () => {
   clearTimeout(timer);
   timer = setTimeout(load, SEARCH_DEBOUNCE_MS);
