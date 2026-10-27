@@ -28,6 +28,11 @@ class ReturnController extends Controller
         return ApiResponse::ok($this->returns->list($tab));
     }
 
+    public function summary(): JsonResponse
+    {
+        return ApiResponse::ok($this->returns->counts());
+    }
+
     public function invoices(Request $request): JsonResponse
     {
         return ApiResponse::ok($this->returns->eligibleInvoices((string) $request->query('q', '')));

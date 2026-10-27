@@ -193,6 +193,26 @@ class ReturnServiceTest extends TestCase
         $this->assertNull($return->fresh()->zahir_entered_at);
     }
 
+    public function test_zahir_pending_lists_oldest_first_and_counts_every_return(): void
+    {
+        $ids = [];
+        foreach (['2026-10-01 08:00:00', '2026-10-03 08:00:00', '2026-10-02 08:00:00'] as $doneAt) {
+            $return = $this->openReturn(self::invoiceWithItems('picked'));
+            $this->returns->scan($return, 'S-SCS-002', 'good', false);
+            $this->travelTo($doneAt);
+            $this->returns->complete($return);
+            $this->travelBack();
+            $ids[$doneAt] = $return->id;
+        }
+        $this->openReturn();
+
+        $this->assertSame(
+            [$ids['2026-10-01 08:00:00'], $ids['2026-10-02 08:00:00'], $ids['2026-10-03 08:00:00']],
+            $this->returns->list('zahir_pending')->pluck('id')->all(),
+        );
+        $this->assertSame(['open' => 1, 'done' => 3, 'zahir_pending' => 3], $this->returns->counts());
+    }
+
     public function test_list_tabs_and_eligible_invoices(): void
     {
         $open = $this->openReturn();

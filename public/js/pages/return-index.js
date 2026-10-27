@@ -45,9 +45,9 @@ function row(ret, index) {
 
 async function load() {
   try {
-    const lists = await Promise.all(TABS.map(t => apiGet(`/api/returns?tab=${t}`)));
-    TABS.forEach((t, i) => { $(`count-${t}`).textContent = lists[i].length; });
-    const list = lists[TABS.indexOf(tab)];
+    // Angka tab dari jumlah sebenarnya; daftar sendiri dibatasi 50 baris.
+    const [counts, list] = await Promise.all([apiGet('/api/returns/summary'), apiGet(`/api/returns?tab=${tab}`)]);
+    TABS.forEach(t => { $(`count-${t}`).textContent = counts[t]; });
     $('list').replaceChildren(...list.map(row));
     $('empty').hidden = list.length > 0;
     $('status').hidden = true;

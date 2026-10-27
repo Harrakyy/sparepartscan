@@ -10,9 +10,11 @@ import { createKeyboardWedge } from './keyboard-wedge.js';
  * @param {HTMLElement} o.ready      penanda "Siap scan" / "Klik di sini, lalu scan"
  * @param {() => boolean} o.canScan  apakah halaman sedang menerima scan
  * @param {(code: string, manual: boolean) => void} o.onScan
+ * @param {(HTMLInputElement|HTMLTextAreaElement)[]} [o.captureFrom] kolom isian lain di halaman
+ *   (misalnya catatan): scan yang masuk ke sana dipindah jadi scan, bukan teks
  * @returns {{ focus: () => void }}
  */
-export function setupScanInput({ form, input, ready, canScan, onScan }) {
+export function setupScanInput({ form, input, ready, canScan, onScan, captureFrom = [] }) {
   const inputWedge = createKeyboardWedge();
   const pageWedge = createKeyboardWedge();
 
@@ -49,6 +51,20 @@ export function setupScanInput({ form, input, ready, canScan, onScan }) {
     focus();
   }, true);
 
+  // Petugas yang baru mengetik catatan lalu langsung scan: fokus masih di kolom catatan, jadi
+  // ketikan cepat yang diakhiri Enter dibuang dari kolom itu dan diproses sebagai scan.
+  for (const field of captureFrom) {
+    const wedge = createKeyboardWedge();
+    field.addEventListener('keydown', e => {
+      const code = wedge.key(e.key, e.timeStamp);
+      if (!code) return;
+      e.preventDefault();
+      field.value = removeScannedText(field.value, code);
+      onScan(code, false);
+      focus();
+    });
+  }
+
   // Tombol "Kirim" untuk kode yang diketik manual.
   form.addEventListener('submit', e => {
     e.preventDefault();
@@ -67,4 +83,10 @@ export function setupScanInput({ form, input, ready, canScan, onScan }) {
   ready.addEventListener('click', focus);
 
   return { focus };
+}
+
+/** Buang teks hasil scan (kemunculan terakhir) dari isi kolom; isi lain tidak berubah. */
+export function removeScannedText(value, code) {
+  const at = value.lastIndexOf(code);
+  return at === -1 ? value : value.slice(0, at) + value.slice(at + code.length);
 }

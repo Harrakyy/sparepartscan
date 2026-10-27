@@ -16,6 +16,7 @@ let ret = null;
 let mode = 'good';
 let toastTimer = null;
 let queue = Promise.resolve();
+let noteDirty = false; // catatan diketik tapi belum tersimpan: jangan ditimpa saat render
 
 const isOpen = () => ret?.status === 'open';
 const sum = key => ret.items.reduce((s, i) => s + i[key], 0);
@@ -84,7 +85,7 @@ function renderState() {
   const total = sum('good') + sum('bad');
   $('stage-label').textContent = open ? 'Sedang dicek' : 'Retur selesai';
   $('totals').textContent = `Bagus ${sum('good')} · Jelek ${sum('bad')}`;
-  if (document.activeElement !== $('note')) $('note').value = ret.note ?? '';
+  if (!noteDirty && document.activeElement !== $('note')) $('note').value = ret.note ?? '';
   $('note').disabled = !open;
   $('modes').hidden = !open;
   $('manual-form').hidden = !open;
@@ -110,16 +111,28 @@ function render(flashId) {
   if (flashId) setTimeout(() => document.querySelector('.row-flash')?.classList.remove('row-flash'), FLASH_MS);
 }
 
-// Jalankan aksi yang membalas detail retur terbaru, lalu tampilkan ulang.
-async function act(request, okMessage) {
-  try {
-    ret = await request();
-    render();
-    if (okMessage) showToast(okMessage, 'ok');
-  } catch (err) {
+// Semua permintaan (scan, catatan, −1, Selesai, Zahir) diproses berurutan: hitungan tidak tertimpa
+// balasan lama, dan catatan yang baru diketik tersimpan sebelum retur diselesaikan.
+// Kegagalan satu permintaan tidak boleh menghentikan antrian.
+function enqueue(task) {
+  queue = queue.then(task).catch(() => {
     buzzError();
-    showToast(err.message);
-  }
+    showToast('Permintaan gagal diproses. Muat ulang halaman bila terus terjadi.');
+  });
+}
+
+// Jalankan aksi yang membalas detail retur terbaru, lalu tampilkan ulang.
+function act(request, okMessage) {
+  enqueue(async () => {
+    try {
+      ret = await request();
+      render();
+      if (okMessage) showToast(okMessage, 'ok');
+    } catch (err) {
+      buzzError();
+      showToast(err.message);
+    }
+  });
 }
 
 async function sendScan(code, manual) {
@@ -144,25 +157,27 @@ async function sendScan(code, manual) {
   }
 }
 
-// Scan diproses berurutan supaya hitungan tetap benar walau scanner cepat.
-const enqueueScan = (code, manual) => {
-  queue = queue.then(() => sendScan(code, manual)).catch(() => {
-    buzzError();
-    showToast('Scan gagal diproses. Muat ulang halaman bila terus terjadi.');
-  });
-};
-
 const scanBox = setupScanInput({
   form: $('manual-form'),
   input: $('manual-code'),
   ready: $('scan-ready'),
   canScan: isOpen,
-  onScan: enqueueScan,
+  onScan: (code, manual) => enqueue(() => sendScan(code, manual)),
+  captureFrom: [$('note')],
 });
 
 $('mode-good').addEventListener('click', () => setMode('good'));
 $('mode-bad').addEventListener('click', () => setMode('bad'));
-$('note').addEventListener('change', () => act(() => apiPatch(base, { note: $('note').value }), 'Catatan tersimpan'));
+$('note').addEventListener('input', () => { noteDirty = true; });
+// Isi catatan diambil sekarang, bukan saat antrian sampai: render scan sebelumnya tidak boleh mengubahnya.
+$('note').addEventListener('change', () => {
+  const note = $('note').value;
+  act(async () => {
+    const fresh = await apiPatch(base, { note });
+    if ($('note').value === note) noteDirty = false;
+    return fresh;
+  }, 'Catatan tersimpan');
+});
 $('complete').addEventListener('click', () => act(() => apiPost(`${base}/complete`), 'Retur selesai'));
 $('zahir').addEventListener('click', () => act(() => apiPost(`${base}/zahir`, { entered: !ret.zahir_entered_at })));
 

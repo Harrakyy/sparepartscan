@@ -52,6 +52,14 @@ class ReturnApiTest extends TestCase
         $this->getJson('/api/returns?tab=done')->assertJsonCount(1, 'data');
     }
 
+    public function test_summary_counts_returns_per_tab(): void
+    {
+        $this->create();
+
+        $this->getJson('/api/returns/summary')->assertOk()
+            ->assertExactJson(['success' => true, 'data' => ['open' => 1, 'done' => 0, 'zahir_pending' => 0], 'error' => null]);
+    }
+
     public function test_creating_again_returns_existing_open_return(): void
     {
         $id = $this->create()->json('data.id');

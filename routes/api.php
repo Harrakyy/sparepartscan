@@ -16,6 +16,7 @@ Route::get('/reports/outgoing', [ReportController::class, 'outgoing']);
 
 Route::get('/returns', [ReturnController::class, 'index']);
 Route::post('/returns', [ReturnController::class, 'store']);
+Route::get('/returns/summary', [ReturnController::class, 'summary']);
 Route::get('/returns/invoices', [ReturnController::class, 'invoices']);
 Route::get('/returns/{goodsReturn}', [ReturnController::class, 'show']);
 Route::patch('/returns/{goodsReturn}', [ReturnController::class, 'update']);

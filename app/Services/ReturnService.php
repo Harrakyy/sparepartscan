@@ -7,6 +7,7 @@ use App\Models\GoodsReturn;
 use App\Models\GoodsReturnItem;
 use App\Models\Invoice;
 use App\Models\InvoiceItem;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -167,16 +168,19 @@ class ReturnService
         ]);
     }
 
-    /** @param string $tab open | done | zahir_pending */
+    /**
+     * Retur per tab, maksimal 50 baris. "Belum di Zahir" diurutkan dari yang paling lama selesai,
+     * supaya retur yang paling lama menunggu tidak terpotong batas baris.
+     *
+     * @param string $tab open | done | zahir_pending
+     */
     public function list(string $tab): Collection
     {
-        return GoodsReturn::query()
+        return $this->tabQuery($tab)
             ->with('invoice:id,number,customer_name')
-            ->where('status', $tab === 'open' ? 'open' : 'done')
-            ->when($tab === 'zahir_pending', fn ($q) => $q->whereNull('zahir_entered_at'))
             ->withSum(['items as good_total' => fn ($q) => $q->where('condition', 'good')], 'qty')
             ->withSum(['items as bad_total' => fn ($q) => $q->where('condition', 'bad')], 'qty')
-            ->latest('id')
+            ->when($tab === 'zahir_pending', fn ($q) => $q->oldest('done_at')->oldest('id'), fn ($q) => $q->latest('id'))
             ->limit(self::LIST_LIMIT)
             ->get()
             ->map(fn (GoodsReturn $r) => array_merge($r->only(['id', 'status', 'created_at', 'done_at', 'zahir_entered_at']), [
@@ -185,6 +189,27 @@ class ReturnService
                 'good_total' => (int) $r->good_total,
                 'bad_total' => (int) $r->bad_total,
             ]));
+    }
+
+    /**
+     * Jumlah retur per tab tanpa batas baris, untuk angka di tab daftar retur.
+     *
+     * @return array{open: int, done: int, zahir_pending: int}
+     */
+    public function counts(): array
+    {
+        return [
+            'open' => $this->tabQuery('open')->count(),
+            'done' => $this->tabQuery('done')->count(),
+            'zahir_pending' => $this->tabQuery('zahir_pending')->count(),
+        ];
+    }
+
+    private function tabQuery(string $tab): Builder
+    {
+        return GoodsReturn::query()
+            ->where('status', $tab === 'open' ? 'open' : 'done')
+            ->when($tab === 'zahir_pending', fn ($q) => $q->whereNull('zahir_entered_at'));
     }
 
     /** Faktur yang bisa diretur (scan pertama selesai), dengan retur open-nya bila ada. */
