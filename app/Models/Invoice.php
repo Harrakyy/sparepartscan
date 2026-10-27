@@ -39,4 +39,9 @@ class Invoice extends Model
     {
         return $this->hasMany(ScanEvent::class);
     }
+
+    public function goodsReturns(): HasMany
+    {
+        return $this->hasMany(GoodsReturn::class);
+    }
 }
