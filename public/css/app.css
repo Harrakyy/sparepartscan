@@ -309,3 +309,25 @@ details.card summary { cursor: pointer; }
   .error-flash.is-on { animation: error-flash-still 1s step-end; }
   @keyframes error-flash-still { 0% { opacity: .8; } 100% { opacity: 0; } }
 }
+
+/* ── Retur: mode BAGUS/JELEK. Bingkai layar berwarna sesuai mode supaya terlihat dari jauh. ── */
+.return-modes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.return-modes[hidden] { display: none; }
+.return-mode {
+  display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 64px;
+  border: 2px solid var(--line-strong); border-radius: 12px; background: var(--surface); color: var(--muted);
+  font: 800 20px/1 var(--font); letter-spacing: .04em; cursor: pointer;
+}
+.return-mode small { font-size: 12px; font-weight: 600; letter-spacing: 0; }
+.return-mode-good[aria-pressed="true"] { background: var(--ok-solid); border-color: var(--ok-solid); color: #fff; }
+.return-mode-bad[aria-pressed="true"] { background: var(--bad-solid); border-color: var(--bad-solid); color: #fff; }
+body.mode-frame-good::after, body.mode-frame-bad::after {
+  content: ""; position: fixed; inset: 0; z-index: 40; pointer-events: none; box-shadow: inset 0 0 0 6px var(--ok-solid);
+}
+body.mode-frame-bad::after { box-shadow: inset 0 0 0 6px var(--bad-solid); }
+.return-note { display: flex; flex-direction: column; gap: 6px; }
+.return-note textarea { font: inherit; resize: vertical; }
+.btn-minus { min-height: 0; padding: 2px 6px; font-size: 12px; }
+.return-done { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.return-done[hidden] { display: none; }
+@media (max-width: 640px) { .return-mode { min-height: 56px; font-size: 16px; } }
