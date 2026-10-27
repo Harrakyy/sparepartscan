@@ -30,3 +30,5 @@ async function call(method, path, body) {
 
 export const apiGet = path => call('GET', path);
 export const apiPost = (path, body) => call('POST', path, body);
+export const apiPatch = (path, body) => call('PATCH', path, body);
+export const apiDelete = path => call('DELETE', path);
