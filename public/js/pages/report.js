@@ -1,7 +1,11 @@
 import { apiGet } from '../api.js';
 import { formatWib } from '../format.js';
 
+const SEARCH_DEBOUNCE_MS = 300;
 const $ = id => document.getElementById(id);
+
+let seq = 0;
+let timer = null;
 
 function el(tag, className, text) {
   const node = document.createElement(tag);
@@ -70,10 +74,18 @@ function updateToggleAll() {
 
 async function load(event) {
   event?.preventDefault();
+  if (!$('from').value || !$('to').value) return;
+  if ($('from').value > $('to').value) {
+    $('status').textContent = 'Tanggal awal tidak boleh setelah tanggal akhir';
+    $('status').hidden = false;
+    return;
+  }
+  const mySeq = ++seq;
   const params = new URLSearchParams({ from: $('from').value, to: $('to').value });
   if ($('q').value.trim()) params.set('q', $('q').value.trim());
   try {
     const { invoices } = await apiGet(`/api/reports/outgoing?${params}`);
+    if (mySeq !== seq) return; // balasan lama datang setelah filter diganti lagi
     $('invoices').replaceChildren(...invoices.map(invoiceBlock));
     $('empty').hidden = invoices.length > 0;
     $('stat-invoices').textContent = invoices.length;
@@ -81,6 +93,7 @@ async function load(event) {
     $('status').hidden = true;
     updateToggleAll();
   } catch (err) {
+    if (mySeq !== seq) return;
     $('status').textContent = err.message;
     $('status').hidden = false;
   }
@@ -97,4 +110,11 @@ $('toggle-all').addEventListener('click', () => {
 $('from').value = todayWib();
 $('to').value = todayWib();
 $('filter').addEventListener('submit', load);
+// Laporan langsung diperbarui saat tanggal diganti, tanpa harus menekan "Tampilkan".
+$('from').addEventListener('change', () => load());
+$('to').addEventListener('change', () => load());
+$('q').addEventListener('input', () => {
+  clearTimeout(timer);
+  timer = setTimeout(load, SEARCH_DEBOUNCE_MS);
+});
 load();
