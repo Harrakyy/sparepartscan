@@ -17,6 +17,10 @@ const copies = [
   ['node_modules/bootstrap-icons/font/bootstrap-icons.min.css', 'public/vendor/bootstrap-icons/bootstrap-icons.min.css'],
   ['node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2', 'public/vendor/bootstrap-icons/fonts/bootstrap-icons.woff2'],
   ['node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff', 'public/vendor/bootstrap-icons/fonts/bootstrap-icons.woff'],
+  // Kalender laporan: bisa menandai tanggal yang ada barang keluarnya (input date bawaan tidak bisa).
+  ['node_modules/flatpickr/dist/flatpickr.min.js', 'public/vendor/flatpickr/flatpickr.min.js'],
+  ['node_modules/flatpickr/dist/flatpickr.min.css', 'public/vendor/flatpickr/flatpickr.min.css'],
+  ['node_modules/flatpickr/dist/l10n/id.js', 'public/vendor/flatpickr/l10n/id.js'],
 ];
 
 for (const [from, to] of copies) {

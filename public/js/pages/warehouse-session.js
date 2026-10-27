@@ -113,10 +113,32 @@ function renderHistory() {
   if (!invoice.scan_events.length) $('history').replaceChildren(el('li', 'muted', 'Belum ada scan.'));
 }
 
-function setHistoryOpen(open) {
-  $('history-panel').hidden = !open;
-  $('toggle-history').setAttribute('aria-expanded', String(open));
+// Cetak pertama = barang dianggap keluar (masuk laporan); cetak ulang hanya menambah riwayat.
+function renderPrints() {
+  const logs = invoice.print_logs;
+  $('prints').replaceChildren(...logs.map((log, i) => {
+    const li = el('li');
+    li.append(
+      el('span', 'muted', formatWib(log.created_at)),
+      el('span', '', i === logs.length - 1 ? 'Cetak pertama · masuk laporan barang keluar' : 'Cetak ulang'),
+    );
+    return li;
+  }));
+  $('prints-count').textContent = logs.length;
+  if (!logs.length) $('prints').replaceChildren(el('li', 'muted', 'Belum pernah dicetak.'));
 }
+
+// Hanya satu panel riwayat terbuka: membuka yang satu menutup yang lain.
+const PANELS = { history: ['history-panel', 'toggle-history'], prints: ['prints-panel', 'toggle-prints'] };
+
+function openPanel(which) {
+  for (const [name, [panel, toggle]] of Object.entries(PANELS)) {
+    $(panel).hidden = name !== which;
+    $(toggle).setAttribute('aria-expanded', String(name === which));
+  }
+}
+
+const togglePanel = which => openPanel($(PANELS[which][0]).hidden ? which : null);
 
 function renderActions() {
   const locked = isLocked();
@@ -125,6 +147,9 @@ function renderActions() {
   $('complete').querySelector('span').textContent = stage === 'qc' ? 'Selesai QC' : 'Selesai';
   $('start-qc').hidden = !(stage === 'pick' && invoice.status === 'picked');
   $('manual-form').hidden = locked;
+  const printable = invoice.picked_at !== null;
+  $('print').disabled = !printable;
+  $('print').title = printable ? 'Cetak struk untuk pelanggan' : 'Selesaikan scan pertama dulu';
 }
 
 function render(flashId) {
@@ -132,6 +157,7 @@ function render(flashId) {
   renderItems(flashId);
   renderWrong();
   renderHistory();
+  renderPrints();
   renderActions();
   scanBox.focus();
   if (flashId) setTimeout(() => document.querySelector('.row-flash')?.classList.remove('row-flash'), FLASH_MS);
@@ -192,8 +218,10 @@ $('complete').addEventListener('click', async () => {
   }
 });
 
-$('toggle-history').addEventListener('click', () => setHistoryOpen($('history-panel').hidden));
-$('close-history').addEventListener('click', () => setHistoryOpen(false));
+$('toggle-history').addEventListener('click', () => togglePanel('history'));
+$('close-history').addEventListener('click', () => openPanel(null));
+$('toggle-prints').addEventListener('click', () => togglePanel('prints'));
+$('close-prints').addEventListener('click', () => openPanel(null));
 
 // Struk ikut barang ke pelanggan. Jumlah memakai scan pertama (wajib); scan QC opsional.
 function renderReceipt() {
@@ -222,10 +250,22 @@ function renderReceipt() {
   $('receipt-printed').textContent = `Dicetak ${formatWib(new Date().toISOString())}`;
 }
 
-$('print').addEventListener('click', () => {
+// Cetakan dicatat dulu ke server; bila gagal (koneksi putus), struk tidak dicetak supaya laporan
+// tidak kehilangan barang yang sebenarnya sudah keluar.
+$('print').addEventListener('click', async () => {
   if (!invoice) return showToast('Data faktur belum termuat. Muat ulang halaman.');
-  renderReceipt();
-  window.print();
+  $('print').disabled = true;
+  try {
+    invoice = await apiPost(`/api/invoices/${invoiceId}/prints`);
+    document.dispatchEvent(new Event('invoices-changed'));
+    render();
+    renderReceipt();
+    window.print();
+  } catch (err) {
+    buzzError();
+    showToast(err.message);
+    renderActions();
+  }
 });
 
 $('start-qc').addEventListener('click', () => {

@@ -16,7 +16,7 @@ class Invoice extends Model
 
     protected $fillable = [
         'number', 'customer_name', 'invoice_date', 'source_type', 'file_path',
-        'file_purged_at', 'status', 'picked_at', 'qc_done_at',
+        'file_purged_at', 'status', 'picked_at', 'qc_done_at', 'printed_at',
     ];
 
     protected $hidden = ['file_path'];
@@ -27,6 +27,7 @@ class Invoice extends Model
             'file_purged_at' => 'datetime',
             'picked_at' => 'datetime',
             'qc_done_at' => 'datetime',
+            'printed_at' => 'datetime',
         ];
     }
 
@@ -38,6 +39,11 @@ class Invoice extends Model
     public function scanEvents(): HasMany
     {
         return $this->hasMany(ScanEvent::class);
+    }
+
+    public function printLogs(): HasMany
+    {
+        return $this->hasMany(PrintLog::class);
     }
 
     public function goodsReturns(): HasMany

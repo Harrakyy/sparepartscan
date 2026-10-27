@@ -6,7 +6,7 @@
     <div class="page-head">
         <div>
             <h1>Laporan barang keluar</h1>
-            <p class="page-sub">Faktur yang scan pertamanya sudah selesai, per rentang tanggal (WIB).</p>
+            <p class="page-sub">Faktur yang sudah dicetak, per tanggal cetak pertama (WIB). Tanggal hijau di kalender = ada barang keluar.</p>
         </div>
         <div class="stats">
             <span class="stat"><i class="bi bi-receipt" aria-hidden="true"></i> Faktur <strong id="stat-invoices">0</strong></span>
@@ -17,11 +17,11 @@
     <form id="filter" class="card row" autocomplete="off">
         <div class="field">
             <label for="from">Dari tanggal</label>
-            <input id="from" type="date" required>
+            <input id="from" required>
         </div>
         <div class="field">
             <label for="to">Sampai tanggal</label>
-            <input id="to" type="date" required>
+            <input id="to" required>
         </div>
         <div class="field" style="flex:2">
             <label for="q">Nama penerima (opsional)</label>
@@ -43,5 +43,8 @@
 @endsection
 
 @push('scripts')
+    <link rel="stylesheet" href="{{ asset('vendor/flatpickr/flatpickr.min.css') }}">
+    <script src="{{ asset('vendor/flatpickr/flatpickr.min.js') }}"></script>
+    <script src="{{ asset('vendor/flatpickr/l10n/id.js') }}"></script>
     <script type="module" src="{{ asset('js/pages/report.js') }}"></script>
 @endpush
