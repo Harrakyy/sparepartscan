@@ -25,7 +25,8 @@ return new class extends Migration
             $table->enum('condition', ['good', 'bad']);
             $table->unsignedInteger('qty');
             $table->timestamps();
-            $table->unique(['goods_return_id', 'invoice_item_id', 'condition']);
+            // Nama otomatis (67 karakter) melebihi batas 64 karakter MySQL.
+            $table->unique(['goods_return_id', 'invoice_item_id', 'condition'], 'goods_return_items_line_unique');
         });
 
         Schema::create('goods_return_scans', function (Blueprint $table) {
