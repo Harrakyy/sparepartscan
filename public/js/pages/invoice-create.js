@@ -1,6 +1,8 @@
 import * as pdfjsLib from '/vendor/pdfjs/pdf.min.mjs';
 import { apiPost } from '../api.js';
 import { parseInvoice, groupTextItems } from '../invoice-parser.js';
+import { isSalesReport, parseSalesReport } from '../sales-report-parser.js';
+import { hideReport, showReport } from './invoice-report.js';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = '/vendor/pdfjs/pdf.worker.min.mjs';
 
@@ -48,8 +50,27 @@ async function ocr(image) {
   }
 }
 
+async function pageLines(doc, pageNo) {
+  const content = await (await doc.getPage(pageNo)).getTextContent();
+  return groupTextItems(content.items.map(i => ({ str: i.str, x: i.transform[4], y: i.transform[5] })));
+}
+
+// Laporan "Penjualan - Rincian" dibaca semua halamannya: satu faktur bisa menyambung ke halaman berikutnya.
+async function readReport(doc, firstLines) {
+  const lines = [...firstLines];
+  for (let n = 2; n <= doc.numPages; n++) {
+    setReading(`Membaca laporan, halaman ${n} dari ${doc.numPages}…`, n / doc.numPages);
+    lines.push(...await pageLines(doc, n));
+  }
+  return parseSalesReport(lines);
+}
+
+/** @returns {Promise<string[]|{report: object[]}>} baris faktur, atau daftar faktur bila PDF berupa laporan */
 async function readPdf(file) {
   const doc = await pdfjsLib.getDocument({ data: await file.arrayBuffer() }).promise;
+  const lines = await pageLines(doc, 1);
+  if (isSalesReport(lines)) return { report: await readReport(doc, lines) };
+
   const page = await doc.getPage(1);
   const viewport = page.getViewport({ scale: PREVIEW_SCALE });
   const canvas = $('preview-canvas');
@@ -58,11 +79,21 @@ async function readPdf(file) {
   await page.render({ canvas, viewport }).promise;
   canvas.hidden = false;
 
-  const content = await page.getTextContent();
-  const lines = groupTextItems(content.items.map(i => ({ str: i.str, x: i.transform[4], y: i.transform[5] })));
   if (lines.join('').length >= MIN_PDF_TEXT) return lines;
   sourceType = 'photo';
   return ocr(canvas);
+}
+
+function showSaved(message) {
+  const el = $('status');
+  el.className = 'msg msg-ok';
+  el.replaceChildren(`${message} `);
+  const link = document.createElement('a');
+  link.href = '/gudang';
+  link.textContent = 'Buka Gudang';
+  el.append(link);
+  el.hidden = false;
+  resetPage();
 }
 
 async function readImage(file) {
@@ -164,6 +195,7 @@ function resetPage() {
   $('reading').hidden = true;
   $('preview-img').hidden = true;
   $('preview-canvas').hidden = true;
+  hideReport();
 }
 
 async function handleFile(file) {
@@ -179,6 +211,11 @@ async function handleFile(file) {
   setReading('Membaca faktur…', 0.05);
   try {
     const lines = isPdf ? await readPdf(file) : await readImage(file);
+    if (lines.report) {
+      $('reading').hidden = true;
+      if (!lines.report.length) return showStatus('Laporan terbaca, tapi tidak ada faktur (No. Reference) di dalamnya.', 'bad');
+      return await showReport(file, lines.report, showSaved);
+    }
     fillForm(parseInvoice(lines));
     $('reading').hidden = true;
     $('confirm').hidden = false;
@@ -267,4 +304,5 @@ dropzone.addEventListener('drop', e => {
 });
 $('add-row').addEventListener('click', () => { addRow(); updateTotal(); });
 $('reset').addEventListener('click', () => { resetPage(); showStatus(''); });
+$('report-reset').addEventListener('click', () => { resetPage(); showStatus(''); });
 $('invoice-form').addEventListener('submit', save);

@@ -6,7 +6,7 @@
     <div class="page-head">
         <div>
             <h1>Faktur baru</h1>
-            <p class="page-sub">Unggah PDF dari Zahir (Microsoft Print to PDF) atau foto faktur. Hasil bacaan dicek dulu sebelum disimpan.</p>
+            <p class="page-sub">Unggah PDF dari Zahir (satu faktur, atau laporan Penjualan - Rincian berisi banyak faktur) atau foto faktur. Hasil bacaan dicek dulu sebelum disimpan.</p>
         </div>
     </div>
 
@@ -23,6 +23,34 @@
     </div>
 
     <p id="status" class="msg" hidden></p>
+
+    {{-- Laporan "Penjualan - Rincian": satu baris per No. Reference, disimpan sekaligus. --}}
+    <section id="report" class="card card-flush" hidden>
+        <div class="card-head">
+            <div>
+                <h2>Faktur dalam laporan</h2>
+                <p id="report-summary" class="muted" style="margin:2px 0 0"></p>
+            </div>
+            <div class="row" style="gap:8px">
+                <button id="report-reset" class="btn" type="button">Batal</button>
+                <button id="report-save" class="btn btn-primary" type="button" disabled>Simpan</button>
+            </div>
+        </div>
+        <div class="table-wrap">
+            <table class="grid report-table">
+                <thead>
+                    <tr>
+                        <th style="width:44px"><input id="report-all" type="checkbox" aria-label="Pilih semua faktur baru"></th>
+                        <th>No. reference</th>
+                        <th>Kepada</th>
+                        <th class="num">Barang</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="report-list"></tbody>
+            </table>
+        </div>
+    </section>
 
     <section id="confirm" class="split" hidden>
         <div class="card">
