@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Exceptions\ConfirmationRequiredException;
 use App\Exceptions\DomainRuleException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreInvoiceBatchRequest;
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Models\Invoice;
 use App\Services\InvoiceService;
@@ -15,6 +16,8 @@ use Illuminate\Http\Request;
 class InvoiceController extends Controller
 {
     private const LIST_LIMIT = 50;
+
+    private const EXISTING_LIMIT = 500;
 
     public function __construct(private readonly InvoiceService $invoices) {}
 
@@ -62,6 +65,20 @@ class InvoiceController extends Controller
         }
 
         return ApiResponse::ok($this->invoices->detail($invoice), 201);
+    }
+
+    /** Satu PDF laporan "Penjualan - Rincian" → satu sesi scan per faktur yang belum ada. */
+    public function storeMany(StoreInvoiceBatchRequest $request): JsonResponse
+    {
+        return ApiResponse::ok($this->invoices->saveMany($request->validated('invoices'), $request->file('file')), 201);
+    }
+
+    /** Nomor faktur mana yang sudah ada, untuk menandai "sudah ada" sebelum laporan disimpan. */
+    public function existing(Request $request): JsonResponse
+    {
+        $numbers = array_filter(explode(',', (string) $request->query('numbers', '')), fn ($n) => preg_match('/^\d{1,32}$/', $n));
+
+        return ApiResponse::ok($this->invoices->existingNumbers(array_slice(array_values($numbers), 0, self::EXISTING_LIMIT)));
     }
 
     public function show(Invoice $invoice): JsonResponse

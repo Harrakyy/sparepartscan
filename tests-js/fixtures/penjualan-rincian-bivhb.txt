@@ -1,0 +1,64 @@
+15:15 27 October, 2026
+PT MITRA GHANIM INDOSARANA BIVHB
+Penjualan - Rincian
+Tuesday, October 27, 2026 - Tuesday, October 27, 2026
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+SUBUR MOTOR CIBINONG BIVHb (CUST 227 )
+No. Reference : 00030918 Gudang : Head Quarter Posting Proyek :
+Sales Order: grb Catatan : Departemen : Head Quarter
+Penjualan, SUBUR MOTOR CIBINONG BIVHb
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+HB-SHB-B07 GRAND VITARA 06-17 FR/RR ABS 1.00 0.00 Pcs 624,000.00 20% 499,200.00 0%
+(43402-60M00)
+Salesman : SANUSI BIVHB Biaya Pengiriman : 0.00 Total : 499,200.00
+Diinput Oleh : Tabah Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 499,200.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+SAWANGAN JAYA MOTOR BIVHb (CUST 209 )
+No. Reference : 00030919 Gudang : Head Quarter Posting Proyek :
+Sales Order: grb Catatan : Departemen : Head Quarter
+Penjualan, SAWANGAN JAYA MOTOR BIVHb
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+I-TCSR-048 COIL SPRING INNOVA REBORN DIESEL 2.00 0.00 Pcs 744,000.00 20% 1,190,400.00 0%
+16-ON RR (48231-0K320)
+Salesman : SANUSI BIVHB Biaya Pengiriman : 0.00 Total : 1,190,400.00
+Diinput Oleh : Tabah Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,190,400.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+HERI JAYA MOTOR BIVHb (CUST 098 )
+No. Reference : 00030924 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, HERI JAYA MOTOR BIVHb
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+P-DDB-LC10 DISC BRAKE DAIHATSU SIGRA/ CALYA 2.00 0.00 PC 312,000.00 20% 499,200.00 0%
+16-ON FR
+Salesman : SASTRA 2 BIVHB Biaya Pengiriman : 0.00 Total : 499,200.00
+Diinput Oleh : Tabah Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 499,200.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+NEW MASSA MOTOR BIVHB (CUST 149 )
+No. Reference : 00030925 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, NEW MASSA MOTOR BIVHB
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+I-HSBF-003/G SHOCK ABS JAZZ/ NEW CITY 03-07 FR 1.00 0.00 PC 578,000.00 20% 462,400.00 0%
+RH(333410)
+I-HSBF-005/G SHOCK ABS JAZZ/ NEW CITY 03-07 FR 1.00 0.00 PC 578,000.00 20% 462,400.00 0%
+LH(333411)
+Salesman : ARYA BIVHB Biaya Pengiriman : 0.00 Total : 924,800.00
+Diinput Oleh : Tabah Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 924,800.00
+Halaman : 1
+15:15 27 October, 2026
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+RIA MOTOR PLERED ACCU (CUST 192 )
+No. Reference : 00030926 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, RIA MOTOR PLERED ACCU
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+TB-ACCU-55B24L/ ACCU SUPER MAINTENANCE FREE 1.00 0.00 PC 998,000.00 20% 798,400.00 0%
+NS60L 55B24L/ NX-100 S6L 45Ah 12v
+Salesman : ACCU ARYA Biaya Pengiriman : 0.00 Total : 798,400.00
+Diinput Oleh : Tabah Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 798,400.00
+Halaman : 2

@@ -55,11 +55,66 @@ class InvoiceService
             throw $e;
         }
 
-        if ($oldPath) {
+        // File laporan "Penjualan - Rincian" dipakai bersama banyak faktur: hapus hanya bila tak terpakai lagi.
+        if ($oldPath && ! Invoice::where('file_path', $oldPath)->exists()) {
             Storage::disk('local')->delete($oldPath);
         }
 
         return $invoice;
+    }
+
+    /**
+     * Simpan banyak faktur dari satu PDF laporan; semua memakai file yang sama. Nomor yang sudah
+     * ada di app dilewati (tidak pernah diganti), sehingga laporan yang sama aman diupload ulang.
+     *
+     * @param  array<int, array{number: string, customer_name: string, invoice_date?: ?string, items: array<int, array{code: string, name: string, qty: int}>}>  $invoices
+     * @return array{created: array<int, array{id: int, number: string}>, skipped: array<int, string>}
+     */
+    public function saveMany(array $invoices, UploadedFile $file): array
+    {
+        $path = $file->store('invoices', 'local');
+
+        try {
+            $result = DB::transaction(function () use ($invoices, $path) {
+                $existing = Invoice::whereIn('number', array_column($invoices, 'number'))->lockForUpdate()->pluck('number')->all();
+                $created = [];
+                $skipped = [];
+                foreach ($invoices as $data) {
+                    if (in_array($data['number'], $existing, true) || isset($created[$data['number']])) {
+                        $skipped[] = $data['number'];
+
+                        continue;
+                    }
+                    $invoice = Invoice::create([
+                        'number' => $data['number'],
+                        'customer_name' => $data['customer_name'],
+                        'invoice_date' => $data['invoice_date'] ?? null,
+                        'source_type' => 'pdf',
+                        'file_path' => $path,
+                        'status' => 'waiting',
+                    ]);
+                    $invoice->items()->createMany($this->mergeItems($data['items']));
+                    $created[$data['number']] = ['id' => $invoice->id, 'number' => $invoice->number];
+                }
+
+                return ['created' => array_values($created), 'skipped' => $skipped];
+            });
+        } catch (Throwable $e) {
+            Storage::disk('local')->delete($path);
+            throw $e;
+        }
+
+        if (! $result['created']) {
+            Storage::disk('local')->delete($path);
+        }
+
+        return $result;
+    }
+
+    /** @return array<int, string> nomor dari `$numbers` yang sudah ada di app */
+    public function existingNumbers(array $numbers): array
+    {
+        return Invoice::whereIn('number', $numbers)->orderBy('number')->pluck('number')->all();
     }
 
     /**

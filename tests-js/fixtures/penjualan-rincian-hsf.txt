@@ -1,0 +1,1567 @@
+15:41 27 October, 2026
+PT MITRA GHANIM IND HSF
+Penjualan - Rincian
+Tuesday, 27 October 2026 - Tuesday, 27 October 2026
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+YSR AUTOPART SJM CISALAK HSF (RAHMATUL)
+(CUST-116 )
+No. Reference : 00066660 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, YSR AUTOPART SJM CISALAK HSF (RAHMA
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-DBA-B20 BUSHING ARM GRANMAX/ LUXIO (BIG) 2.00 0.00 Pcs 91,000.00 20% 131,171.17 11%
+LOWER
+H-DBJ-001 BALL JOINT (LOW) 2.00 0.00 Pcs 188,000.00 20% 270,990.99 11%
+GRANMAX/RUSH/TERIOS 07-16/LUXIO
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 446,400.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 446,400.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+ASEAN MOTOR HSF (CUST 018 )
+No. Reference : 00066661 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, ASEAN MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-NSM-008 STRUT MOUNT MARCH (54320-1HJ0A) 2.00 0.00 Pcs 203,000.00 17.5 301,756.76 11%
+H-SRT-001 RACK STEERING APV P/STEERING 1.00 0.00 Pcs 2,519,000.00 17.5 % 1,872,229.73 11%
+(48500-61J01-000) %
+H-SRT-002 RACK STEERING FUTURA/ T 120 SS 1.00 0.00 Pcs 517,000.00 17.5 384,256.76 11%
+MANUAL %
+H-TRT-003 RACK STEER AVANZA 1.3/1.5 P/STEERING 2.00 0.00 Pcs 2,218,000.00 17.5 3,297,027.03 11%
+(44200-BZ060) %
+Salesman : ADMIN Biaya Pengiriman : 0.00 Total : 6,499,350.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 6,499,350.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+SHAKA LIM AUTO PART HSF (CUST 179 )
+No. Reference : 00066662 Gudang : Head Quarter Posting Proyek :
+Sales Order: CASH Catatan : Departemen : Head Quarter
+Penjualan, SHAKA LIM AUTO PART HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+S-HEA-T01 HOLDER ALTERNATOR INNOVA/ 2.00 0.00 Pcs 58,000.00 20% 83,603.60 11%
+GRANMAX/ ALPHARD/ YARIS/ AVANZA
+1.5/ APV
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 92,800.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 92,800.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+SUMBER REJEKI MOTOR_KM 27 CIBUBUR HSF
+(CUST 198 )
+No. Reference : 00066663 Gudang : Head Quarter Posting Proyek :
+Sales Order: CASH Catatan : Departemen : Head Quarter
+Penjualan, SUMBER REJEKI MOTOR_KM 27 CIBUBUR H
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+Halaman : 1
+15:41 27 October, 2026
+S-TKS-002 CLOCK SPRING GRAND NEW AVANZA 1.00 0.00 Pcs 198,000.00 17% 148,054.05 11%
+TYPE G ( 2017 - on ) (84306-BZ200)
+S-TKS-003 CLOCK SPRING GRAND NEW AVANZA 1.00 0.00 Pcs 251,000.00 17% 187,684.68 11%
+TYPE G ( 2015 - 2016 ) / GRAND NEW
+AVANZA TYPE VELOZ (2015 - ON)
+(84306-BZ160)
+S-TKS-007 CLOCK SPRING INNOVA TYPE V / YARIS 2.00 0.00 Pcs 280,000.00 17% 418,738.74 11%
+(2004 - 2015) (84306-OK051)
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 837,470.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 837,470.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+AUTOBATT HSF (CUST-59 )
+No. Reference : 00066664 Gudang : Head Quarter Posting Proyek :
+Sales Order: GRAB Catatan : Departemen : Head Quarter
+Penjualan, AUTOBATT HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-STE-003 TIEROD 2.00 0.00 Pcs 185,000.00 20% 266,666.67 11%
+BALENO/AERIO/AMENITY/APV/KARIMUN
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 296,000.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 296,000.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+TERUS JAYA MOTOR KM.31_CISALAK HSF (CUST
+211 )
+No. Reference : 00066665 Gudang : Head Quarter Posting Proyek :
+Sales Order: LALAMOVE Catatan : Departemen : Head Quarter
+Penjualan, TERUS JAYA MOTOR KM.31_CISALAK HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-BJS-025 RUBBER STABILIZER SWIFT 05-12 FR 2.00 0.00 Pcs 23,000.00 20% 33,153.15 11%
+H-SBJ-003 BALL JONT SUZUKI SWIFT 04-12 FR 2.00 0.00 Pcs 123,000.00 20% 177,297.30 11%
+H-STE-003 TIEROD 2.00 0.00 Pcs 185,000.00 20% 266,666.67 11%
+BALENO/AERIO/AMENITY/APV/KARIMUN
+H-TTE-019 TIE ROD GREAT COROLLA / KIJANG 2.00 0.00 Pcs 191,000.00 20% 275,315.32 11%
+KAPSUL(45046-19175)
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 835,200.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 835,200.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+AWE MOTOR_sentul HSF (CUST 023 )
+No. Reference : 00066666 Gudang : Head Quarter Posting Proyek :
+Sales Order: GRAB Catatan : Departemen : Head Quarter
+Penjualan, AWE MOTOR_sentul HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-HBJ-012 BALL JOINT HONDA BRV 6.00 0.00 Pcs 128,000.00 15% 588,108.11 11%
+14-ON/BRIO/MOBILIO
+H-TBJ-009 BALL JOINT KIJANG INNOVA/FORTUNER 4.00 0.00 Pcs 177,000.00 15% 542,162.16 11%
+(UP)
+S-EFP-FA-052 FUEL PUMP APV 04-ON/ MEGA CARRY 2.00 0.00 Pcs 744,000.00 15% 1,139,459.46 11%
+11-18 (ASSY) (15100-61J05)
+S-SCS-002 SAKLAR SIGN FUTURA 91-18/ T 120 SS 1.00 0.00 Pcs 280,000.00 15% 214,414.41 11%
+91-18/ KATANA
+S-TIC-002 COIL INNOVA/FORTUNER (90919-T2001) 3.00 0.00 Pcs 389,000.00 15% 893,648.65 11%
+Halaman : 2
+15:41 27 October, 2026
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 3,749,350.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 3,749,350.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+JURAGAN SUSPENSI HSF (CUST-41 )
+No. Reference : 00066667 Gudang : Head Quarter Posting Proyek :
+Sales Order: GRAB Catatan : Departemen : Head Quarter
+Penjualan, JURAGAN SUSPENSI HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+S-TDA-008 DISTRIBUTOR ASSY TYT. KIJANG ALL CDI 1.00 0.00 Pcs 726,000.00 15% 555,945.95 11%
+CARBU
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 617,100.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 617,100.00
+Saldo : 0.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+TERUS JAYA MOTOR KM.31_CISALAK HSF (CUST
+211 )
+No. Reference : 00066668 Gudang : Head Quarter Posting Proyek :
+Sales Order: LALAMOVE Catatan : Departemen : Head Quarter
+Penjualan, TERUS JAYA MOTOR KM.31_CISALAK HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+P-SLT-B10 RACK END SWIFT 04-12 / SPLASH 08-16 1.00 0.00 Pcs 174,000.00 20% 125,405.41 11%
+(48830-63J00)
+Salesman : SANUSI PROTECT Biaya Pengiriman : 0.00 Total : 139,200.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 139,200.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+AKBAR JAYA MOTOR HSF (CUST 005 )
+No. Reference : 00066669 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, AKBAR JAYA MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-TBJ-018 BALL JOINT AVANZA 04-11/ XENIA 04-11 2.00 0.00 Pcs 140,000.00 20% 201,801.80 11%
+(43330-BZ010)
+Salesman : SASTRA PROTECT Biaya Pengiriman : 0.00 Total : 224,000.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 224,000.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+AUTOPART CIBINONG (RIMBAWAN) HSF
+(CUST-106 )
+No. Reference : 00066670 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, AUTOPART CIBINONG (RIMBAWAN) HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-NEM-A03 ENGINE MOUNTING SERENA C24 99-12 1.00 0.00 Pcs 499,000.00 20% 359,639.64 11%
+LH (11220-
+F-NEM-C05 ENGINE MOUNTING XTRAIL T30 03-08 1.00 0.00 Pcs 250,000.00 20% 180,180.18 11%
+MT/AT FR
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 599,200.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 599,200.00
+Halaman : 3
+15:41 27 October, 2026
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+BALQIS SUN MOTOR HSF (CUST 025 )
+No. Reference : 00066671 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, BALQIS SUN MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-TBJ-018 BALL JOINT AVANZA 04-11/ XENIA 04-11 8.00 0.00 Pcs 140,000.00 20% 807,207.21 11%
+(43330-BZ010)
+Salesman : SASTRA PROTECT Biaya Pengiriman : 0.00 Total : 896,000.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 896,000.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+AUTOBATT HSF (CUST-59 )
+No. Reference : 00066672 Gudang : Head Quarter Posting Proyek :
+Sales Order: GRAB Catatan : Departemen : Head Quarter
+Penjualan, AUTOBATT HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-TJS-019 JOINT STABIL AYLA/AGYA (48820-BZ040) 2.00 0.00 Pcs 161,000.00 20% 232,072.07 11%
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 257,600.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 257,600.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+FM MOTOR HSF (CUST 077 )
+No. Reference : 00066673 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, FM MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-TBJ-018 BALL JOINT AVANZA 04-11/ XENIA 04-11 4.00 0.00 Pcs 140,000.00 20% 403,603.60 11%
+(43330-BZ010)
+Salesman : SASTRA PROTECT Biaya Pengiriman : 0.00 Total : 448,000.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 448,000.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+MAJU BERSAMA MOTOR_bojongsari HSF (CUST
+111 )
+No. Reference : 00066674 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, MAJU BERSAMA MOTOR_bojongsari HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-BCJ-100 BOOT CV JOINT MOBILIO 14-ON AT RH 1.00 0.00 Pcs 71,000.00 20% 51,171.17 11%
+(IN)
+F-DEM-B11 ENGINE MOUNTING RR GRAND AVANZA 1.00 0.00 Pcs 203,000.00 20% 146,306.31 11%
+15-ON/ GRAND XENIA (12371-BZ170)
+H-TRT-022 RACK STEERING TOYOTA NEW VIOS/ 1.00 0.00 Pcs 1,852,000.00 20% 1,334,774.77 11%
+YARIS
+S-IFC-002 FAN CLUTCH NKR 71 8-97123-948 1.00 0.00 Pcs 613,000.00 20% 441,801.80 11%
+S-ISA-005 SEDIMENTER ELF EURO DOUBLE 1.00 0.00 Pcs 269,000.00 20% 193,873.87 11%
+(8-98319911)
+S-MRF-005 RELAY FLASHER PS 135 12V (MB 302374_ 10.00 0.00 Pcs 53,000.00 20% 381,981.98 11%
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 2,830,400.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 2,830,400.00
+Halaman : 4
+15:41 27 October, 2026
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+NEW MAJU BERSAMA MOTOR HSF (CUST 127 )
+No. Reference : 00066675 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, NEW MAJU BERSAMA MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-HTE-009/010 TIE ROD ODYSSEY "00-03 RH/LH 1.00 0.00 Pcs 479,000.00 20% 345,225.23 11%
+(53540/60-SIA-013)
+H-NRT-001 RACK STEERING NISSAN LIVINA EPS ( 1.00 0.00 Pcs 2,047,000.00 20% 1,475,315.32 11%
+48001-CJ41A )
+H-TRT-022 RACK STEERING TOYOTA NEW VIOS/ 1.00 0.00 Pcs 1,852,000.00 20% 1,334,774.77 11%
+YARIS
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 3,502,400.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 3,502,400.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+TATA MOTOR HSF (CUST 208 )
+No. Reference : 00066676 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, TATA MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-BJS-025 RUBBER STABILIZER SWIFT 05-12 FR 10.00 0.00 Pcs 23,000.00 20% 165,765.77 11%
+H-STE-001/002 TIE ROD ST100 (CARRY)/ FUTURA 91-18 10.00 0.00 Pcs 135,000.00 20% 972,972.97 11%
+RH/LH
+S-DSOX-005 SENSOR OXYGEN DAIHATSU XENIA/ 3.00 0.00 Pcs 262,000.00 20% 566,486.49 11%
+AVANZA 1.3 07-14/RUSH/ TERIOS 06-17
+(89465-BZ070)
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 1,892,800.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,892,800.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+NEW MASSA MOTOR HSF (CUST 128 )
+No. Reference : 00066677 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, NEW MASSA MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+S-EFP-EP-020 FUEL PUMP COROLLA TWIN CAM 88-92 1.00 0.00 Pcs 262,000.00 20% 188,828.83 11%
+S-EFP-EP-022 FUEL PUMP STARLET EP80 1.00 0.00 Pcs 238,000.00 20% 171,531.53 11%
+90-98/COROLLA SE
+S-EFP-EP-027 FUEL PUMP KIJANG 4K 81-86 / 7K 97-04 2.00 0.00 Pcs 208,000.00 20% 299,819.82 11%
+Salesman : SAKBANA HSF Biaya Pengiriman : 0.00 Total : 732,800.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 732,800.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+ANUGERAH JAYA BERSAMA HSF (CUST 016 )
+No. Reference : 00066678 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, ANUGERAH JAYA BERSAMA HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-DBJ-001 BALL JOINT (LOW) 2.00 0.00 Pcs 188,000.00 20% 270,990.99 11%
+GRANMAX/RUSH/TERIOS 07-16/LUXIO
+H-DBJ-008 BALL JOINT AGYA/AYLA 12-ON/ CALYA/ 2.00 0.00 Pcs 116,000.00 20% 167,207.21 11%
+SIGRA 16-ON
+H-SLA-018 LOWER ARM SUZUKI APV,FUTURA R/L 2.00 0.00 Pcs 208,000.00 20% 299,819.82 11%
+S-SCC-003 CABLE CORD FUTURA (33700-77500) 1.00 0.00 Pcs 187,000.00 20% 134,774.77 11%
+S-SCC-005 CABLE CORD APV/FUTURA INJ./BALENO 1.00 0.00 Pcs 206,000.00 20% 148,468.47 11%
+1.5/ESCUDO 1.6/SX-4
+Halaman : 5
+15:41 27 October, 2026
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 1,133,600.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,133,600.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+ANUGERAH JAYA BERSAMA HSF (CUST 016 )
+No. Reference : 00066679 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, ANUGERAH JAYA BERSAMA HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+P-NIC-LC1 LIVINA 1.5/ MARCH/ JUKE/ DATSUN GO 8.00 0.00 Pcs 262,000.00 20% 1,510,630.63 11%
+PANCA
+P-TIC-LC2 INNOVA 2.0/2.7 / FORTUNER BENSIN 6.00 0.00 Pcs 262,000.00 20% 1,132,972.97 11%
+Salesman : SASTRA PROTECT Biaya Pengiriman : 0.00 Total : 2,934,400.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 2,934,400.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+RIA MOTOR_SUKABUMI HSF (CUST 161 )
+No. Reference : 00066680 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, RIA MOTOR_SUKABUMI HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-DEM-A02 ENGINE MOUNTING RH GRANMAX/ 2.00 0.00 Pcs 139,000.00 18% 205,369.37 11%
+LUXIO 09-ON
+H-TCB-N11 CENTER BEARING ASSY SET 2.00 0.00 Pcs 324,000.00 18% 478,702.70 11%
+AVANZA/XENIA/TERIOS (37230-BZ010)
+H-TTE-010 TIE ROD RUSH/TERIOS R/L (45046-BZ060) 1.00 0.00 Pcs 241,000.00 18% 178,036.04 11%
+H-TTE-011 TIE ROD KIJANG INNOVA (OUT) 1.00 0.00 Pcs 230,000.00 18% 169,909.91 11%
+(45046-09260)
+S-SDS-032 DINAMO STARTER FUTURA/FUTURA 1.00 0.00 Pcs 782,000.00 18% 577,693.69 11%
+INJECTION/APV
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 1,786,780.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,786,780.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+DWI PUTRA CIANJUR HSF (CUST 069 )
+No. Reference : 00066681 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, DWI PUTRA CIANJUR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-SEM-A02 ENGINE MOUNTING APV/ FUTURA/ 2.00 0.00 Pcs 106,000.00 15% 162,342.34 11%
+T120SS RH/LH
+F-SEM-A03 ENGINE MOUNTING APV OLD MT TRANS 1.00 0.00 Pcs 216,000.00 15% 165,405.41 11%
+RR
+F-SSM-011 STRUT MOUNT FUTURA/CARRY 1.5/APV 10.00 0.00 Pcs 45,000.00 15% 344,594.59 11%
+(41721-85010L)
+H-DJS-001 JOINT STABIL AVANZA/XENIA 4.00 0.00 Pcs 132,000.00 15% 404,324.32 11%
+H-DLT-009 RACK END NEW XENIA/VELOZ 2.00 0.00 Pcs 288,000.00 15% 441,081.08 11%
+(45503-BZ010)
+H-DLT-013 RACK END XENIA/ AVANZA 22-ON 1.00 0.00 Pcs 293,000.00 15% 224,369.37 11%
+45503-BZ260
+H-TLT-003 RACK END AVANZA 1.3,1.5/XENIA 2.00 0.00 Pcs 263,000.00 15% 402,792.79 11%
+1.3/SIRION
+S-BXS-S02 BENDIX STARTER CARRY EXTRA (9T) 2.00 0.00 Pcs 75,000.00 15% 114,864.86 11%
+(31320-51A10)
+S-EFP-EP-T03 FUEL PUMP 2.00 0.00 Pcs 251,000.00 15% 384,414.41 11%
+BALENO/AVANZA/RUSH/GRANMAX/ESC
+UDO 2.0/XTRAIL(BIG SOKET)
+Halaman : 6
+15:41 27 October, 2026
+S-NIC-002 IGNITION COIL LIVINA 1.8/XTRAIL 2.0 1.00 0.00 Pcs 434,000.00 15% 332,342.34 11%
+(22448-ED800)
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 3,303,950.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 3,303,950.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+DWI PUTRA CIANJUR HSF (CUST 069 )
+No. Reference : 00066682 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, DWI PUTRA CIANJUR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-SSM-005 STRUT MOUNT CARRY 1.0 CC 6.00 0.00 Pcs 28,000.00 15% 128,648.65 11%
+(41721-79420)
+H-MTE-009/010 TIE ROD PS 110 CANTER PS 125 2.00 0.00 Pcs 244,000.00 15% 373,693.69 11%
+H-MTE-030/031 TIE ROD PS 136 / CANTER HDX (MK 1.00 0.00 Pcs 260,000.00 15% 199,099.10 11%
+384673/72)
+S-NIC-001 IGNITION COIL LIVINA 1.5/ MARCH 2.00 0.00 Pcs 434,000.00 15% 664,684.68 11%
+(22448-JA00C)
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 1,516,400.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,516,400.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+DWI PUTRA CIANJUR HSF (CUST 069 )
+No. Reference : 00066683 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, DWI PUTRA CIANJUR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+P-MBR-LC-FR1 BAUT RODA PS 100/110 ENGKEL FR/RR 10.00 0.00 Pcs 19,000.00 20% 136,936.94 11%
+Salesman : SASTRA PROTECT LH Biaya Pengiriman : 0.00 Total : 152,000.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 152,000.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+CENGHO MOTOR HSF (CUST-8 )
+No. Reference : 00066684 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, CENGHO MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+S-MDA-001 DISTRIBUTOR ASSY MITS. T120 SS CDI 1.00 0.00 Pcs 1,006,000.00 15% 770,360.36 11%
+S-SO-001 SWITCH OIL 3.00 0.00 Pcs 49,000.00 15% 112,567.57 11%
+S-SO-007 SUZUKI/TOYOTA/MITSUBISHI SWITCH OIL ISUZU PANTHER 1.00 0.00 Pcs 62,000.00 15% 47,477.48 11%
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 1,032,750.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,032,750.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+ANAK BANGSA PAGELARAN HSF (CUST-12 )
+No. Reference : 00066685 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, ANAK BANGSA PAGELARAN HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-BRT-011 BOOT RACK STEER GRANMAX 07-ON 6.00 0.00 Pcs 47,000.00 20% 203,243.24 11%
+(P/STEERING)
+S-DWL-002 WIPER LINK GRANMAX 07-ON 1.00 0.00 Pcs 303,000.00 20% 218,378.38 11%
+S-DWL-008 WIPER LINK AYLA/ AGYA 13-ON 1.00 0.00 Pcs 262,000.00 20% 188,828.83 11%
+S-TWL-003 WIPER LINK INNOVA 05-15 1.00 0.00 Pcs 248,000.00 20% 178,738.74 11%
+Halaman : 7
+15:41 27 October, 2026
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 876,000.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 876,000.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+NEW CHANDRA MOTOR HSF (CUST 126 )
+No. Reference : 00066686 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, NEW CHANDRA MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-HBA-B03 BUSHING ARM JAZZ IDSI/VTEC 03-07 4.00 0.00 Pcs 94,000.00 20% 270,990.99 11%
+FRONT (BIG) LOWER
+H-TLA-073 LOWER ARM VELOZ 22-ON/ YARIS CROSS 1.00 0.00 Pcs 706,000.00 20% 508,828.83 11%
+23-ON FR RH (48068-BZ430)
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 865,600.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 865,600.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+AKBAR JAYA MOTOR HSF (CUST 005 )
+No. Reference : 00066687 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, AKBAR JAYA MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-SSSR-060 STOPPER SHOCK ABS KARIMUN WAGON 4.00 0.00 Pcs 63,000.00 20% 181,621.62 11%
+R 13-21 RR RH/LH 42251M67L00
+H-DCT-001 COVER TIMING F61/F500 4.00 0.00 Pcs 263,000.00 20% 758,198.20 11%
+H-DCT-005 COVER TIMING S89-LOW/F61 2.00 0.00 Pcs 115,000.00 20% 165,765.77 11%
+H-MTE-001/002 TIE ROD T120 71-82-L300 RH/LH 1.00 0.00 Pcs 181,000.00 20% 130,450.45 11%
+S-BXS-T05 BENDIX STARTER KIJANG 1.00 0.00 Pcs 71,000.00 20% 51,171.17 11%
+7K/TWINCAM/YARIS/LIMO
+VIOS/GREAT/ALL NEW
+S-CDI-008 CDI DELCO ONLY T120SS 12V 1.00 0.00 Pcs 208,000.00 20% 149,909.91 11%
+(MB-618293)
+S-DDA-002 DISTRIBUTOR ASSY DHT. ZEBRA 1.00 0.00 Pcs 716,000.00 20% 516,036.04 11%
+S89/ESPAS S91/CLASSY CDI
+(19100-87120)
+S-MCS-005 SAKLAR SIGN MITS.CANTER/JUNGKIT (MB 1.00 0.00 Pcs 349,000.00 20% 251,531.53 11%
+302736)
+S-TDA-008 DISTRIBUTOR ASSY TYT. KIJANG ALL CDI 3.00 0.00 Pcs 726,000.00 20% 1,569,729.73 11%
+CARBU
+S-UIC-B02 OIL COIL RESISTOR DALAM KIJANG 1.00 0.00 Pcs 306,000.00 20% 220,540.54 11%
+3K/4K/5K/2F/HIACE BENSIN/CORONA
+74-80/KE 20/30/70/TERRANO/ST
+100/VITARA/JIMMY
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 4,434,400.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 4,434,400.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+AKBAR JAYA MOTOR HSF (CUST 005 )
+No. Reference : 00066688 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, AKBAR JAYA MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-DEM-C09 ENGINE MOUNTING TRANS RR AVANZA 1.00 0.00 Pcs 156,000.00 20% 112,432.43 11%
+04-11/XENIA
+F-TEM-C27 ENGINE MOUNTING YARIS/ NEW LIMO 1.00 0.00 Pcs 431,000.00 20% 310,630.63 11%
+MT 05-08 RH(12305-21330)
+H-MTE-015 TIE ROD LANCER DANGAN 91 (OUT) 1.00 0.00 Pcs 200,000.00 20% 144,144.14 11%
+(MB-598023)
+Halaman : 8
+15:41 27 October, 2026
+H-SFJ-003 FLANGE JOINT SUZUKI FUTURA 2.00 0.00 Pcs 107,000.00 20% 154,234.23 11%
+CARBURATOR
+S-DIC-011 IGNITION COIL GRAND NEW AVANZA 1.00 0.00 Pcs 243,000.00 20% 175,135.14 11%
+15-ON / GREAT NEW XENIA 15-ON / ALL
+NEW RUSH 17-ON / ALL NEW TERIOS
+17-ON
+S-EFP-EP-T03 FUEL PUMP 1.00 0.00 Pcs 251,000.00 20% 180,900.90 11%
+BALENO/AVANZA/RUSH/GRANMAX/ESC
+UDO 2.0/XTRAIL(BIG SOKET)
+S-EFP-EP-T18 FUEL PUMP FUTURA MODIFIKASI 5011M 2.00 0.00 Pcs 247,000.00 20% 356,036.04 11%
+(BIG)
+S-HWM-007 MOTOR WASHER ODYSSEY 10-ON/ 1.00 0.00 Pcs 84,000.00 20% 60,540.54 11%
+FREED 08-ON/ HRV 14-21/MOBILIO
+14-ON/ BRV 16-21/ JAZZ RS 08-14 FR
+S-TMF-005 MOTOR FAN VELOZ/ALL NEW 1.00 0.00 Pcs 329,000.00 20% 237,117.12 11%
+XENIA/TERIOS/RUSH/LUXIO
+(16800-02410)
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 1,921,600.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,921,600.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+BALI MOTOR HSF (CUST 024 )
+No. Reference : 00066689 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, BALI MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-SLA-018 LOWER ARM SUZUKI APV,FUTURA R/L 2.00 0.00 Pcs 208,000.00 20% 299,819.82 11%
+H-TJS-019 JOINT STABIL AYLA/AGYA (48820-BZ040) 2.00 0.00 Pcs 161,000.00 20% 232,072.07 11%
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 590,400.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 590,400.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+BAPAK WALGITO (T) HSF (CUST-44 )
+No. Reference : 00066690 Gudang : Head Quarter Posting Proyek :
+Sales Order: GRAB Catatan : Departemen : Head Quarter
+Penjualan, BAPAK WALGITO (T) HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-NSM-008 STRUT MOUNT MARCH (54320-1HJ0A) 3.00 0.00 Pcs 203,000.00 20% 438,918.92 11%
+Salesman : ADMIN Biaya Pengiriman : 0.00 Total : 487,200.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 487,200.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+BAPAK WALGITO (T) HSF (CUST-44 )
+No. Reference : 00066691 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, BAPAK WALGITO (T) HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-TUA-010 UPPER ARM HIACE COMMUTER RH 1.00 0.00 Pcs 1,342,000.00 20% 967,207.21 11%
+(48066-29215) TLA-051
+S-DSCK-005 SENSOR CRANKSHAFT GRAND AVANZA/ 1.00 0.00 Pcs 253,000.00 20% 182,342.34 11%
+GREAT XENIA 15-22
+Salesman : ADMIN Biaya Pengiriman : 0.00 Total : 1,276,000.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,276,000.00
+Halaman : 9
+15:41 27 October, 2026
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+BAPAK WALGITO (T) HSF (CUST-44 )
+No. Reference : 00066692 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, BAPAK WALGITO (T) HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+P-NLA-LC1 LOWER ARM ASSY GRAND LIVINA / 2.00 0.00 Pcs 351,000.00 20% 505,945.95 11%
+EVALIA RH
+P-NLA-LC19 LOWER ARM DATSUN CROSS 18-20/ 1.00 0.00 Pcs 395,000.00 20% 284,684.68 11%
+DATSUN GO 14 20/ MARCH 10-20 FR RH
+(54500-4LCMA)
+P-NLA-LC20 LOWER ARM DATSUN CROSS 18-20/ 1.00 0.00 Pcs 395,000.00 20% 284,684.68 11%
+DATSUN GO 14 20/ MARCH 10-20 FR LH
+(54501-4LCMA)
+Salesman : ADMIN PROTECT Biaya Pengiriman : 0.00 Total : 1,193,600.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,193,600.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+BAPAK WALGITO (A) HSF (CUST-45 )
+No. Reference : 00066693 Gudang : Head Quarter Posting Proyek :
+Sales Order: GRAB Catatan : Departemen : Head Quarter
+Penjualan, BAPAK WALGITO (A) HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-WLA-001 LOWER ARM WULING CONFERO S RH 1.00 0.00 Pcs 660,000.00 20% 475,675.68 11%
+H-WLA-002 LOWER ARM WULING CONFERO S LH 1.00 0.00 Pcs 660,000.00 20% 475,675.68 11%
+Salesman : ADMIN Biaya Pengiriman : 0.00 Total : 1,056,000.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,056,000.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+ANEKA MOTOR SALABENDA HSF (CUST 010 )
+No. Reference : 00066694 Gudang : Head Quarter Posting Proyek :
+Sales Order: diambil Catatan : Departemen : Head Quarter
+Penjualan, ANEKA MOTOR SALABENDA HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-DSM-005 STRUT MOUNT XENIA 1.3/ TARUNA/ 1.00 0.00 Pcs 211,000.00 15% 161,576.58 11%
+TERIOS/RUSH (48609-BZ011-000)
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 179,350.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 179,350.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+AMANAH MOTOR HSF (CUST 007 )
+No. Reference : 00066695 Gudang : Head Quarter Posting Proyek :
+Sales Order: GRAB Catatan : Departemen : Head Quarter
+Penjualan, AMANAH MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-SEM-A03 ENGINE MOUNTING APV OLD MT TRANS 2.00 0.00 Pcs 216,000.00 15% 330,810.81 11%
+RR
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 367,200.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 367,200.00
+Halaman : 10
+15:41 27 October, 2026
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+SUMBER MOTOR_BOGOR (GN PUTRI) HSF (CUST
+196 )
+No. Reference : 00066696 Gudang : Head Quarter Posting Proyek :
+Sales Order: LALAMOVE Catatan : Departemen : Head Quarter
+Penjualan, SUMBER MOTOR_BOGOR (GN PUTRI) HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-BCJ-013 BOOT CV JOINT X-TRAIL (03-08) IN 2.00 0.00 Pcs 67,000.00 20% 96,576.58 11%
+F-BCJ-043 BOOT CV JOINT CX-5 2.0 09-ON AT RH 2.00 0.00 Pcs 68,000.00 20% 98,018.02 11%
+(IN)/ XTRAIL T32 13-ON AT LH (IN)/
+XTRAIL T31 2.5 08-13 AT RH (IN)/ SERENA
+C27 17-ON RH/LH (IN)
+F-BJS-033 RUBBER STABILIZER XTRAIL T31 08-13 FR 4.00 0.00 Pcs 42,000.00 20% 121,081.08 11%
+F-BRT-033 BOOT RACK STEER MAZDA 2 SKYACTIVE 4.00 0.00 Pcs 48,000.00 20% 138,378.38 11%
+14-ON(EPS)/ XPANDER 17-ON/ LIVINA
+19-ON/ OUTLANDER 10-ON/ XTRAIL T31
+(EPS)09-12/ XTRAIL T32 13-ON/ SERENA
+C26 13-16/ RUSH/ TERIOS (EPS)
+07-16/NEW VIOS 07-13/ YARIS 05-13
+F-NEM-A10 ENGINE MOUNTING SERENA C26 10-16 / 1.00 0.00 Pcs 481,000.00 20% 346,666.67 11%
+X-TRAIL T31 RR
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 888,800.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 888,800.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+SK MOTOR HSF (CUST 185 )
+No. Reference : 00066697 Gudang : Head Quarter Posting Proyek :
+Sales Order: GRAB Catatan : Departemen : Head Quarter
+Penjualan, SK MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+S-EFP-FA-025 FUEL PUMP ASSY TOYOTA TERIOS/ RUSH 1.00 0.00 Pcs 1,056,000.00 17.5 784,864.86 11%
+17-ON %
+Salesman : SAKBANA HSF Biaya Pengiriman : 0.00 Total : 871,200.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 871,200.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+BAPAK WALGITO (A) HSF (CUST-45 )
+No. Reference : 00066698 Gudang : Head Quarter Posting Proyek :
+Sales Order: GRAB Catatan : Departemen : Head Quarter
+Penjualan, BAPAK WALGITO (A) HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-WLA-003 LOWER ARM WULING ALMAZ 18-ON FR 1.00 0.00 Pcs 700,000.00 20% 504,504.50 11%
+RH
+H-WLA-005 LOWER ARM WULING ALMAZ 18-ON FR 1.00 0.00 Pcs 700,000.01 20% 504,504.51 11%
+LH
+Salesman : ADMIN Biaya Pengiriman : 0.00 Total : 1,120,000.01
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,120,000.01
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+BINTANG MOTOR_PURWAKARTA HSF (CUST
+044 )
+No. Reference : 00066699 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, BINTANG MOTOR_PURWAKARTA HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+S-SDA-001 DISTIBUTOR ASSY SZK CARRY CDI 3.00 0.00 Pcs 650,000.00 20% 1,405,405.41 11%
+(33100-77320C)
+Halaman : 11
+15:41 27 October, 2026
+Salesman : SAKBANA HSF Biaya Pengiriman : 0.00 Total : 1,560,000.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,560,000.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+MAKMUR JAYA MOTOR CILAMAYA CIKAMPEK
+HSF (CUST 114 )
+No. Reference : 00066700 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, MAKMUR JAYA MOTOR CILAMAYA CIKAMPEK
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-TBA-B38 BUSHING ARM CALYA/ SIGRA (BIG) 4.00 0.00 Pcs 67,000.00 20% 193,153.15 11%
+LOWER
+Salesman : SAKBANA HSF Biaya Pengiriman : 0.00 Total : 214,400.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 214,400.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+PADASUKA MOTOR_karawang HSF (CUST 137 )
+No. Reference : 00066701 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, PADASUKA MOTOR_karawang HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-TRT-001 RACK STEERING KIJANG 7K/DIESEL 1.00 0.00 Pcs 2,519,000.00 20% 1,815,495.50 11%
+P/STEERING (44250-0B020)
+Salesman : SAKBANA HSF Biaya Pengiriman : 0.00 Total : 2,015,200.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 2,015,200.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+PADASUKA MOTOR JONGGOL HSF (CUST 135 )
+No. Reference : 00066702 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, PADASUKA MOTOR JONGGOL HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+S-MAL-001 ALTERNATOR PS100/PS120 (G) TYPE 2.00 0.00 Pcs 1,476,000.00 17% 2,207,351.35 11%
+83-ON (24V-35A-1V GENUINE TYPE)
+Salesman : SAKBANA HSF Biaya Pengiriman : 0.00 Total : 2,450,160.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 2,450,160.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+SEMARANG JAYA MOTOR HSF (CUST 176 )
+No. Reference : 00066703 Gudang : Head Quarter Posting Proyek :
+Sales Order: GRAB Catatan : Departemen : Head Quarter
+Penjualan, SEMARANG JAYA MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+S-DDA-002 DISTRIBUTOR ASSY DHT. ZEBRA 1.00 0.00 Pcs 716,000.00 17% 535,387.39 11%
+S89/ESPAS S91/CLASSY CDI
+(19100-87120)
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 594,280.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 594,280.00
+Halaman : 12
+15:41 27 October, 2026
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+BAPAK WALGITO (T) HSF (CUST-44 )
+No. Reference : 00066704 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, BAPAK WALGITO (T) HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+P-TLT-B13 RACK END COROLLA ALTIS 00-06 2.00 0.00 Pcs 181,000.00 20% 260,900.90 11%
+(45503-19255)
+Salesman : ADMIN PROTECT Biaya Pengiriman : 0.00 Total : 289,600.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 289,600.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+BAPAK WALGITO (T) HSF (CUST-44 )
+No. Reference : 00066705 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, BAPAK WALGITO (T) HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-TLT-030 RACK END TOYOTA SIENTA 16-ON 4.00 0.00 Pcs 324,000.00 20% 934,054.05 11%
+Salesman : ADMIN Biaya Pengiriman : 0.00 Total : 1,036,800.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,036,800.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+WIRA JAYA MOTOR HSF (CUST 235 )
+No. Reference : 00066706 Gudang : Head Quarter Posting Proyek :
+Sales Order: GRAB Catatan : Departemen : Head Quarter
+Penjualan, WIRA JAYA MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-DHR-005 HOSE RADIATOR GRANMAX 07-ON / 5.00 0.00 Pcs 43,000.00 17% 160,765.77 11%
+LUXIO 09-ON RR
+F-DHR-031 HOSE RADIATOR GRANMAX 07-ON/ 3.00 0.00 Pcs 42,000.00 17% 94,216.22 11%
+LUXIO 09-ON UP FR
+F-HBA-B18 BUSHING ARM HRV (BIG) LOWER 4.00 0.00 Pcs 110,000.00 17% 329,009.01 11%
+F-SHR-011 HOSE RADIATOR CARRY EXTRA ST100 5.00 0.00 Pcs 30,000.00 17% 112,162.16 11%
+83-91 UP
+H-HYTE-001 TIE ROD ACCENT / VERNA / MATRIX / 2.00 0.00 Pcs 198,000.00 17% 296,108.11 11%
+ELANTRA / TRAJET / SANTA FE R & L
+H-NJS-010 LINK STABIL FR R/L 2.00 0.00 Pcs 215,000.00 17% 321,531.53 11%
+LIVINA/MARCH/EVALIA/LATIO/DATSUN
+GO
+H-NTE-003/005 TIE ROD GRAND LIVINA 2.00 0.00 Pcs 349,000.00 17% 521,927.93 11%
+(D8520-EW00A/48520-3U025)
+S-NSOX-009 SENSOR OXYGEN NISSAN XTRAIL T31 2.5 1.00 0.00 Pcs 774,000.00 17% 578,756.76 11%
+08-13 (22693-JA00B)
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 2,680,070.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 2,680,070.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+ANEKA MOTOR CIMANGGU HSF (CUST 009 )
+No. Reference : 00066707 Gudang : Head Quarter Posting Proyek :
+Sales Order: Diambil Catatan : Departemen : Head Quarter
+Penjualan, ANEKA MOTOR CIMANGGU HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-UWB-D16 WIPER BLADE STANDAR 16" 10.00 0.00 Pcs 28,000.00 15% 214,414.41 11%
+Halaman : 13
+15:41 27 October, 2026
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 238,000.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 238,000.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+MAKMUR JAYA MOTOR CILAMAYA CIKAMPEK
+HSF (CUST 114 )
+No. Reference : 00066708 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, MAKMUR JAYA MOTOR CILAMAYA CIKAMPEK
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+P-SIC-LC1 APV/ FUTURA INJECTION (EFI) 5.00 0.00 Pcs 230,000.00 20% 828,828.83 11%
+Salesman : SAKBANA PROTECT Biaya Pengiriman : 0.00 Total : 920,000.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 920,000.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+MAKMUR JAYA MOTOR CILAMAYA CIKAMPEK
+HSF (CUST 114 )
+No. Reference : 00066709 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, MAKMUR JAYA MOTOR CILAMAYA CIKAMPEK
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+S-IRG-T03 IC REGULATOR AVANZA 1.5/ INNOVA 2.00 0.00 Pcs 314,000.00 20% 452,612.61 11%
+DSL/ APV/ GRANMAX
+Salesman : SAKBANA HSF Biaya Pengiriman : 0.00 Total : 502,400.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 502,400.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+TERUS JAYA MOTOR KM.31_CISALAK HSF (CUST
+211 )
+No. Reference : 00066710 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, TERUS JAYA MOTOR KM.31_CISALAK HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-NBA-CM02 BUSHING CROSS MEMBER NISSAN 4.00 0.00 Pcs 183,000.00 20% 527,567.57 11%
+XTRAIL T31/T32 09-ON PANJANG RR
+H-TRT-011 RACK STEERING TOYOTA 1.00 0.00 Pcs 2,218,000.00 20% 1,598,558.56 11%
+RUSH/DAIHATSU TERIOS P/STEERING
+(44200-BZ070-000)
+H-TRT-022 RACK STEERING TOYOTA NEW VIOS/ 1.00 0.00 Pcs 1,852,000.00 20% 1,334,774.77 11%
+YARIS
+S-SWS-T09 SWITCH STARTER YARIS/INNOVA 2.00 0.00 Pcs 317,000.00 20% 456,936.94 11%
+NEW/LIMO/ALTIS
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 4,348,800.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 4,348,800.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+SEMARANG JAYA MOTOR HSF (CUST 176 )
+No. Reference : 00066711 Gudang : Head Quarter Posting Proyek :
+Sales Order: GRAB Catatan : Departemen : Head Quarter
+Penjualan, SEMARANG JAYA MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+S-DDA-002 DISTRIBUTOR ASSY DHT. ZEBRA 1.00 0.00 Pcs 716,000.00 17% 535,387.39 11%
+S89/ESPAS S91/CLASSY CDI
+(19100-87120)
+Halaman : 14
+15:41 27 October, 2026
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 594,280.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 594,280.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+BAPAK WALGITO (T) HSF (CUST-44 )
+No. Reference : 00066712 Gudang : Head Quarter Posting Proyek :
+Sales Order: GRAB Catatan : Departemen : Head Quarter
+Penjualan, BAPAK WALGITO (T) HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-MBA-B40 BUSHING ARM XPANDER (BIG) LOWER 6.00 0.00 Pcs 86,000.00 20% 371,891.89 11%
+H-MLT-010 RACK END MITSUBISHI XPANDER 1.00 0.00 Pcs 247,000.00 20% 178,018.02 11%
+(4410A960)
+Salesman : ADMIN Biaya Pengiriman : 0.00 Total : 610,400.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 610,400.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+INTAN MOTOR_wrj HSF (CUST 086 )
+No. Reference : 00066713 Gudang : Head Quarter Posting Proyek :
+Sales Order: GRAB Catatan : Departemen : Head Quarter
+Penjualan, INTAN MOTOR_wrj HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-TUJ-N13 CROSS JOINT KJG 4K / 5K /7K CORONA 2.00 0.00 Pcs 79,000.00 15% 120,990.99 11%
+70-7841,8 X 26 INSIDE SNAP
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 134,300.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 134,300.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+PADASUKA MOTOR JONGGOL HSF (CUST 135 )
+No. Reference : 00066714 Gudang : Head Quarter Posting Proyek :
+Sales Order: GRAB Catatan : Departemen : Head Quarter
+Penjualan, PADASUKA MOTOR JONGGOL HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+S-MDS-037 DINAMO STARTER T120SS INJECTION 2.00 0.00 Pcs 797,000.00 17% 1,191,909.91 11%
+(12V-1.2KW-8T GENUINE TYPE)
+S-SDS-032 DINAMO STARTER FUTURA/FUTURA 2.00 0.00 Pcs 782,000.00 17% 1,169,477.48 11%
+INJECTION/APV
+Salesman : SAKBANA HSF Biaya Pengiriman : 0.00 Total : 2,621,140.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 2,621,140.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+SELAMET JAYA ABADI MOTOR_karawang HSF
+(CUST 175 )
+No. Reference : 00066715 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, SELAMET JAYA ABADI MOTOR_karawang H
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-HJS-033 JOINT STABIL HONDA HRV 14-ON FR RH 4.00 0.00 Pcs 161,000.00 15% 493,153.15 11%
+(51320-T7A-003)
+H-HJS-037 JOINT STABIL HONDA HRV 14-ON FR LH 4.00 0.00 Pcs 161,000.00 15% 493,153.15 11%
+(51325-T7A-003)
+H-HRT-002 RACK STEERING HONDA BRIO 1.2 13-18 1.00 0.00 Pcs 2,185,000.00 15% 1,673,198.20 11%
+H-MLA-041 LOWER ARM MITSUBISHI XPANDER LH 1.00 0.00 Pcs 545,000.00 15% 417,342.34 11%
+H-SLA-018 LOWER ARM SUZUKI APV,FUTURA R/L 1.00 0.00 Pcs 208,000.00 15% 159,279.28 11%
+H-TLA-022 LOWER ARM RUSH/TERIOS LH 2.00 0.00 Pcs 892,000.00 15% 1,366,126.13 11%
+(48069-BZ120)
+Halaman : 15
+15:41 27 October, 2026
+H-TRT-007 RACK STEERING ALL NEW 1.00 0.00 Pcs 1,506,000.00 15% 1,153,243.24 11%
+AVANZA/VELOZ/ ALL NEW XENIA EPS
+(45510-BZ120)
+Salesman : SAKBANA HSF Biaya Pengiriman : 0.00 Total : 6,388,600.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 6,388,600.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+SUBUR MOTOR NAROGONG KM 20 HSF (CUST
+189 )
+No. Reference : 00066716 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, SUBUR MOTOR NAROGONG KM 20 HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-BRT-019 BOOT RACK STEER CX-5 SKYACTIVE 2.00 0.00 Pcs 47,000.00 16% 71,135.14 11%
+12-17/ KUDA 99-06 (P/STEERING)/ VIOS
+13-ON/ YARIS 13-ON/ COROLLA ALTIS
+02-06 (P/STEERING)
+F-BRT-032 BOOT RACK STEER MARCH 10-ON 1.00 0.00 Pcs 49,000.00 16% 37,081.08 11%
+F-BRT-033 BOOT RACK STEER MAZDA 2 SKYACTIVE 1.00 0.00 Pcs 48,000.00 16% 36,324.32 11%
+14-ON(EPS)/ XPANDER 17-ON/ LIVINA
+19-ON/ OUTLANDER 10-ON/ XTRAIL T31
+(EPS)09-12/ XTRAIL T32 13-ON/ SERENA
+C26 13-16/ RUSH/ TERIOS (EPS)
+07-16/NEW VIOS 07-13/ YARIS 05-13
+F-BRT-038 BOOT RACK STEER JAZZ RS/ CITY 15-21/ 1.00 0.00 Pcs 55,000.00 16% 41,621.62 11%
+ALPHARD 08-14/ ALPHARD 15-ON (EPS)
+F-BRT-043 BOOT RACK STEER HRV 14-21/ ERTIGA 1.00 0.00 Pcs 57,000.00 16% 43,135.14 11%
+18-ON/ XL-720-ON/ NEW CARRY 19-ON
+(EPS)/ NEW TERIOS/ RUSH 17-ON
+(EPS)/CAMRY 08-11/ CAMRY 12-18
+F-DEM-B05 ENGINE MOUNTING LH SIGRA/ CALYA 1.00 0.00 Pcs 459,000.00 16% 347,351.35 11%
+1.2CC AT (12306-BZ210)
+H-HJS-035 JOINT STABIL ALL NEW JAZZ 2015 RH 2.00 0.00 Pcs 161,000.00 16% 243,675.68 11%
+H-HJS-045 JOINT STABIL JAZZ/ CITY 14-21 LH 2.00 0.00 Pcs 161,000.00 16% 243,675.68 11%
+Salesman : SAKBANA HSF Biaya Pengiriman : 0.00 Total : 1,181,040.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,181,040.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+RIA MOTOR_SUKABUMI HSF (CUST 161 )
+No. Reference : 00066717 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, RIA MOTOR_SUKABUMI HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+P-SRD-LC2 SUZUKI FUTURA 2.00 0.00 Pcs 549,000.00 100 0.00 11%
+P-TRD-LC1 TOYOTA XENIA 1.0/1.3 / AVANZA 1.3 MT 1.00 0.00 Pcs 608,000.00 20% % 438,198.20 11%
+P-TRD-LC37 RADIATOR TOYOTA CALYA MT 1.00 0.00 Pcs 628,000.00 20% 452,612.61 11%
+(16400-BZ760)
+Salesman : SASTRA RD PROTECT Biaya Pengiriman : 0.00 Total : 988,800.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 988,800.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+HERI JAYA MOTOR HSF (CUST 083 )
+No. Reference : 00066718 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, HERI JAYA MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+Halaman : 16
+15:41 27 October, 2026
+P-SRD-LC40 RADIATOR SUZUKI CARRY FUTURA EFI 2.00 0.00 Pcs 1,097,000.00 20% 1,581,261.26 11%
+15-ON
+P-TRD-LC37 RADIATOR TOYOTA CALYA MT 1.00 0.00 Pcs 628,000.00 20% 452,612.61 11%
+(16400-BZ760)
+P-TRD-LC37 RADIATOR TOYOTA CALYA MT 2.00 0.00 Pcs 628,000.00 100 0.00 11%
+(16400-BZ760) %
+Salesman : SASTRA RD PROTECT Biaya Pengiriman : 0.00 Total : 2,257,600.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 2,257,600.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+EVEREST MOTOR_cinere HSF (CUST 072 )
+No. Reference : 00066719 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, EVEREST MOTOR_cinere HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-BCJ-003 BOOT CV JOINT HONDA JAZZ 03-07 (IN) / 2.00 0.00 Pcs 54,000.00 20% 77,837.84 11%
+LASERTAXI 90-96 (OUT) / DANGAN 92-94
+LH / LANCER/ GALLANT/ VR 89-93 (OUT)
+/LANCER CB4 92-94 (IN) / FAMILIA 323
+NEW 86-ON (OUT) /LIVINA 07-19 (OUT) /
+ESTEEM 1.6 95-00 (43447-17020A)
+F-BCJ-009 BOOT CV JOINT CITY OLD GIGI KASAR 2.00 0.00 Pcs 52,000.00 20% 74,954.95 11%
+03-07 (OUT) / JAZZ 03-07/ NEW CITY
+08-14/ CIVIC FERIO 96-00/ CIVIC GENIO
+91-95 (OUT) / CARENS AT/MT 03-04 /
+CARNIVAL BENSIN 98-01 (OUT) /DANGAN
+DOHC RH 92-94 (OUT) / VIOS 03-07
+(OUT) / YARIS 05-13 (OUT)/TRITON (IN)
+F-BCJ-062 BOOT CV JOINT CITY 03-07 / JAZZ 03-07 / 1.00 0.00 Pcs 49,000.00 20% 35,315.32 11%
+BRIO 13-18 (OUT)/ SX4 07-14 /
+GRANDVITARA 06-17 (OUT) (BT-549)
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 208,800.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 208,800.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+SURYA MOTOR_CIKAMPEK HSF (CUST 204 )
+No. Reference : 00066720 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, SURYA MOTOR_CIKAMPEK HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+S-MRP-001 RELAY POWER PS 190 (MC-854954 24V) 5.00 0.00 Pcs 50,000.00 15% 191,441.44 11%
+Salesman : SAKBANA HSF Biaya Pengiriman : 0.00 Total : 212,500.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 212,500.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+TM MOTOR CIKAMPEK HSF (CUST 218 )
+No. Reference : 00066721 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, TM MOTOR CIKAMPEK HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-TFB-6PK1230 COROLLA ALTIS 2.0 02-06 (AC) / MIRAGE 2.00 0.00 Pcs 88,000.00 15% 134,774.77 11%
+1.2 12-ON(ALT/AC)
+Salesman : SAKBANA HSF Biaya Pengiriman : 0.00 Total : 149,600.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 149,600.00
+Halaman : 17
+15:41 27 October, 2026
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+PERKASA MOTOR HSF (CUST 147 )
+No. Reference : 00066722 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, PERKASA MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-TRT-008 RACK STEERING KIJANG GRAND 1.00 0.00 Pcs 2,519,000.00 15% 1,928,963.96 11%
+P/STEERING(44250-38010)
+H-TRT-015 RACK STEERING KIJANG 5K MANUAL 2.00 0.00 Pcs 855,000.00 15% 1,309,459.46 11%
+(45510-27050)
+H-TRT-017 RACK STEERING KIJANG 7K MANUAL 2.00 0.00 Pcs 912,000.00 15% 1,396,756.76 11%
+(44250-0B020)
+S-IRW-L03 REGULATOR WINDOW PANTHER 00-21 1.00 0.00 Pcs 422,000.00 15% 323,153.15 11%
+FR LH
+S-IRW-R03 REGULATOR WINDOW PANTHER 00-21 1.00 0.00 Pcs 422,000.00 15% 323,153.15 11%
+FR RH
+S-SWS-M02 SWITCH STARTER L300 DLX/T120 5.00 0.00 Pcs 263,000.00 15% 1,006,981.98 11%
+SS/KUDA BENSIN/L200
+S-TMF-002 MOTOR FAN AVANZA 5.00 0.00 Pcs 208,000.00 15% 796,396.40 11%
+Salesman : SAKBANA HSF Biaya Pengiriman : 0.00 Total : 7,864,200.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 7,864,200.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+NEW MAJU BERSAMA MOTOR HSF (CUST 127 )
+No. Reference : 00066723 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, NEW MAJU BERSAMA MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-NSM-001 STRUT MOUNT LIVINA, EVALIA LH/ 1.00 0.00 Pcs 278,000.00 20% 200,360.36 11%
+XTRAIL 08-14RH (MODEL RATA)
+F-NSM-002 STRUT MOUNT LIVINA, EVALIA RH/ 1.00 0.00 Pcs 278,000.00 20% 200,360.36 11%
+XTRAIL 08-14LH (MODEL RATA)
+S-KAL-031 ALTERNATOR TIMOR 93-97 /SHUMA 1.00 0.00 Pcs 1,218,000.00 20% 877,837.84 11%
+96-97/ 323 (12V-80A-4S)
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 1,419,200.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,419,200.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+HERI JAYA MOTOR HSF (CUST 083 )
+No. Reference : 00066724 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, HERI JAYA MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-UWB-R12 WIPER BLADE REAR 12" 5.00 0.00 Pcs 57,000.00 17% 213,108.11 11%
+H-IUJ-073 CROSS JOINT NKR-71 05 1.00 0.00 Pcs 248,000.00 17% 185,441.44 11%
+H-STE-020 TIE ROD SUZUKI ALL NEW CARRY RH/LH 3.00 0.00 Pcs 168,000.00 17% 376,864.86 11%
+(4881073R00
+S-HES-S02 HOLDER STARTER APV 04-ON/ FUTURA 3.00 0.00 Pcs 67,000.00 17% 150,297.30 11%
+EFI (31173 82130)
+S-HKS-003 CLOCK SPRING CRV NEW '03-06' 1.00 0.00 Pcs 365,000.00 17% 272,927.93 11%
+(77900-SWA-U61)
+S-HKS-007 CLOCK SPRING BRIO 12-18/ MOBILIO 2.00 0.00 Pcs 252,000.00 17% 376,864.86 11%
+13-ON/FREED 08-ON/ JAZZ RS/CITY
+08-14/ CIVIC 06-11
+S-MKS-001 CLOCK SPRING TRITON 2.5 (8619A016) 1.00 0.00 Pcs 312,000.00 17% 233,297.30 11%
+S-SDS-032 DINAMO STARTER FUTURA/FUTURA 2.00 0.00 Pcs 782,000.00 17% 1,169,477.48 11%
+INJECTION/APV
+Halaman : 18
+15:41 27 October, 2026
+S-SKS-001 CLOCK SPRING 1.00 0.00 Pcs 198,000.00 17% 148,054.05 11%
+ERTIGA/SWIFT/SPLASH/SX4
+(37480B62J00N000)
+S-TKS-007 CLOCK SPRING INNOVA TYPE V / YARIS 2.00 0.00 Pcs 280,000.00 17% 418,738.74 11%
+(2004 - 2015) (84306-OK051)
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 3,935,030.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 3,935,030.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+HERI JAYA MOTOR HSF (CUST 083 )
+No. Reference : 00066725 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, HERI JAYA MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+P-NCJ-LC12 CV JOINT MARCH 1.5 10-ON AT (OUT) 1.00 0.00 Pcs 265,000.00 20% 190,990.99 11%
+Salesman : SASTRA PROTECT Biaya Pengiriman : 0.00 Total : 212,000.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 212,000.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+FM MOTOR HSF (CUST 077 )
+No. Reference : 00066726 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, FM MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-HBA-B07 BUSHING ARM NEW CRV 02-06 (BIG) 4.00 0.00 Pcs 106,000.00 15% 324,684.68 11%
+LOWER
+F-NSM-001 STRUT MOUNT LIVINA, EVALIA LH/ 1.00 0.00 Pcs 278,000.00 15% 212,882.88 11%
+XTRAIL 08-14RH (MODEL RATA)
+F-NSM-002 STRUT MOUNT LIVINA, EVALIA RH/ 1.00 0.00 Pcs 278,000.00 15% 212,882.88 11%
+XTRAIL 08-14LH (MODEL RATA)
+H-DCJ-027 CV JOINT SIGRA/ CALYA 1.0 16-ON LH 1.00 0.00 Pcs 530,000.00 15% 405,855.86 11%
+(IN)
+H-SCR-001 DRAGLINK VITARA/ESCUDO/SIDEKICK 1.00 0.00 Pcs 390,000.00 15% 298,648.65 11%
+(48850-60A00)
+H-STE-009/010 TIE ROD VITARA / ESCUDO OUT & IN R/L 1.00 0.00 Pcs 288,000.00 15% 220,540.54 11%
+H-STE-012 TIE ROD VITARA 1.00 0.00 Pcs 352,000.00 15% 269,549.55 11%
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 2,159,000.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 2,159,000.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+FM MOTOR HSF (CUST 077 )
+No. Reference : 00066727 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, FM MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+P-TJS-B13 JOINT STABIL VIOS 03-06/ VIOS/ YARIS 4.00 0.00 Pcs 61,000.00 20% 175,855.86 11%
+13-ON
+Salesman : SASTRA PROTECT Biaya Pengiriman : 0.00 Total : 195,200.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 195,200.00
+Halaman : 19
+15:41 27 October, 2026
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+ANAK BANGSA PAGELARAN HSF (CUST-12 )
+No. Reference : 00066728 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, ANAK BANGSA PAGELARAN HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-MZUJ-N01 CROSS JOINT L 300 BENSIN DLX/L 200 10.00 0.00 Pcs 61,000.00 20% 439,639.64 11%
+K74/CARRY EXTRA
+H-STE-001/002 TIE ROD ST100 (CARRY)/ FUTURA 91-18 5.00 0.00 Pcs 135,000.00 20% 486,486.49 11%
+RH/LH
+S-MMW-011 MOTOR WIPER NEW PS120/ PS135 1.00 0.00 Pcs 406,000.00 20% 292,612.61 11%
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 1,352,800.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,352,800.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+SAHABAT MOTOR CIANJUR HSF (CUST 169 )
+No. Reference : 00066729 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, SAHABAT MOTOR CIANJUR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-DBA-B05 BUSHING ARM AVANZA/ XENIA (BIG) 4.00 0.00 Pcs 91,000.00 17% 272,180.18 11%
+LOWER
+F-TBA-B25 BUSHING ARM AVANZA VELOZ (BIG) 8.00 0.00 Pcs 106,000.00 17% 634,090.09 11%
+LOWER
+H-HBJ-012 BALL JOINT HONDA BRV 2.00 0.00 Pcs 128,000.00 17% 191,423.42 11%
+14-ON/BRIO/MOBILIO
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 1,218,440.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,218,440.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+BALI MOTOR HSF (CUST 024 )
+No. Reference : 00066730 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, BALI MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-TFB-A60 PANTHER 2.3 (TBR 52) / PANTHER 2.5 2.00 0.00 Pcs 49,000.00 20% 70,630.63 11%
+(TBR 54) (PS/AC)
+H-DUMP-003 CROSS JOINT PTO (YK220A) 1.00 0.00 Pcs 94,000.00 20% 67,747.75 11%
+H-FUJ-009 CROSS JOINT RANGER 4X2 8BS1-25-060 1.00 0.00 Pcs 114,000.00 20% 82,162.16 11%
+H-FUJ-N47 CROSS JOINT FORD RANGER 4 X 4 1.00 0.00 Pcs 90,000.00 20% 64,864.86 11%
+(37125-25000) 81,8 X 27 / 2.5/ 2.9 06-11
+RR
+H-HBJ-012 BALL JOINT HONDA BRV 2.00 0.00 Pcs 128,000.00 20% 184,504.50 11%
+14-ON/BRIO/MOBILIO
+H-HTE-002/003 TIE ROD FREED 08-ON/CITY 07-13/JAZZ 1.00 0.00 Pcs 349,000.00 20% 251,531.53 11%
+RS 08-14/MOBILIO 14-ON RH/LH
+H-HTE-029/030 TIE ROD HONDA ALL NEW JAZZ RH/LH 1.00 0.00 Pcs 342,000.00 20% 246,486.49 11%
+(53540/60-T5R-003)
+H-MFJ-001 FLANGE JOINT PS 100 Joint 2.00 0.00 Pcs 174,000.00 20% 250,810.81 11%
+H-MFJ-020 FLANGE JOINT PS CANTER 125 1.00 0.00 Pcs 325,000.00 20% 234,234.23 11%
+H-TCB-N10 CENTER BEARING ASSY SET INNOVA 1.00 0.00 Pcs 302,000.00 20% 217,657.66 11%
+04-15/HILUX SC/DC 04-15 (37230-OK020)
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 1,854,400.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,854,400.00
+Halaman : 20
+15:41 27 October, 2026
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+SUBUR MOTOR_SUDIRMAN HSF (CUST 191 )
+No. Reference : 00066731 Gudang : Head Quarter Posting Proyek :
+Sales Order: GRAB Catatan : Departemen : Head Quarter
+Penjualan, SUBUR MOTOR_SUDIRMAN HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+S-NIC-005 COIL NISSAN SERENA C26 13-16/X-TRAIL 2.00 0.00 Pcs 444,000.00 17% 664,000.00 11%
+T32 13-ON
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 737,040.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 737,040.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+WIRA JAYA MOTOR HSF (CUST 235 )
+No. Reference : 00066732 Gudang : Head Quarter Posting Proyek :
+Sales Order: GRAB Catatan : Departemen : Head Quarter
+Penjualan, WIRA JAYA MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-SSM-013 STRUT MOUNT IGNIS (41710M66R00) 4.00 0.00 Pcs 106,000.00 17% 317,045.05 11%
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 351,920.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 351,920.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+RIA MOTOR_SUKABUMI HSF (CUST 161 )
+No. Reference : 00066733 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, RIA MOTOR_SUKABUMI HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-DLT-010 RACK END GRANDMAX MANUAL KEPALA 1.00 0.00 Pcs 274,000.00 18% 202,414.41 11%
+BULAT
+S-DDA-002 DISTRIBUTOR ASSY DHT. ZEBRA 1.00 0.00 Pcs 716,000.00 18% 528,936.94 11%
+S89/ESPAS S91/CLASSY CDI
+(19100-87120)
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 811,800.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 811,800.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+CEMERLANG MOTOR HSF (CUST 054 )
+No. Reference : 00066734 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, CEMERLANG MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+P-SIC-LC7 ERTIGA/SPLASH/KARIMUN ESTILO/ 4.00 0.00 Pcs 312,000.00 20% 899,459.46 11%
+WAGON R/ NEW SWIFT 2013
+Salesman : SASTRA PROTECT Biaya Pengiriman : 0.00 Total : 998,400.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 998,400.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+CEMERLANG MOTOR HSF (CUST 054 )
+No. Reference : 00066735 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, CEMERLANG MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-HBA-B21 BUSHING ARM MOBILIO/ BRV (BIG), BRIO 2.00 0.00 Pcs 96,000.00 15% 147,027.03 11%
+(BIG) LOWER
+Halaman : 21
+15:41 27 October, 2026
+S-HWM-007 MOTOR WASHER ODYSSEY 10-ON/ 1.00 0.00 Pcs 84,000.00 15% 64,324.32 11%
+FREED 08-ON/ HRV 14-21/MOBILIO
+14-ON/ BRV 16-21/ JAZZ RS 08-14 FR
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 234,600.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 234,600.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+ALVAN MOTOR SUKANEGARA HSF (CUST-21 )
+No. Reference : 00066736 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, ALVAN MOTOR SUKANEGARA HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-BJS-013 RUBBER STABILIZER APV 04-ON FR 15.00 0.00 Pcs 13,000.00 15% 149,324.32 11%
+F-BJS-029 RUBBER STABILIZER RUSH/ TERIOS 06-17 15.00 0.00 Pcs 11,000.00 15% 126,351.35 11%
+FR
+F-TFB-3PK625 XENIA 1.0 (PS) 4.00 0.00 Pcs 33,000.00 15% 101,081.08 11%
+F-TFB-4PK715 SIRION 07-11 (ALT) / XENIA 1.0 07-11 5.00 0.00 Pcs 42,000.00 15% 160,810.81 11%
+(ALT)
+H-MAC-007 PAN AIR CLEANER MITS. CD-FE 304, 4, 2.00 0.00 Pcs 121,000.00 15% 185,315.32 11%
+349 PS 120/135 "G"
+H-MCR-003 DRAGLINK PS 135 3 TEKUK (MC-080930) 1.00 0.00 Pcs 566,000.00 15% 433,423.42 11%
+S-MRH-001 RELAY FUSO (12V/24V) 10.00 0.00 Pcs 108,000.00 15% 827,027.03 11%
+S-SO-001 SWITCH OIL 5.00 0.00 Pcs 49,000.00 15% 187,612.61 11%
+S-SWL-001 SUZUKI/TOYOTA/MITSUBISHI WIPER LINK FUTURA/ COLT T120SS 91-05 1.00 0.00 Pcs 159,000.00 15% 121,756.76 11%
+S-TIC-002 COIL INNOVA/FORTUNER (90919-T2001) 2.00 0.00 Pcs 389,000.00 15% 595,765.77 11%
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 3,206,200.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 3,206,200.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+ALVAN MOTOR SUKANEGARA HSF (CUST-21 )
+No. Reference : 00066737 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, ALVAN MOTOR SUKANEGARA HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-STE-001/002 TIE ROD ST100 (CARRY)/ FUTURA 91-18 5.00 0.00 Pcs 135,000.00 15% 516,891.89 11%
+RH/LH
+S-CBR-M05 CARBON BRUSH STARTER PS 135/ KUDA/ 10.00 0.00 Pcs 42,000.00 15% 321,621.62 11%
+PS 110/ 125/ 136/ L 200/ TRITON/ PAJERO
+SPORT (ME-701496)
+S-SSC-002 SWITCH KARBURATOR EXTRA T 5 5.00 0.00 Pcs 53,000.00 15% 202,927.93 11%
+(13260-85001)
+S-TTB-001 THROTLE BODY XENIA 1.0, 3.00 0.00 Pcs 216,000.00 15% 496,216.22 11%
+1.3/TERIOS/SIRION/AVANZA 1.3,1.5/RUSH
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 1,706,800.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,706,800.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+ALVAN MOTOR SUKANEGARA HSF (CUST-21 )
+No. Reference : 00066738 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, ALVAN MOTOR SUKANEGARA HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+P-DSP-LC1 SAKLAR P/W DAIHATSU AVANZA / XENIA 2.00 0.00 Pcs 225,000.00 20% 324,324.32 11%
+FR RH (84820-B0010)
+P-DSP-LC7 SAKLAR P/W DAIHATSU ALL NEW 2.00 0.00 Pcs 238,000.00 20% 343,063.06 11%
+AVANZA/ VELOZ/ AGYA /AYLA/ SIRION /
+LUXIO (84820-BZ060/ B0040)
+Halaman : 22
+15:41 27 October, 2026
+Salesman : SASTRA PROTECT Biaya Pengiriman : 0.00 Total : 740,800.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 740,800.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+NEW MASSA MOTOR HSF (CUST 128 )
+No. Reference : 00066739 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, NEW MASSA MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+S-TWL-003 WIPER LINK INNOVA 05-15 1.00 0.00 Pcs 248,000.00 20% 178,738.74 11%
+Salesman : SAKBANA HSF Biaya Pengiriman : 0.00 Total : 198,400.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 198,400.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+LIMA SEKAWAN BEKASI HSF (CUST 107 )
+No. Reference : 00066740 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, LIMA SEKAWAN BEKASI HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+S-HMW-001 MOTOR WIPER HONDA BRIO 15-17/ 1.00 0.00 Pcs 372,000.00 18% 274,810.81 11%
+MOBILIO 14-ON / BRV 16-ON
+S-HMW-002 MOTOR WIPER HONDA BRIO 12-14 1.00 0.00 Pcs 486,000.00 18% 359,027.03 11%
+S-HMW-003 MOTOR WIPER HONDA JAZZ 03-07 1.00 0.00 Pcs 497,000.00 18% 367,153.15 11%
+Salesman : SAKBANA HSF Biaya Pengiriman : 0.00 Total : 1,111,100.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,111,100.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+LARIS JAYA BEKASI HSF (CUST-72 )
+No. Reference : 00066741 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, LARIS JAYA BEKASI HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+S-DIC-005 IGNITION COIL ZEBRA S89/CLASSY G102 1.00 0.00 Pcs 211,000.00 17.5 156,824.32 11%
+(90048-52102) %
+Salesman : SAKBANA HSF Biaya Pengiriman : 0.00 Total : 174,075.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 174,075.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+LULU MOTOR BAROS HSF (CUST-19 )
+No. Reference : 00066742 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, LULU MOTOR BAROS HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-NBA-B02 BUSHING ARM GRAND LIVINA (BIG) 2.00 0.00 Pcs 106,000.00 17.5 157,567.57 11%
+LOWER %
+F-NBA-S02 BUSHING ARM GRAND LIVINA (SMALL) 2.00 0.00 Pcs 54,000.00 17.5 80,270.27 11%
+LOWER %
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 264,000.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 264,000.00
+Halaman : 23
+15:41 27 October, 2026
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+SHAKA LIM AUTO PART HSF (CUST 179 )
+No. Reference : 00066743 Gudang : Head Quarter Posting Proyek :
+Sales Order: DIBAWA CASH Catatan : Departemen : Head Quarter
+Penjualan, SHAKA LIM AUTO PART HSF
+FK
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-NEM-B01 ENGINE MOUNTING LH LIVINA 2.00 0.00 Pcs 172,000.00 20% 247,927.93 11%
+1.5CC/1.8CC 06-13
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 275,200.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 275,200.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+PRIMA MOTOR LALADON HSF (CUST 152 )
+No. Reference : 00066744 Gudang : Head Quarter Posting Proyek :
+Sales Order: GRAB Catatan : Departemen : Head Quarter
+Penjualan, PRIMA MOTOR LALADON HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+S-DSCK-003 SENSOR CRANKSHAFT AVANZA 04-14/ 1.00 0.00 Pcs 213,000.00 17% 159,270.27 11%
+XENIA 04-14/GRANDMAX 07-ON
+(90919-05043/ 19311-BZ020)
+S-HSAB-009 SENSOR ABS HONDA JAZZ RS 08-13/ 1.00 0.00 Pcs 284,000.00 17% 212,360.36 11%
+FREED 08-ON FR LH (57455-TF0-003)
+S-TSAB-001 SENSOR ABS TOYOTA INNOVA/ 1.00 0.00 Pcs 270,000.00 17% 201,891.89 11%
+FORTUNER 05-15 FR LH (89543-0K010)
+S-TSAB-002 SENSOR ABS TOYOTA INNOVA/ 1.00 0.00 Pcs 270,000.00 17% 201,891.89 11%
+FORTUNER 05-15 FR RH (89542-0K010)
+S-TSAB-011 SENSOR ABS TOYOTA YARIS 07-13 FR RH 1.00 0.00 Pcs 311,000.00 17% 232,549.55 11%
+(89542-52030)
+S-TSAB-012 SENSOR ABS TOYOTA YARIS 07-13 FR LH 1.00 0.00 Pcs 311,000.00 17% 232,549.55 11%
+(89543-52030)
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 1,376,970.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,376,970.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+ABADI MOTOR_Kayu manis HSF (CUST 002 )
+No. Reference : 00066745 Gudang : Head Quarter Posting Proyek :
+Sales Order: GRAB Catatan : Departemen : Head Quarter
+Penjualan, ABADI MOTOR_Kayu manis HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-TBJ-009 BALL JOINT KIJANG INNOVA/FORTUNER 4.00 0.00 Pcs 177,000.00 15% 542,162.16 11%
+(UP)
+S-EFP-EP-T63 FUEL PUMP SIGRA/ CALYA 16-ON 2.00 0.00 Pcs 325,000.00 15% 497,747.75 11%
+(23120-BZ170)
+S-HMF-010 MOTOR FAN RADIATOR HONDA BRV 1.00 0.00 Pcs 381,000.00 15% 291,756.76 11%
+16-ON/MOBILIO 14-ON
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 1,478,150.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,478,150.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+BAPAK WALGITO (T) HSF (CUST-44 )
+No. Reference : 00066746 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, BAPAK WALGITO (T) HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+S-HMW-001 MOTOR WIPER HONDA BRIO 15-17/ 2.00 0.00 Pcs 372,000.00 20% 536,216.22 11%
+MOBILIO 14-ON / BRV 16-ON
+S-HMW-003 MOTOR WIPER HONDA JAZZ 03-07 2.00 0.00 Pcs 497,000.00 20% 716,396.40 11%
+Halaman : 24
+15:41 27 October, 2026
+Salesman : ADMIN Biaya Pengiriman : 0.00 Total : 1,390,400.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,390,400.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+YALVY MOTOR HSF (CUST 237 )
+No. Reference : 00066747 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, YALVY MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-SYJ-003 YOKE JOINT FUTURA EFI 1.00 0.00 Pcs 165,000.00 15% 126,351.35 11%
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 140,250.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 140,250.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+HERI JAYA MOTOR HSF (CUST 083 )
+No. Reference : 00066748 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, HERI JAYA MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+P-MRD-LC18 RADIATOR L300 DIESEL 2.00 0.00 Pcs 924,000.00 20% 1,331,891.89 11%
+Salesman : SASTRA RD PROTECT Biaya Pengiriman : 0.00 Total : 1,478,400.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,478,400.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+ALVAN MOTOR SUKANEGARA HSF (CUST-21 )
+No. Reference : 00066749 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, ALVAN MOTOR SUKANEGARA HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+P-MRD-LC15 RADIATOR PS CANTER 110/ 125/ 136 1.00 0.00 Pcs 1,455,000.00 20% 1,048,648.65 11%
+P-SRD-LC2 SUZUKI FUTURA 2.00 0.00 Pcs 549,000.00 100 0.00 11%
+P-SRD-LC9 SUZUKI APV MT 2.00 0.00 Pcs 728,000.00 20% % 1,049,369.37 11%
+P-TRD-LC1 TOYOTA XENIA 1.0/1.3 / AVANZA 1.3 MT 2.00 0.00 Pcs 608,000.00 20% 876,396.40 11%
+Salesman : SASTRA RD PROTECT Biaya Pengiriman : 0.00 Total : 3,301,600.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 3,301,600.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+PT. BUANA RAYA SERVICE CIANJUR HSF
+(CUST-81 )
+No. Reference : 00066750 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, PT. BUANA RAYA SERVICE CIANJUR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+S-HSOX-010 SENSOR OXYGEN HONDA BRV/ HRV/ 1.00 0.00 Pcs 843,000.00 15% 645,540.54 11%
+CITY/ JAZZ 14-21 (36531-RE0-003)
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 716,550.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 716,550.00
+Halaman : 25
+15:41 27 October, 2026
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+LARIS JAYA MOTOR_cbbr HSF (CUST 105 )
+No. Reference : 00066751 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, LARIS JAYA MOTOR_cbbr HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-TEM-D27 ENGINE MOUNTING YARIS/ NEW VIOS/ 1.00 0.00 Pcs 516,000.00 17% 385,837.84 11%
+LIMO 05-08 LH
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 428,280.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 428,280.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+MAKMUR JAYA MOTOR (J) HSF (CUST 113 )
+No. Reference : 00066752 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, MAKMUR JAYA MOTOR (J) HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-NEM-C08 ENGINE MOUNTING NISSAN JUKE 10-19 1.00 0.00 Pcs 451,000.00 17% 337,234.23 11%
+RR
+Salesman : SAKBANA HSF Biaya Pengiriman : 0.00 Total : 374,330.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 374,330.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+SHAKA LIM AUTO PART HSF (CUST 179 )
+No. Reference : 00066753 Gudang : Head Quarter Posting Proyek :
+Sales Order: CASH Catatan : Departemen : Head Quarter
+Penjualan, SHAKA LIM AUTO PART HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-NTE-003/005 TIE ROD GRAND LIVINA 1.00 0.00 Pcs 349,000.00 20% 251,531.53 11%
+(D8520-EW00A/48520-3U025)
+Salesman : SANUSI HSF Biaya Pengiriman : 0.00 Total : 279,200.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 279,200.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+SJ MOTOR CILAMAYA HSF (CUST 184 )
+No. Reference : 00066754 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, SJ MOTOR CILAMAYA HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+S-TDA-001 DISTRIBUTOR ASSY TYT. STARLET EP 80 1.00 0.00 Pcs 1,473,000.00 12.5 1,161,148.65 11%
+CDI (19020-11320) %
+Salesman : SAKBANA HSF Biaya Pengiriman : 0.00 Total : 1,288,875.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 1,288,875.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+RIA MOTOR PLERED HSF (CUST 160 )
+No. Reference : 00066755 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, RIA MOTOR PLERED HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+S-WIC-002 IGNITION COIL CONFERO 17-ON 1.00 0.00 Pcs 307,000.00 20% 221,261.26 11%
+(23871596)
+Halaman : 26
+15:41 27 October, 2026
+Salesman : SAKBANA HSF Biaya Pengiriman : 0.00 Total : 245,600.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 245,600.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+BAPAK WALGITO (A) HSF (CUST-45 )
+No. Reference : 00066756 Gudang : Head Quarter Posting Proyek :
+Sales Order: GRAB Catatan : Departemen : Head Quarter
+Penjualan, BAPAK WALGITO (A) HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-TLA-038 LOWER ARM TOYOTA CALYA/SIGRA RH 1.00 0.00 Pcs 434,000.00 20% 312,792.79 11%
+Salesman : ADMIN Biaya Pengiriman : 0.00 Total : 347,200.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 347,200.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+BAPAK WALGITO (A) HSF (CUST-45 )
+No. Reference : 00066757 Gudang : Head Quarter Posting Proyek :
+Sales Order: GRAB Catatan : Departemen : Head Quarter
+Penjualan, BAPAK WALGITO (A) HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-DTE-028 TIE ROD DAIHATSU SIGRA/ CALYA 16-ON 2.00 0.00 Pcs 221,000.00 20% 318,558.56 11%
+RH/LH
+Salesman : ADMIN Biaya Pengiriman : 0.00 Total : 353,600.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 353,600.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+BAPAK WALGITO (A) HSF (CUST-45 )
+No. Reference : 00066758 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, BAPAK WALGITO (A) HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+F-DEM-C05 ENGINE MOUNTING RH SIGRA/ CALYA 1.00 0.00 Pcs 459,000.00 20% 330,810.81 11%
+1.2CC AT/MT (12305-BZ170)
+Salesman : ADMIN Biaya Pengiriman : 0.00 Total : 367,200.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 367,200.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+RIA MOTOR_SUKABUMI HSF (CUST 161 )
+No. Reference : 00066759 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, RIA MOTOR_SUKABUMI HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-STE-003 TIEROD 2.00 0.00 Pcs 185,000.00 18% 273,333.33 11%
+BALENO/AERIO/AMENITY/APV/KARIMUN
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 303,400.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 303,400.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+BAPAK WALGITO (T) HSF (CUST-44 )
+No. Reference : 00066760 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, BAPAK WALGITO (T) HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+Halaman : 27
+15:41 27 October, 2026
+S-CDI-008 CDI DELCO ONLY T120SS 12V 3.00 0.00 Pcs 208,000.00 20% 449,729.73 11%
+(MB-618293)
+Salesman : ADMIN Biaya Pengiriman : 0.00 Total : 499,200.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 499,200.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+PADASUKA MOTOR_cibitung HSF (CUST 136 )
+No. Reference : 00066761 Gudang : Head Quarter Posting Proyek :
+Sales Order: OL Catatan : Departemen : Head Quarter
+Penjualan, PADASUKA MOTOR_cibitung HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-MUJ-N93 CROSS JOINT PS 100/ 110 ( MB-000267) 3.00 0.00 Pcs 120,000.00 20% 259,459.46 11%
+55 X 30 INSIDE SNAP
+S-BXS-S01 BENDIX STARTER CARRY EXTRA/ 1.00 0.00 Pcs 71,000.00 20% 51,171.17 11%
+GRANMAX (8T) (31320-51A10)
+S-EFP-EP-T18 FUEL PUMP FUTURA MODIFIKASI 5011M 1.00 0.00 Pcs 247,000.00 20% 178,018.02 11%
+(BIG)
+S-MRF-005 RELAY FLASHER PS 135 12V (MB 302374_ 2.00 0.00 Pcs 53,000.00 20% 76,396.40 11%
+S-NMF-005 MOTOR FAN NISSAN DATSUN GO 1.00 0.00 Pcs 278,000.00 20% 200,360.36 11%
+(21487-4LA1B)
+Salesman : SAKBANA HSF Biaya Pengiriman : 0.00 Total : 849,600.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 849,600.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+PADASUKA MOTOR_cibitung HSF (CUST 136 )
+No. Reference : 00066762 Gudang : Head Quarter Posting Proyek :
+Sales Order: OL Catatan : Departemen : Head Quarter
+Penjualan, PADASUKA MOTOR_cibitung HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+P-SRD-LC1 RADIATOR ST 100 83-91 1.00 0.00 Pcs 829,000.00 20% 597,477.48 11%
+Salesman : SAKBANA RD PROTECT Biaya Pengiriman : 0.00 Total : 663,200.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 663,200.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+TATA MOTOR HSF (CUST 208 )
+No. Reference : 00066763 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, TATA MOTOR HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+H-NRT-001 RACK STEERING NISSAN LIVINA EPS ( 1.00 0.00 Pcs 2,047,000.00 20% 1,475,315.32 11%
+48001-CJ41A )
+H-TRT-003 RACK STEER AVANZA 1.3/1.5 P/STEERING 2.00 0.00 Pcs 2,218,000.00 20% 3,197,117.12 11%
+(44200-BZ060)
+Salesman : SASTRA HSF Biaya Pengiriman : 0.00 Total : 5,186,400.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 5,186,400.00
+Tanggal : 27/10/2026 Pelanggan : Mata Uang : IDR 1.00
+BAPAK WALGITO (T) HSF (CUST-44 )
+No. Reference : 00066764 Gudang : Head Quarter Posting Proyek :
+Sales Order: Catatan : Departemen : Head Quarter
+Penjualan, BAPAK WALGITO (T) HSF
+Keterangan Diterima Dipesan Harga Satuan Diskon Sub Total Pajak
+S-DSOX-008 SENSOR OXYGEN DAIHATSU GRANMAX 1.00 0.00 Pcs 262,000.00 20% 188,828.83 11%
+1.3 07-ON (89465-BZ190)
+Halaman : 28
+15:41 27 October, 2026
+S-EFP-EP-043 FUEL PUMP NEW ERTIGA 18-ON/ XL-7 1.00 0.00 Pcs 180,000.00 20% 129,729.73 11%
+20-ON
+Salesman : ADMIN Biaya Pengiriman : 0.00 Total : 353,600.00
+Diinput Oleh : Aviv Diskon Akhir : 0.00 Pembayaran : 0.00
+Saldo : 353,600.00
+Halaman : 29
