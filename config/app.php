@@ -15,6 +15,10 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    // Proxy yang dipercaya untuk header X-Forwarded-* (tunnel/proxy HTTPS): "*" atau daftar IP
+    // dipisah koma. Kosong = tidak ada proxy (hosting biasa).
+    'trusted_proxies' => env('TRUSTED_PROXIES'),
+
     // Nama perusahaan di kepala struk cetak.
     'company' => env('APP_COMPANY', 'PT MITRA GHANIM INDOSARANA'),
 
