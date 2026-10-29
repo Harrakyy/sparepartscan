@@ -1,8 +1,9 @@
 // Badge merah di menu Gudang: jumlah faktur yang perlu di-scan.
 // Angka awal dari server; diperbarui berkala dan saat halaman lain memberi tahu ada perubahan.
 import { apiGet } from './api.js';
+import { everyVisible } from './poll.js';
 
-const REFRESH_MS = 30000;
+const REFRESH_MS = 5000;
 const badge = document.getElementById('nav-open-count');
 
 function render(count) {
@@ -20,7 +21,6 @@ async function refresh() {
 }
 
 if (badge) {
-  setInterval(refresh, REFRESH_MS);
+  everyVisible(REFRESH_MS, refresh);
   document.addEventListener('invoices-changed', refresh);
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
 }

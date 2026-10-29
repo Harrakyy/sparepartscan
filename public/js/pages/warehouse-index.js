@@ -1,7 +1,9 @@
 import { apiGet } from '../api.js';
 import { formatWib } from '../format.js';
+import { everyVisible } from '../poll.js';
 
 const SEARCH_DEBOUNCE_MS = 300;
+const POLL_MS = 5000;
 const STATUS_LABEL = { waiting: 'Menunggu', picking: 'Sedang di-scan', picked: 'Selesai', qc: 'Sedang QC', qc_done: 'Selesai QC' };
 const $ = id => document.getElementById(id);
 
@@ -71,4 +73,6 @@ $('search').addEventListener('input', () => {
   timer = setTimeout(load, SEARCH_DEBOUNCE_MS);
 });
 
+// Faktur baru, scan, dan hapus dari laptop lain muncul tanpa refresh.
+everyVisible(POLL_MS, load);
 load();
