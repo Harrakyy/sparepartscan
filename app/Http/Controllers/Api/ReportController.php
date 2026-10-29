@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
+use App\Models\InvoiceItem;
 use App\Support\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -37,9 +38,10 @@ class ReportController extends Controller
             ->orderByDesc('printed_at')
             ->get();
 
+        // Jumlah keluar = jumlah faktur, atau hasil edit superadmin setelah retur (sama dengan Zahir).
         $totals = $invoices->flatMap->items
             ->groupBy('part_code')
-            ->map(fn ($rows, $code) => ['part_code' => $code, 'part_name' => $rows->first()->part_name, 'qty' => (int) $rows->sum('qty')])
+            ->map(fn ($rows, $code) => ['part_code' => $code, 'part_name' => $rows->first()->part_name, 'qty' => (int) $rows->sum(fn (InvoiceItem $i) => $i->outQty())])
             ->sortBy('part_code')
             ->values();
 
@@ -50,7 +52,11 @@ class ReportController extends Controller
                 'customer_name' => $i->customer_name,
                 'picked_at' => $i->picked_at,
                 'printed_at' => $i->printed_at,
-                'items' => $i->items->map->only(['part_code', 'part_name', 'qty'])->values(),
+                'items' => $i->items->map(fn (InvoiceItem $item) => [
+                    'part_code' => $item->part_code,
+                    'part_name' => $item->part_name,
+                    'qty' => $item->outQty(),
+                ])->values(),
             ])->values(),
             'totals' => $totals,
         ]);

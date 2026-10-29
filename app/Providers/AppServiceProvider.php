@@ -3,7 +3,10 @@
 namespace App\Providers;
 
 use App\Models\Invoice;
+use App\Models\User;
 use Illuminate\Http\Middleware\TrustProxies;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -29,9 +32,13 @@ class AppServiceProvider extends ServiceProvider
             TrustProxies::at($proxies === '*' ? '*' : array_map('trim', explode(',', $proxies)));
         }
 
+        // Hapus faktur, edit jumlah keluar, dan kelola pengguna hanya untuk superadmin.
+        Gate::define('superadmin', fn (User $user) => $user->isSuperadmin());
+
         // Angka awal badge "perlu di-scan" di menu Gudang; selanjutnya diperbarui oleh nav-badge.js.
         View::composer('layouts.app', function ($view) {
             $view->with('openInvoiceCount', Invoice::whereIn('status', Invoice::OPEN_STATUSES)->count());
+            $view->with('currentUser', Auth::user());
         });
     }
 }

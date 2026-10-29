@@ -16,6 +16,11 @@ async function call(method, path, body) {
   } catch {
     throw Object.assign(new Error(NETWORK_ERROR), { status: 0 });
   }
+  // Belum login / sesi habis / akun dinonaktifkan: ke halaman masuk.
+  if (res.status === 401) {
+    window.location.href = '/login';
+    throw Object.assign(new Error('Sesi berakhir, silakan masuk lagi'), { status: 401 });
+  }
   let payload;
   try {
     payload = await res.json();
@@ -31,4 +36,4 @@ async function call(method, path, body) {
 export const apiGet = path => call('GET', path);
 export const apiPost = (path, body) => call('POST', path, body);
 export const apiPatch = (path, body) => call('PATCH', path, body);
-export const apiDelete = path => call('DELETE', path);
+export const apiDelete = (path, body) => call('DELETE', path, body);

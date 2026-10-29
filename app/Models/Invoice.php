@@ -50,4 +50,9 @@ class Invoice extends Model
     {
         return $this->hasMany(GoodsReturn::class);
     }
+
+    public function qtyAdjustments(): HasMany
+    {
+        return $this->hasMany(QtyAdjustment::class);
+    }
 }
