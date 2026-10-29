@@ -3,6 +3,7 @@
 use App\Http\Middleware\EnsureUserIsActive;
 use App\Support\ApiResponse;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -25,7 +26,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->redirectGuestsTo('/login');
         $middleware->redirectUsersTo('/gudang');
-        $middleware->web(append: [EnsureUserIsActive::class]);
+        // AuthenticateSession: password diganti superadmin → sesi lama (laptop yang masih terbuka) ikut berakhir.
+        $middleware->web(append: [AuthenticateSession::class, EnsureUserIsActive::class]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $isApi = fn (Request $request) => $request->is('api/*');

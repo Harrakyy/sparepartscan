@@ -61,11 +61,17 @@ class UserController extends Controller
             throw ValidationException::withMessages(['role' => 'Tidak bisa mengubah peran atau menonaktifkan akun sendiri']);
         }
 
-        // Password baru: semua sesi "Ingat saya" lama ikut berakhir.
+        // Password baru: semua sesi lama ikut berakhir (AuthenticateSession + remember token baru).
         if (isset($data['password'])) {
             $data['remember_token'] = Str::random(60);
         }
         $user->forceFill($data)->save();
+
+        // Superadmin yang mengganti password sendiri tetap masuk di sesi ini.
+        if (isset($data['password']) && $user->is(Auth::user())) {
+            Auth::setUser($user);
+            $request->session()->put('password_hash_'.Auth::getDefaultDriver(), $user->getAuthPassword());
+        }
 
         return ApiResponse::ok($this->row($user->fresh()));
     }

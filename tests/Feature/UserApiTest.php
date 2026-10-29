@@ -73,6 +73,27 @@ class UserApiTest extends TestCase
         $this->assertNotSame('token-lama', $user->remember_token);
     }
 
+    public function test_a_session_that_is_already_open_ends_when_the_password_is_changed(): void
+    {
+        $admin = User::factory()->admin()->create();
+        $this->actingAs($admin)->getJson('/api/invoices')->assertOk();
+
+        // Superadmin mengganti password admin ini; laptop admin yang masih terbuka harus keluar.
+        $admin->update(['password' => 'baru12345']);
+
+        $this->getJson('/api/invoices')->assertStatus(401);
+    }
+
+    public function test_superadmin_changing_their_own_password_stays_signed_in(): void
+    {
+        $me = Auth::user();
+        $this->getJson('/api/users')->assertOk();
+
+        $this->patchJson("/api/users/{$me->id}", ['password' => 'baru12345'])->assertOk();
+
+        $this->getJson('/api/users')->assertOk();
+    }
+
     public function test_superadmin_cannot_demote_or_deactivate_themselves(): void
     {
         $me = Auth::user();

@@ -4,6 +4,14 @@ import { apiDelete, apiPost } from '../api.js';
 // server juga menolak admin (403), jadi modul ini cukup diam bila tombolnya tidak ada.
 const $ = id => document.getElementById(id);
 
+/** Isi kolom jumlah keluar → bilangan bulat 0..max, atau null bila kosong/tidak valid. */
+export function readOutQty(value, max) {
+  const text = String(value).trim();
+  if (!/^\d+$/.test(text)) return null;
+  const qty = Number(text);
+  return qty <= max ? qty : null;
+}
+
 function el(tag, className, text) {
   const node = document.createElement(tag);
   if (className) node.className = className;
@@ -44,19 +52,30 @@ export function setupAdjust({ invoiceId, getInvoice, onSaved }) {
     $('adjust-items').querySelector('input')?.focus();
   }
 
+  function showError(message) {
+    $('adjust-error').textContent = message;
+    $('adjust-error').hidden = false;
+  }
+
   async function save() {
-    const items = [...$('adjust-items').querySelectorAll('input')].map(input => ({
+    const inputs = [...$('adjust-items').querySelectorAll('input')];
+    const items = inputs.map(input => ({
       invoice_item_id: Number(input.dataset.itemId),
-      qty: Number(input.value),
+      qty: readOutQty(input.value, Number(input.max)),
     }));
+    // Kolom kosong jangan diam-diam dianggap 0: itu mengubah laporan barang keluar.
+    const invalid = items.findIndex(i => i.qty === null);
+    if (invalid !== -1) {
+      inputs[invalid].focus();
+      return showError(`Isi jumlah keluar ${inputs[invalid].getAttribute('aria-label').replace('Jumlah keluar ', '')} dengan angka 0 sampai ${inputs[invalid].max}`);
+    }
     $('adjust-save').disabled = true;
     try {
       const fresh = await apiPost(`/api/invoices/${invoiceId}/adjust`, { note: $('adjust-note').value.trim(), items });
       panel.hidden = true;
       onSaved(fresh);
     } catch (err) {
-      $('adjust-error').textContent = err.message;
-      $('adjust-error').hidden = false;
+      showError(err.message);
     } finally {
       $('adjust-save').disabled = false;
     }
