@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\PrintController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\ReturnController;
 use App\Http\Controllers\Api\ScanController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/invoices', [InvoiceController::class, 'index']);
@@ -30,3 +31,10 @@ Route::post('/returns/{goodsReturn}/scans', [ReturnController::class, 'scan']);
 Route::post('/returns/{goodsReturn}/decrement', [ReturnController::class, 'decrement']);
 Route::post('/returns/{goodsReturn}/complete', [ReturnController::class, 'complete']);
 Route::post('/returns/{goodsReturn}/zahir', [ReturnController::class, 'zahir']);
+
+// Khusus superadmin.
+Route::middleware('can:superadmin')->group(function () {
+    Route::get('/users', [UserController::class, 'index']);
+    Route::post('/users', [UserController::class, 'store']);
+    Route::patch('/users/{user}', [UserController::class, 'update']);
+});

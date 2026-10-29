@@ -32,4 +32,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/retur/{goodsReturn}', fn (GoodsReturn $goodsReturn) => view('returns.session', compact('goodsReturn')));
 
     Route::view('/laporan', 'reports.outgoing');
+
+    Route::view('/pengguna', 'users.index')->middleware('can:superadmin');
 });
