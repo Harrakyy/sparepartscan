@@ -36,7 +36,7 @@
             </div>
             <label class="login-remember">
                 <input name="remember" type="checkbox" value="1" @checked(old('remember'))>
-                Ingat saya <span class="muted">(laptop gudang tetap masuk sampai Keluar)</span>
+                Ingat saya
             </label>
             <button class="btn btn-primary btn-big" type="submit"><i class="bi bi-box-arrow-in-right" aria-hidden="true"></i> Masuk</button>
             <p class="muted login-help">Lupa password? Hubungi superadmin untuk dibuatkan password baru.</p>
