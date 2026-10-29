@@ -1,12 +1,15 @@
 import { apiGet, apiPost } from '../api.js';
 import { formatWib } from '../format.js';
 import { flashError } from '../flash.js';
+import { everyVisible } from '../poll.js';
 import { setupScanInput } from '../scan-input.js';
 import { setupAdjust, setupDelete } from './session-admin.js';
 import { suggestCode } from '../similar-code.js';
 import { beepOk, buzzError } from '../sound.js';
 
 const TOAST_MS = 3000;
+const POLL_MS = 5000;
+const REDIRECT_AFTER_DELETE_MS = 2500;
 const FLASH_MS = 900;
 const RESULT_LABEL = { ok: 'Cocok', over_qty: 'Kelebihan', not_in_invoice: 'Tidak ada di faktur' };
 const STAGE_LABEL = { pick: 'Scan pertama', qc: 'Scan QC' };
@@ -308,6 +311,23 @@ async function load() {
     $('stage-label').textContent = err.message;
   }
 }
+
+// Laptop lain bisa scan/cetak/edit faktur yang sama: ambil data terbaru tiap 5 detik. Lewat antrian
+// scan supaya tidak menimpa hasil scan yang sedang dikirim; layar digambar ulang hanya bila berubah.
+async function refreshFromServer() {
+  if (!invoice) return;
+  try {
+    const fresh = await apiGet(`/api/invoices/${invoiceId}`);
+    if (JSON.stringify(fresh) === JSON.stringify(invoice)) return;
+    invoice = fresh;
+    render();
+  } catch (err) {
+    if (err.status !== 404) return; // gangguan jaringan sesaat: coba lagi di putaran berikutnya
+    showToast('Faktur ini sudah dihapus di komputer lain');
+    setTimeout(() => { window.location.href = '/gudang'; }, REDIRECT_AFTER_DELETE_MS);
+  }
+}
+everyVisible(POLL_MS, () => { queue = queue.then(refreshFromServer); });
 
 setupDelete({ invoiceId, getInvoice: () => invoice });
 const refreshAdjust = setupAdjust({
