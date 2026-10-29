@@ -20,6 +20,9 @@
                     <i class="bi bi-printer" aria-hidden="true"></i> Cetak
                 </button>
                 @can('superadmin')
+                    <button id="adjust" class="btn" type="button" title="Kurangi jumlah keluar setelah retur (superadmin)" hidden>
+                        <i class="bi bi-pencil-square" aria-hidden="true"></i> Edit jumlah
+                    </button>
                     <button id="delete" class="btn btn-danger" type="button" title="Hapus faktur (superadmin)">
                         <i class="bi bi-trash" aria-hidden="true"></i> Hapus faktur
                     </button>
@@ -43,6 +46,31 @@
                     <button id="delete-submit" class="btn btn-danger-solid" type="button" disabled><i class="bi bi-trash" aria-hidden="true"></i> Hapus permanen</button>
                 </div>
             </dialog>
+
+            {{-- Edit jumlah keluar: hanya mengurangi (retur), supaya sama dengan Zahir. --}}
+            <section id="adjust-panel" class="card" hidden>
+                <div class="row" style="justify-content:space-between;align-items:center">
+                    <h2>Edit jumlah keluar</h2>
+                    <span class="muted">Hanya bisa dikurangi (0 sampai jumlah faktur). Laporan barang keluar memakai angka ini.</span>
+                </div>
+                <div class="table-wrap">
+                    <table class="grid">
+                        <thead>
+                            <tr><th>Kode part</th><th>Nama barang</th><th class="num" style="width:110px">Faktur</th><th class="num" style="width:140px">Keluar</th></tr>
+                        </thead>
+                        <tbody id="adjust-items"></tbody>
+                    </table>
+                </div>
+                <div class="field">
+                    <label for="adjust-note">Alasan (wajib)</label>
+                    <input id="adjust-note" maxlength="255" placeholder="Contoh: retur 1 pcs, barang rusak">
+                </div>
+                <p id="adjust-error" class="msg msg-bad" hidden></p>
+                <div class="row" style="justify-content:flex-end">
+                    <button id="adjust-cancel" class="btn" type="button">Batal</button>
+                    <button id="adjust-save" class="btn btn-primary" type="button"><i class="bi bi-check2" aria-hidden="true"></i> Simpan perubahan</button>
+                </div>
+            </section>
         @endcan
 
         <section id="history-panel" class="card" hidden>
@@ -98,6 +126,11 @@
                 </table>
             </div>
         </div>
+
+        <section id="adjustments" class="card" hidden>
+            <h2>Riwayat perubahan jumlah keluar</h2>
+            <ul id="adjustment-list" class="history"></ul>
+        </section>
 
         <div class="session-actions">
             <button id="complete" class="btn btn-ok btn-big" type="button" disabled><i class="bi bi-check2-circle" aria-hidden="true"></i> <span>Selesai</span></button>

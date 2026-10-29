@@ -2,7 +2,7 @@ import { apiGet, apiPost } from '../api.js';
 import { formatWib } from '../format.js';
 import { flashError } from '../flash.js';
 import { setupScanInput } from '../scan-input.js';
-import { setupDelete } from './session-admin.js';
+import { setupAdjust, setupDelete } from './session-admin.js';
 import { suggestCode } from '../similar-code.js';
 import { beepOk, buzzError } from '../sound.js';
 
@@ -34,6 +34,8 @@ function iconCell(icon) {
 }
 
 const column = () => (stage === 'qc' ? 'qc_qty' : 'picked_qty');
+// Jumlah keluar: jumlah faktur, atau hasil edit superadmin setelah retur.
+const outQty = item => item.out_qty ?? item.qty;
 const allComplete = () => invoice.items.every(i => i[column()] >= i.qty);
 
 // Tahap yang sedang aktif mengikuti status faktur; setelah scan pertama selesai,
@@ -73,11 +75,17 @@ function renderItems(flashId) {
     const complete = n >= item.qty;
     const tr = el('tr', complete ? 'row-ok' : n > 0 ? 'row-partial' : '');
     if (item.id === flashId) tr.classList.add('row-flash');
+    const count = el('td', 'num count', `${n}/${item.qty}`);
+    if (outQty(item) !== item.qty) {
+      const adjusted = el('div', 'adjusted', `keluar ${item.qty} → ${outQty(item)}`);
+      adjusted.title = 'Jumlah keluar diubah superadmin (lihat riwayat perubahan)';
+      count.append(adjusted);
+    }
     tr.append(
       iconCell(complete ? 'bi-check-circle-fill' : n > 0 ? 'bi-circle-half' : 'bi-circle'),
       el('td', 'code mono', item.part_code),
       el('td', '', item.part_name),
-      el('td', 'num count', `${n}/${item.qty}`),
+      count,
     );
     return tr;
   }));
@@ -153,13 +161,30 @@ function renderActions() {
   $('print').title = printable ? 'Cetak struk untuk pelanggan' : 'Selesaikan scan pertama dulu';
 }
 
+function renderAdjustments() {
+  const list = invoice.adjustments;
+  $('adjustments').hidden = list.length === 0;
+  $('adjustment-list').replaceChildren(...list.map(a => {
+    const li = el('li');
+    li.append(
+      el('span', 'muted', formatWib(a.created_at)),
+      el('span', '', a.user_name ?? '–'),
+      el('span', 'mono', a.part_code),
+      el('span', '', `${a.from_qty} → ${a.to_qty} · ${a.note}`),
+    );
+    return li;
+  }));
+}
+
 function render(flashId) {
   renderHeader();
   renderItems(flashId);
   renderWrong();
   renderHistory();
   renderPrints();
+  renderAdjustments();
   renderActions();
+  refreshAdjust();
   scanBox.focus();
   if (flashId) setTimeout(() => document.querySelector('.row-flash')?.classList.remove('row-flash'), FLASH_MS);
 }
@@ -240,11 +265,11 @@ function renderReceipt() {
     const text = el('span', 'receipt-item');
     text.append(el('span', 'receipt-code', item.part_code), ` ${item.part_name}`);
     const li = el('li');
-    li.append(text, el('span', 'receipt-qty', short ? `${item.picked_qty}/${item.qty} KURANG` : String(item.qty)));
+    li.append(text, el('span', 'receipt-qty', short ? `${item.picked_qty}/${item.qty} KURANG` : String(outQty(item))));
     return li;
   }));
 
-  const total = invoice.items.reduce((s, i) => s + i.qty, 0);
+  const total = invoice.items.reduce((s, i) => s + outQty(i), 0);
   const verified = !['waiting', 'picking'].includes(invoice.status);
   $('receipt-total').textContent = `${invoice.items.length} jenis · ${total} barang`;
   $('receipt-status').textContent = verified ? 'SEMUA BARANG SESUAI FAKTUR' : 'BELUM SELESAI DICEK';
@@ -285,5 +310,14 @@ async function load() {
 }
 
 setupDelete({ invoiceId, getInvoice: () => invoice });
+const refreshAdjust = setupAdjust({
+  invoiceId,
+  getInvoice: () => invoice,
+  onSaved: fresh => {
+    invoice = fresh;
+    render();
+    showToast('Jumlah keluar disimpan', 'ok');
+  },
+});
 
 load();

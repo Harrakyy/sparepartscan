@@ -89,6 +89,31 @@ class InvoiceController extends Controller
         return ApiResponse::ok(['deleted' => true]);
     }
 
+    /** Khusus superadmin: kurangi jumlah keluar setelah retur, supaya laporan sama dengan Zahir. */
+    public function adjust(Request $request, Invoice $invoice): JsonResponse
+    {
+        $data = $request->validate([
+            'note' => ['required', 'string', 'max:255'],
+            'items' => ['required', 'array', 'min:1', 'max:200'],
+            'items.*.invoice_item_id' => ['required', 'integer'],
+            'items.*.qty' => ['required', 'integer'],
+        ], [
+            'note.required' => 'Alasan wajib diisi',
+            'note.max' => 'Alasan maksimal 255 karakter',
+            'items.*' => 'Tidak ada jumlah yang berubah',
+            'items.*.invoice_item_id.*' => 'Barang tidak dikenal',
+            'items.*.qty.*' => 'Jumlah keluar harus bilangan bulat',
+        ]);
+
+        try {
+            $invoice = $this->invoices->adjust($invoice, $data['items'], trim($data['note']), $request->user());
+        } catch (DomainRuleException $e) {
+            return ApiResponse::fail($e->getMessage(), 409);
+        }
+
+        return ApiResponse::ok($this->invoices->detail($invoice));
+    }
+
     public function show(Invoice $invoice): JsonResponse
     {
         return ApiResponse::ok($this->invoices->detail($invoice));

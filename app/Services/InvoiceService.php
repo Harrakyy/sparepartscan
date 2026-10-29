@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Exceptions\ConfirmationRequiredException;
 use App\Exceptions\DomainRuleException;
 use App\Models\Invoice;
+use App\Models\QtyAdjustment;
+use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -174,7 +176,61 @@ class InvoiceService
             'has_file' => $invoice->file_path !== null,
             'scan_events' => $events->toArray(),
             'print_logs' => $invoice->printLogs()->latest('id')->get(['id', 'created_at'])->toArray(),
+            'adjustments' => $invoice->qtyAdjustments()->with(['item:id,part_code', 'user:id,name'])->latest('id')->get()
+                ->map(fn (QtyAdjustment $a) => [
+                    'created_at' => $a->created_at,
+                    'user_name' => $a->user?->name,
+                    'part_code' => $a->item->part_code,
+                    'from_qty' => $a->from_qty,
+                    'to_qty' => $a->to_qty,
+                    'note' => $a->note,
+                ])->all(),
         ]);
+    }
+
+    /**
+     * Kurangi jumlah keluar setelah retur, supaya sama dengan Zahir (keluar 2, retur 1 → 1).
+     * Hanya mengurangi (0 sampai jumlah faktur); setiap perubahan dicatat beserta alasan dan pengubahnya.
+     *
+     * @param  array<int, array{invoice_item_id: int, qty: int}>  $changes
+     */
+    public function adjust(Invoice $invoice, array $changes, string $note, User $user): Invoice
+    {
+        return DB::transaction(function () use ($invoice, $changes, $note, $user) {
+            $invoice = Invoice::lockForUpdate()->findOrFail($invoice->id);
+            if ($invoice->picked_at === null) {
+                throw new DomainRuleException('Selesaikan scan pertama dulu');
+            }
+
+            $items = $invoice->items()->get()->keyBy('id');
+            $changed = 0;
+            foreach ($changes as $change) {
+                $item = $items->get($change['invoice_item_id']);
+                if (! $item) {
+                    throw ValidationException::withMessages(['items' => 'Barang tidak dikenal']);
+                }
+                if ($change['qty'] < 0 || $change['qty'] > $item->qty) {
+                    throw ValidationException::withMessages(['items' => "Jumlah keluar {$item->part_code} harus 0 sampai {$item->qty}"]);
+                }
+                if ($change['qty'] === $item->outQty()) {
+                    continue;
+                }
+                $invoice->qtyAdjustments()->create([
+                    'invoice_item_id' => $item->id,
+                    'user_id' => $user->id,
+                    'from_qty' => $item->outQty(),
+                    'to_qty' => $change['qty'],
+                    'note' => $note,
+                ]);
+                $item->update(['out_qty' => $change['qty']]);
+                $changed++;
+            }
+            if ($changed === 0) {
+                throw ValidationException::withMessages(['items' => 'Tidak ada jumlah yang berubah']);
+            }
+
+            return $invoice;
+        });
     }
 
     /**
