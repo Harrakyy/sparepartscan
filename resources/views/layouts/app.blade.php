@@ -36,7 +36,22 @@
             <a href="{{ url('/laporan') }}" @if (request()->is('laporan*')) aria-current="page" @endif>
                 <i class="bi bi-table" aria-hidden="true"></i><span>Laporan</span>
             </a>
+            @can('superadmin')
+                <a href="{{ url('/pengguna') }}" @if (request()->is('pengguna*')) aria-current="page" @endif>
+                    <i class="bi bi-people" aria-hidden="true"></i><span>Pengguna</span>
+                </a>
+            @endcan
         </nav>
+        @if ($currentUser)
+            <form class="user-menu" method="POST" action="{{ url('/logout') }}">
+                @csrf
+                <span class="user-name" title="{{ $currentUser->email }}">
+                    <i class="bi bi-person-circle" aria-hidden="true"></i> {{ $currentUser->name }}
+                    <span class="badge {{ $currentUser->isSuperadmin() ? 'badge-qc_done' : 'badge-waiting' }}">{{ $currentUser->isSuperadmin() ? 'Superadmin' : 'Admin' }}</span>
+                </span>
+                <button class="btn btn-icon" type="submit" title="Keluar"><i class="bi bi-box-arrow-right" aria-hidden="true"></i> <span>Keluar</span></button>
+            </form>
+        @endif
     </header>
     <main class="page">
         @yield('content')
