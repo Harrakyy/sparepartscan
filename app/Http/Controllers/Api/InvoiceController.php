@@ -81,6 +81,14 @@ class InvoiceController extends Controller
         return ApiResponse::ok($this->invoices->existingNumbers(array_slice(array_values($numbers), 0, self::EXISTING_LIMIT)));
     }
 
+    /** Khusus superadmin: faktur salah upload dihapus supaya penggantinya (nomor sama) bisa diupload. */
+    public function destroy(Request $request, Invoice $invoice): JsonResponse
+    {
+        $this->invoices->delete($invoice, (string) $request->input('confirm_number', ''));
+
+        return ApiResponse::ok(['deleted' => true]);
+    }
+
     public function show(Invoice $invoice): JsonResponse
     {
         return ApiResponse::ok($this->invoices->detail($invoice));

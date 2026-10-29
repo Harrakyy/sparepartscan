@@ -34,6 +34,7 @@ Route::post('/returns/{goodsReturn}/zahir', [ReturnController::class, 'zahir']);
 
 // Khusus superadmin.
 Route::middleware('can:superadmin')->group(function () {
+    Route::delete('/invoices/{invoice}', [InvoiceController::class, 'destroy']);
     Route::get('/users', [UserController::class, 'index']);
     Route::post('/users', [UserController::class, 'store']);
     Route::patch('/users/{user}', [UserController::class, 'update']);

@@ -19,8 +19,31 @@
                 <button id="print" class="btn" type="button" title="Cetak hasil verifikasi" disabled>
                     <i class="bi bi-printer" aria-hidden="true"></i> Cetak
                 </button>
+                @can('superadmin')
+                    <button id="delete" class="btn btn-danger" type="button" title="Hapus faktur (superadmin)">
+                        <i class="bi bi-trash" aria-hidden="true"></i> Hapus faktur
+                    </button>
+                @endcan
             </div>
         </div>
+
+        @can('superadmin')
+            <dialog id="delete-dialog" class="dialog" aria-labelledby="delete-title">
+                <h2 id="delete-title">Hapus faktur {{ $invoice->number }}?</h2>
+                <p id="delete-summary" class="msg msg-warn"></p>
+                <p>Faktur, barang, riwayat scan, riwayat cetak, dan retur akan <strong>hilang total</strong>.
+                    Setelah itu nomor ini bisa diupload lagi.</p>
+                <div class="field">
+                    <label for="delete-confirm">Ketik nomor faktur untuk konfirmasi</label>
+                    <input id="delete-confirm" class="mono" inputmode="numeric" autocomplete="off" placeholder="{{ $invoice->number }}">
+                </div>
+                <p id="delete-error" class="msg msg-bad" hidden></p>
+                <div class="row" style="justify-content:flex-end">
+                    <button id="delete-cancel" class="btn" type="button">Batal</button>
+                    <button id="delete-submit" class="btn btn-danger-solid" type="button" disabled><i class="bi bi-trash" aria-hidden="true"></i> Hapus permanen</button>
+                </div>
+            </dialog>
+        @endcan
 
         <section id="history-panel" class="card" hidden>
             <div class="row" style="justify-content:space-between;align-items:center">

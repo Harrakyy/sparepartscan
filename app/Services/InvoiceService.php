@@ -8,6 +8,7 @@ use App\Models\Invoice;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class InvoiceService
@@ -109,6 +110,25 @@ class InvoiceService
         }
 
         return $result;
+    }
+
+    /**
+     * Hapus faktur total (barang, scan, cetak, retur ikut terhapus lewat foreign key cascade),
+     * supaya faktur pengganti bernomor sama dari Zahir bisa diupload ulang.
+     */
+    public function delete(Invoice $invoice, string $confirmNumber): void
+    {
+        if (trim($confirmNumber) !== $invoice->number) {
+            throw ValidationException::withMessages(['confirm_number' => 'Nomor konfirmasi tidak cocok']);
+        }
+
+        $path = $invoice->file_path;
+        $invoice->delete();
+
+        // File laporan bersama tetap disimpan selama masih dipakai faktur lain.
+        if ($path && ! Invoice::where('file_path', $path)->exists()) {
+            Storage::disk('local')->delete($path);
+        }
     }
 
     /** @return array<int, string> nomor dari `$numbers` yang sudah ada di app */

@@ -2,6 +2,7 @@ import { apiGet, apiPost } from '../api.js';
 import { formatWib } from '../format.js';
 import { flashError } from '../flash.js';
 import { setupScanInput } from '../scan-input.js';
+import { setupDelete } from './session-admin.js';
 import { suggestCode } from '../similar-code.js';
 import { beepOk, buzzError } from '../sound.js';
 
@@ -282,5 +283,7 @@ async function load() {
     $('stage-label').textContent = err.message;
   }
 }
+
+setupDelete({ invoiceId, getInvoice: () => invoice });
 
 load();
