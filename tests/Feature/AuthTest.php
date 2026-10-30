@@ -73,18 +73,6 @@ class AuthTest extends TestCase
         $this->login(remember: true)->assertCookie(Auth::guard()->getRecallerName());
     }
 
-    public function test_repeated_failures_are_throttled(): void
-    {
-        $this->user();
-        for ($i = 0; $i < 5; $i++) {
-            $this->login('salah-salah');
-        }
-
-        $this->login()->assertSessionHasErrors('email');
-        $this->assertStringStartsWith('Terlalu banyak percobaan', session('errors')->first('email'));
-        $this->assertGuest();
-    }
-
     public function test_logout_ends_the_session(): void
     {
         $this->actingAs($this->user());

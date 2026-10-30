@@ -34,7 +34,7 @@ class UserApiTest extends TestCase
         User::factory()->admin()->create(['name' => 'Ani']);
 
         $r = $this->getJson('/api/users')->assertOk()->assertJsonCount(2, 'data');
-        $this->assertSame(['id', 'name', 'email', 'role', 'is_active', 'last_login_at'], array_keys($r->json('data.0')));
+        $this->assertSame(['id', 'name', 'email', 'role', 'is_active', 'last_login_at', 'locked_until'], array_keys($r->json('data.0')));
         $this->get('/pengguna')->assertOk();
     }
 
