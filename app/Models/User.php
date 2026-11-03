@@ -51,6 +51,9 @@ class User extends Authenticatable
             'password' => 'hashed',
             'is_active' => 'boolean',
             'last_login_at' => 'datetime',
+            'failed_logins' => 'integer',
+            'last_failed_login_at' => 'datetime',
+            'locked_until' => 'datetime',
         ];
     }
 

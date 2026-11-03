@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\LoginLockout;
 use App\Support\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -46,13 +47,21 @@ class UserController extends Controller
         return ApiResponse::ok($this->row(User::create($data + ['is_active' => true])), 201);
     }
 
-    public function update(Request $request, User $user): JsonResponse
+    public function update(Request $request, User $user, LoginLockout $lockout): JsonResponse
     {
         $data = $request->validate([
             'role' => ['sometimes', Rule::in(User::ROLES)],
             'is_active' => ['sometimes', 'boolean'],
             'password' => ['sometimes', 'string', 'min:'.self::MIN_PASSWORD],
+            'unlock' => ['sometimes', 'boolean'],
         ], self::MESSAGES);
+
+        // Buka kunci login (misalnya akun gudang dikunci karena orang lain salah password berulang).
+        // Password baru juga membuka kunci.
+        if (($data['unlock'] ?? false) || isset($data['password'])) {
+            $lockout->reset($user);
+        }
+        unset($data['unlock']);
 
         // Superadmin selalu tersisa: tidak bisa menurunkan atau menonaktifkan dirinya sendiri.
         $demotesSelf = $user->is(Auth::user())
@@ -78,6 +87,8 @@ class UserController extends Controller
 
     private function row(User $user): array
     {
-        return $user->only(['id', 'name', 'email', 'role', 'is_active', 'last_login_at']);
+        return array_merge($user->only(['id', 'name', 'email', 'role', 'is_active', 'last_login_at']), [
+            'locked_until' => $user->locked_until?->isFuture() ? $user->locked_until : null,
+        ]);
     }
 }
