@@ -49,6 +49,12 @@ komputer scan**, terhubung satu WiFi.
    "database locked" dan tidak ada hitungan melebihi jumlah faktur.
 6. Jadwal Laravel (`schedule:run`) dijalankan oleh Windows Task Scheduler tiap menit (bukan
    `artisan serve`): hapus file 60 hari, backup per jam & harian.
+7. Keamanan dependensi:
+   - PHP minimal **8.3.36** (perbaikan php2shell CVE-2026-109618/109619); pengembangan dan
+     paket memakai versi PHP yang sama.
+   - `composer audit` wajib bersih sebelum setiap rilis (saat ini: `symfony/mime`
+     CVE-2026-45070 diperbaiki).
+   - App tidak dibuka lewat tunnel/internet selama PHP belum diperbarui.
 
 ### Fase 2 — Backup & pemulihan (fitur app, edisi offline)
 - `php artisan app:backup {hourly|daily|manual}`:
@@ -94,6 +100,11 @@ komputer scan**, terhubung satu WiFi.
     `C:\VerifikasiFaktur\backup\` (rotasi 24 per jam + 7 harian).
   - Tidak memasang PHP/Apache/database.
 - Ganti peran: jalankan Setup lagi dan pilih peran lain.
+- **Keamanan PHP di paket**: `build.ps1` menolak build bila PHP di bawah versi minimum
+  (8.3.36 saat ini) atau `composer audit` tidak bersih. Versi PHP, Apache, dan app dicatat di
+  catatan rilis dan ditampilkan di halaman "Tentang" app. Bila ada celah kritis PHP, kirim Setup
+  versi baru (alur update tanpa kehilangan data); hal ini disepakati dengan MGI karena edisi
+  offline tanpa maintenance.
 
 ### Fase 4 — Uji coba lokal
 Laptop pengembang (master) + komputer teman (scan), satu WiFi, dipasang dengan installer:
