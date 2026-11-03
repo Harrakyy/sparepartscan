@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Contracts\RemovableDisks;
 use App\Models\Invoice;
 use App\Models\User;
+use App\Support\WindowsRemovableDisks;
 use Illuminate\Http\Middleware\TrustProxies;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -17,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(RemovableDisks::class, WindowsRemovableDisks::class);
     }
 
     /**

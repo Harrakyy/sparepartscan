@@ -36,4 +36,21 @@ class BackupController extends Controller
 
         return ApiResponse::ok(['restored' => true]);
     }
+
+    /** Daftar flashdisk yang bisa dipilih untuk backup. */
+    public function disks(): JsonResponse
+    {
+        return ApiResponse::ok($this->backup->removableDisks());
+    }
+
+    /** Salin backup ke flashdisk yang dipilih. */
+    public function toDisk(Request $request): JsonResponse
+    {
+        $drive = trim((string) $request->input('drive'));
+        if ($drive === '') {
+            return ApiResponse::fail('Tidak ada flashdisk', 422);
+        }
+
+        return ApiResponse::ok(['copied' => $this->backup->copyToDisk($drive)]);
+    }
 }

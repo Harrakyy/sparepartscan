@@ -46,5 +46,7 @@ Route::middleware('can:superadmin')->group(function () {
     Route::middleware('edition.offline')->group(function () {
         Route::get('/backups', [BackupController::class, 'index']);
         Route::post('/backups/restore', [BackupController::class, 'restore']);
+        Route::get('/backups/disks', [BackupController::class, 'disks']);
+        Route::post('/backups/to-disk', [BackupController::class, 'toDisk']);
     });
 });

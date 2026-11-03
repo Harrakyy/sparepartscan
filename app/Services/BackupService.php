@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Contracts\RemovableDisks;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -12,6 +13,55 @@ use Illuminate\Support\Facades\DB;
 class BackupService
 {
     private const JENIS = ['perjam', 'harian', 'manual', 'sebelum-pulihkan'];
+
+    /** Folder backup di flashdisk, dan berapa hari file di sana dipertahankan. */
+    private const FOLDER_DISK = 'VerifikasiFaktur-Backup';
+
+    private const HARI_SIMPAN_DISK = 7;
+
+    public function __construct(private readonly RemovableDisks $disks) {}
+
+    /**
+     * Daftar flashdisk yang bisa dipilih untuk backup.
+     *
+     * @return array<int, array{drive: string, label: string, free: int}>
+     */
+    public function removableDisks(): array
+    {
+        return $this->disks->list();
+    }
+
+    /**
+     * Salin backup terbaru + 7 backup harian terbaru ke flashdisk, lalu hapus file di flashdisk
+     * yang lebih tua dari 7 hari. Mengembalikan daftar nama file yang disalin.
+     *
+     * @return array<int, string>
+     */
+    public function copyToDisk(string $drive): array
+    {
+        $tujuan = rtrim($drive, '/\\').DIRECTORY_SEPARATOR.self::FOLDER_DISK;
+        if (! is_dir($tujuan)) {
+            mkdir($tujuan, 0775, true);
+        }
+
+        $sumber = $this->files('harian');                 // harian terbaru dulu
+        $sumber = array_slice($sumber, 0, self::HARI_SIMPAN_DISK);
+        if ($terbaru = $this->latest()) {                  // + backup terbaru apa pun jenisnya
+            array_unshift($sumber, $terbaru);
+        }
+        $sumber = array_values(array_unique($sumber));
+
+        $disalin = [];
+        foreach ($sumber as $path) {
+            $nama = basename($path);
+            copy($path, $tujuan.DIRECTORY_SEPARATOR.$nama);
+            $disalin[] = $nama;
+        }
+
+        $this->rotateDisk($tujuan);
+
+        return array_values(array_unique($disalin));
+    }
 
     /** Buat satu backup; mengembalikan path file, atau null bila isi database tidak berubah. */
     public function create(string $jenis): ?string
@@ -137,6 +187,32 @@ class BackupService
         $keep = config("backup.keep.{$jenis}", 30);
         foreach (array_slice($this->files($jenis), $keep) as $old) {
             @unlink($old);
+        }
+    }
+
+    /** Backup paling baru dari semua jenis, atau null bila belum ada. */
+    private function latest(): ?string
+    {
+        $terbaru = null;
+        foreach (self::JENIS as $jenis) {
+            if ($path = $this->files($jenis)[0] ?? null) {
+                if ($terbaru === null || filemtime($path) > filemtime($terbaru)) {
+                    $terbaru = $path;
+                }
+            }
+        }
+
+        return $terbaru;
+    }
+
+    /** Hapus file backup di flashdisk yang lebih tua dari batas simpan. */
+    private function rotateDisk(string $tujuan): void
+    {
+        $batas = now()->subDays(self::HARI_SIMPAN_DISK)->timestamp;
+        foreach (glob($tujuan.'/faktur-*.sqlite') ?: [] as $path) {
+            if (filemtime($path) < $batas) {
+                @unlink($path);
+            }
         }
     }
 
