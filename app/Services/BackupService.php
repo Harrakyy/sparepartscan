@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
  */
 class BackupService
 {
-    private const JENIS = ['perjam', 'harian', 'manual'];
+    private const JENIS = ['perjam', 'harian', 'manual', 'sebelum-pulihkan'];
 
     /** Buat satu backup; mengembalikan path file, atau null bila isi database tidak berubah. */
     public function create(string $jenis): ?string
@@ -42,6 +42,51 @@ class BackupService
         $this->rotate($jenis);
 
         return $path;
+    }
+
+    /** Cari path backup dari namanya (di semua folder jenis), atau null. */
+    public function find(string $nama): ?string
+    {
+        $nama = basename($nama);
+        foreach (self::JENIS as $jenis) {
+            $path = $this->dir($jenis).DIRECTORY_SEPARATOR.$nama;
+            if (is_file($path)) {
+                return $path;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Pulihkan database dari sebuah backup. Membuat backup "sebelum-pulihkan" dulu, lalu menyalin
+     * isi backup ke database aktif (ATTACH + salin tabel) sehingga jalan untuk file maupun :memory:.
+     */
+    public function restore(string $nama): void
+    {
+        $path = $this->find($nama);
+        if ($path === null) {
+            throw new \RuntimeException('Backup tidak ditemukan');
+        }
+
+        $this->create('sebelum-pulihkan');
+
+        $pdo = DB::getPdo();
+        $pdo->exec('PRAGMA foreign_keys=OFF');
+        $pdo->exec('ATTACH '.$pdo->quote($path).' AS pulih');
+        try {
+            $tables = $pdo->query("SELECT name FROM pulih.sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'")
+                ->fetchAll(\PDO::FETCH_COLUMN);
+            $pdo->beginTransaction();
+            foreach ($tables as $t) {
+                $pdo->exec('DELETE FROM main."'.$t.'"');
+                $pdo->exec('INSERT INTO main."'.$t.'" SELECT * FROM pulih."'.$t.'"');
+            }
+            $pdo->commit();
+        } finally {
+            $pdo->exec('DETACH pulih');
+            $pdo->exec('PRAGMA foreign_keys=ON');
+        }
     }
 
     /**

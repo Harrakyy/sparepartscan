@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\BackupController;
 use App\Http\Controllers\Api\InvoiceController;
 use App\Http\Controllers\Api\PrintController;
 use App\Http\Controllers\Api\ReportController;
@@ -41,8 +42,9 @@ Route::middleware('can:superadmin')->group(function () {
     Route::post('/users', [UserController::class, 'store']);
     Route::patch('/users/{user}', [UserController::class, 'update']);
 
-    // Backup hanya ada di edisi offline (lihat middleware edition.offline). Isi diisi di task berikutnya.
+    // Backup hanya ada di edisi offline (lihat middleware edition.offline).
     Route::middleware('edition.offline')->group(function () {
-        Route::get('/backups', fn () => ApiResponse::ok([]));
+        Route::get('/backups', [BackupController::class, 'index']);
+        Route::post('/backups/restore', [BackupController::class, 'restore']);
     });
 });
