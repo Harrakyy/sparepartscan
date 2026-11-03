@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 
 class BackupDatabase extends Command
 {
-    protected $signature = 'app:backup {jenis=manual : perjam | harian | manual}';
+    protected $signature = 'app:backup {jenis=manual : perjam | harian | manual | sebelum-update}';
 
     protected $description = 'Backup database (edisi offline)';
 
