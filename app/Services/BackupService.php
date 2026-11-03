@@ -191,7 +191,7 @@ class BackupService
     }
 
     /** Backup paling baru dari semua jenis, atau null bila belum ada. */
-    private function latest(): ?string
+    public function latest(): ?string
     {
         $terbaru = null;
         foreach (self::JENIS as $jenis) {

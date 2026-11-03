@@ -19,6 +19,10 @@ return [
     // Edisi offline mengaktifkan menu/fitur Backup dan penguncian lisensi komputer.
     'edition' => env('APP_EDITION', 'online'),
 
+    // Kode pemasangan: komputer scan menyertakannya di header X-Pairing-Code untuk mengunduh
+    // salinan backup terbaru dari master. Diisi installer saat pemasangan (edisi offline).
+    'pairing_code' => env('APP_PAIRING_CODE'),
+
     // Proxy yang dipercaya untuk header X-Forwarded-* (tunnel/proxy HTTPS): "*" atau daftar IP
     // dipisah koma. Kosong = tidak ada proxy (hosting biasa).
     'trusted_proxies' => env('TRUSTED_PROXIES'),

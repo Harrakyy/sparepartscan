@@ -7,6 +7,7 @@ use App\Services\BackupService;
 use App\Support\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /** Menu Backup (superadmin, edisi offline). Rute dijaga middleware edition.offline + can:superadmin. */
 class BackupController extends Controller
@@ -52,5 +53,21 @@ class BackupController extends Controller
         }
 
         return ApiResponse::ok(['copied' => $this->backup->copyToDisk($drive)]);
+    }
+
+    /**
+     * Unduh backup terbaru untuk komputer scan. Dijaga kode pemasangan (header X-Pairing-Code),
+     * bukan login, karena dipanggil terjadwal oleh komputer scan. Batas laju diatur di rute.
+     */
+    public function latest(Request $request): BinaryFileResponse
+    {
+        $expected = (string) config('app.pairing_code');
+        $given = (string) $request->header('X-Pairing-Code', '');
+        abort_unless($expected !== '' && hash_equals($expected, $given), 403);
+
+        $path = $this->backup->latest();
+        abort_if($path === null, 404);
+
+        return response()->download($path, 'faktur-terbaru.sqlite');
     }
 }

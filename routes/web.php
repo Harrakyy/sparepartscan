@@ -1,10 +1,16 @@
 <?php
 
+use App\Http\Controllers\Api\BackupController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Models\GoodsReturn;
 use App\Models\Invoice;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+
+// Komputer scan mengunduh salinan backup terbaru dari master (tanpa login, dijaga kode pemasangan).
+// Hanya ada di edisi offline; batas 10 permintaan/menit.
+Route::get('/backup/latest', [BackupController::class, 'latest'])
+    ->middleware(['edition.offline', 'throttle:10,1']);
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'show'])->name('login');
