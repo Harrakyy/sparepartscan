@@ -28,5 +28,9 @@ node_modules/
 data/
 coverage/
 .env
+
+# Lisensi: kunci rahasia dan file lisensi tak pernah ikut repo (hanya public.key yang ikut).
+/storage/app/keys/secret.key
+/storage/app/license.lic
 .superpowers/
 public/_test-*
