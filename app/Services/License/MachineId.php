@@ -11,6 +11,13 @@ class MachineId
 
     public function current(): string
     {
-        return hash('sha256', trim($this->source->raw()));
+        $raw = trim($this->source->raw());
+        // Jangan runtuh ke satu id konstan bila semua identifier kosong (probe gagal / tanpa admin):
+        // id konstan membuat satu lisensi jalan di banyak komputer dan mengunci komputer sah secara acak.
+        if ($raw === '' || trim(str_replace('|', '', $raw)) === '') {
+            throw new \RuntimeException('Identitas hardware tidak terbaca. Jalankan sebagai administrator.');
+        }
+
+        return hash('sha256', $raw);
     }
 }

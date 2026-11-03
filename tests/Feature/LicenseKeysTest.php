@@ -67,4 +67,19 @@ class LicenseKeysTest extends TestCase
         $this->assertSame($machine->current(), $machine->current());
         $this->assertSame(hash('sha256', 'UUID-123|BOARD-456|DISK-789'), $machine->current());
     }
+
+    public function test_machine_id_rejects_unreadable_hardware(): void
+    {
+        // Semua probe gagal/kosong: jangan runtuh ke satu id konstan yang bisa ditebak.
+        $this->app->instance(HardwareFingerprint::class, new class implements HardwareFingerprint
+        {
+            public function raw(): string
+            {
+                return '||';
+            }
+        });
+
+        $this->expectException(\RuntimeException::class);
+        app(MachineId::class)->current();
+    }
 }

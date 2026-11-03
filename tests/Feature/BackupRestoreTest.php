@@ -45,6 +45,21 @@ class BackupRestoreTest extends TestCase
         $this->assertNotEmpty(glob($this->dir.'/sebelum-pulihkan/*.sqlite'));
     }
 
+    public function test_restore_works_after_a_new_column_is_added(): void
+    {
+        Invoice::factory()->create(['number' => '00000001']);
+        $file = basename($this->backup->create('harian'));
+
+        // App di-update setelah backup dibuat: migrasi menambah kolom baru ke tabel yang sama.
+        \Illuminate\Support\Facades\DB::statement('ALTER TABLE invoices ADD COLUMN catatan_baru TEXT');
+        Invoice::factory()->create(['number' => '00000002']);
+
+        $this->backup->restore($file);
+
+        $this->assertSame(1, Invoice::count());
+        $this->assertSame('00000001', Invoice::first()->number);
+    }
+
     public function test_restore_endpoint_needs_the_confirmation_word(): void
     {
         config(['app.edition' => 'offline']);

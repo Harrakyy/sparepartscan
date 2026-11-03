@@ -70,8 +70,15 @@ class LicenseFile
             return ['ok' => false, 'reason' => 'machine'];
         }
         $expires = (string) ($payload['expires_at'] ?? '');
-        if ($expires !== '' && $now->gt(Carbon::parse($expires)->endOfDay())) {
-            return ['ok' => false, 'reason' => 'expired'];
+        if ($expires !== '') {
+            try {
+                $expiredAt = Carbon::parse($expires)->endOfDay();
+            } catch (\Throwable) {
+                return ['ok' => false, 'reason' => 'expired']; // Tanggal tak terbaca: anggap tak berlaku, jangan 500.
+            }
+            if ($now->gt($expiredAt)) {
+                return ['ok' => false, 'reason' => 'expired'];
+            }
         }
 
         return ['ok' => true];

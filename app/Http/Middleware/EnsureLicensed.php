@@ -43,11 +43,12 @@ class EnsureLicensed
             }
             try {
                 $parsed = $this->license->parse((string) file_get_contents($path));
+
+                return $this->license->valid($parsed, $this->machine->current(), now())['ok'];
             } catch (\Throwable) {
+                // File lisensi rusak atau identitas hardware tak terbaca: perlakukan sebagai tak berlisensi.
                 return false;
             }
-
-            return $this->license->valid($parsed, $this->machine->current(), now())['ok'];
         });
     }
 }

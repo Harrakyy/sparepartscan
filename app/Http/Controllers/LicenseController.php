@@ -20,7 +20,13 @@ class LicenseController extends Controller
 
     public function show(MachineId $machine): View
     {
-        return view('license.activate', ['machineId' => $machine->current()]);
+        try {
+            $machineId = $machine->current();
+        } catch (\RuntimeException $e) {
+            $machineId = null;
+        }
+
+        return view('license.activate', ['machineId' => $machineId]);
     }
 
     public function store(Request $request, LicenseFile $license, MachineId $machine): RedirectResponse

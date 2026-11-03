@@ -125,6 +125,8 @@ class BackupService
     /**
      * Pulihkan database dari sebuah backup. Membuat backup "sebelum-pulihkan" dulu, lalu menyalin
      * isi backup ke database aktif (ATTACH + salin tabel) sehingga jalan untuk file maupun :memory:.
+     * Hanya kolom yang sama-sama ada di skema sekarang dan di backup yang disalin, sehingga pemulihan
+     * tetap jalan setelah aplikasi di-update (migrasi menambah/menghapus kolom). Atomik: gagal = rollback.
      */
     public function restore(string $nama): void
     {
@@ -138,19 +140,43 @@ class BackupService
         $pdo = DB::getPdo();
         $pdo->exec('PRAGMA foreign_keys=OFF');
         $pdo->exec('ATTACH '.$pdo->quote($path).' AS pulih');
+        $inTransaction = false;
         try {
             $tables = $pdo->query("SELECT name FROM pulih.sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'")
                 ->fetchAll(\PDO::FETCH_COLUMN);
             $pdo->beginTransaction();
+            $inTransaction = true;
             foreach ($tables as $t) {
+                $cols = $this->sharedColumns($pdo, $t);
+                if ($cols === []) {
+                    continue; // Tabel tak ada lagi di skema sekarang, atau tak ada kolom yang cocok.
+                }
+                $list = implode(', ', array_map(fn ($c) => '"'.$c.'"', $cols));
                 $pdo->exec('DELETE FROM main."'.$t.'"');
-                $pdo->exec('INSERT INTO main."'.$t.'" SELECT * FROM pulih."'.$t.'"');
+                $pdo->exec('INSERT INTO main."'.$t.'" ('.$list.') SELECT '.$list.' FROM pulih."'.$t.'"');
             }
             $pdo->commit();
+            $inTransaction = false;
+        } catch (\Throwable $e) {
+            if ($inTransaction) {
+                $pdo->rollBack(); // Tutup transaksi dulu, baru DETACH (DETACH dalam transaksi error).
+            }
+            throw $e;
         } finally {
             $pdo->exec('DETACH pulih');
             $pdo->exec('PRAGMA foreign_keys=ON');
         }
+    }
+
+    /** Kolom yang ada di tabel main DAN di tabel pulih (backup), menjaga urutan kolom main. */
+    private function sharedColumns(\PDO $pdo, string $table): array
+    {
+        $names = fn (string $db) => array_column(
+            $pdo->query('PRAGMA '.$db.'.table_info("'.$table.'")')->fetchAll(\PDO::FETCH_ASSOC),
+            'name',
+        );
+
+        return array_values(array_intersect($names('main'), $names('pulih')));
     }
 
     /**

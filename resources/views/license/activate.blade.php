@@ -29,7 +29,11 @@
 
             <div class="field">
                 <label for="machine-id">ID komputer</label>
-                <input id="machine-id" value="{{ $machineId }}" readonly onclick="this.select()">
+                @if ($machineId)
+                    <input id="machine-id" value="{{ $machineId }}" readonly onclick="this.select()">
+                @else
+                    <p class="msg msg-bad">ID komputer tidak terbaca. Tutup, lalu jalankan aplikasi sebagai administrator.</p>
+                @endif
             </div>
 
             <div class="field">
