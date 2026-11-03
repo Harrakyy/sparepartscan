@@ -1,4 +1,5 @@
 import { apiGet, apiPost } from '../api.js';
+import { el } from '../dom.js';
 
 // Laporan Zahir "Penjualan - Rincian": tiap No. Reference jadi satu sesi scan. Nomor yang sudah
 // ada di app dilewati, jadi laporan yang sama (atau yang tumpang tindih) aman diupload ulang.
@@ -12,13 +13,6 @@ const $ = id => document.getElementById(id);
 let file = null;
 let rows = [];
 let onSaved = () => {};
-
-function el(tag, className, text) {
-  const node = document.createElement(tag);
-  if (className) node.className = className;
-  if (text !== undefined) node.textContent = text;
-  return node;
-}
 
 const totalQty = invoice => invoice.items.reduce((sum, i) => sum + i.qty, 0);
 const selected = () => rows.filter(r => r.checked);

@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') · Verifikasi Faktur</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="{{ asset('vendor/inter/inter.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
@@ -40,6 +38,11 @@
                 <a href="{{ url('/pengguna') }}" @if (request()->is('pengguna*')) aria-current="page" @endif>
                     <i class="bi bi-people" aria-hidden="true"></i><span>Pengguna</span>
                 </a>
+                @if (\App\Support\Edition::isOffline())
+                    <a href="{{ url('/backup') }}" @if (request()->is('backup*')) aria-current="page" @endif>
+                        <i class="bi bi-hdd" aria-hidden="true"></i><span>Backup</span>
+                    </a>
+                @endif
             @endcan
         </nav>
         @if ($currentUser)

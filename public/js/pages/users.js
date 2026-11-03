@@ -1,16 +1,10 @@
 import { apiGet, apiPatch, apiPost } from '../api.js';
 import { formatWib } from '../format.js';
+import { el } from '../dom.js';
 
 const ROLE_LABEL = { superadmin: 'Superadmin', admin: 'Admin' };
 const MIN_PASSWORD = 8;
 const $ = id => document.getElementById(id);
-
-function el(tag, className, text) {
-  const node = document.createElement(tag);
-  if (className) node.className = className;
-  if (text !== undefined) node.textContent = text;
-  return node;
-}
 
 function showStatus(text, kind) {
   $('status').textContent = text;
@@ -38,6 +32,16 @@ function actionButton(label, icon, onClick) {
   return button;
 }
 
+function statusCell(user) {
+  const td = el('td', '', user.is_active ? 'Aktif' : 'Nonaktif');
+  if (user.locked_until) {
+    const locked = el('div', 'locked', `Terkunci s.d. ${formatWib(user.locked_until)}`);
+    locked.title = 'Password salah berulang. Klik "Buka kunci" bila perlu.';
+    td.append(locked);
+  }
+  return td;
+}
+
 function row(user) {
   const isMe = user.id === window.currentUserId;
   const tr = el('tr', user.is_active ? '' : 'row-muted');
@@ -56,6 +60,10 @@ function row(user) {
   role.append(roleSelect);
 
   const actions = el('td', 'num');
+  // Dikunci karena password salah berulang (bisa ulah orang lain): superadmin bisa membukanya.
+  if (user.locked_until) {
+    actions.append(actionButton('Buka kunci', 'bi-unlock', () => change(user, { unlock: true }, `Kunci login ${user.name} dibuka`)), ' ');
+  }
   actions.append(actionButton('Password baru', 'bi-key', () => {
     const password = window.prompt(`Password baru untuk ${user.name} (min. ${MIN_PASSWORD} karakter):`);
     if (password === null) return;
@@ -77,7 +85,7 @@ function row(user) {
     name,
     el('td', 'muted', user.email),
     role,
-    el('td', '', user.is_active ? 'Aktif' : 'Nonaktif'),
+    statusCell(user),
     el('td', 'muted', user.last_login_at ? formatWib(user.last_login_at) : 'Belum pernah'),
     actions,
   );

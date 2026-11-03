@@ -1,18 +1,12 @@
 import { apiGet, apiPost } from '../api.js';
 import { formatWib } from '../format.js';
+import { el } from '../dom.js';
 
 const SEARCH_DEBOUNCE_MS = 300;
 const $ = id => document.getElementById(id);
 
 let timer = null;
 let seq = 0;
-
-function el(tag, className, text) {
-  const node = document.createElement(tag);
-  if (className) node.className = className;
-  if (text !== undefined) node.textContent = text;
-  return node;
-}
 
 function showError(message) {
   $('status').textContent = message;

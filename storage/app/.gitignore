@@ -2,3 +2,6 @@
 !private/
 !public/
 !.gitignore
+!keys/
+/keys/*
+!/keys/public.key

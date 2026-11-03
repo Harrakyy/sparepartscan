@@ -1,6 +1,7 @@
 import { apiGet } from '../api.js';
 import { formatWib } from '../format.js';
 import { everyVisible } from '../poll.js';
+import { el } from '../dom.js';
 
 const SEARCH_DEBOUNCE_MS = 300;
 const POLL_MS = 5000;
@@ -10,13 +11,6 @@ const $ = id => document.getElementById(id);
 let status = 'open';
 let timer = null;
 let seq = 0;
-
-function el(tag, className, text) {
-  const node = document.createElement(tag);
-  if (className) node.className = className;
-  if (text !== undefined) node.textContent = text;
-  return node;
-}
 
 function row(invoice, index) {
   const tr = el('tr', 'clickable');

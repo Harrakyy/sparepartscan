@@ -1,18 +1,12 @@
 import { apiGet } from '../api.js';
 import { formatWib } from '../format.js';
+import { el } from '../dom.js';
 
 const SEARCH_DEBOUNCE_MS = 300;
 const $ = id => document.getElementById(id);
 
 let seq = 0;
 let timer = null;
-
-function el(tag, className, text) {
-  const node = document.createElement(tag);
-  if (className) node.className = className;
-  if (text !== undefined) node.textContent = text;
-  return node;
-}
 
 function itemRow(index, code, name, qty) {
   const tr = el('tr');
