@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\BackupController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\LicenseController;
 use App\Models\GoodsReturn;
 use App\Models\Invoice;
 use Illuminate\Support\Facades\Route;
@@ -11,6 +12,12 @@ use Illuminate\Support\Facades\Storage;
 // Hanya ada di edisi offline; batas 10 permintaan/menit.
 Route::get('/backup/latest', [BackupController::class, 'latest'])
     ->middleware(['edition.offline', 'throttle:10,1']);
+
+// Aktivasi lisensi (edisi offline): selalu terbuka, tanpa login, dilewati EnsureLicensed.
+Route::middleware('edition.offline')->group(function () {
+    Route::get('/aktivasi', [LicenseController::class, 'show'])->name('aktivasi');
+    Route::post('/aktivasi', [LicenseController::class, 'store'])->name('aktivasi.store');
+});
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'show'])->name('login');
