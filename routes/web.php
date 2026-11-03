@@ -40,4 +40,9 @@ Route::middleware('auth')->group(function () {
     Route::view('/laporan', 'reports.outgoing');
 
     Route::view('/pengguna', 'users.index')->middleware('can:superadmin');
+
+    // Menu Backup: hanya superadmin, hanya edisi offline.
+    Route::get('/backup', fn () => view('backup.index', [
+        'lastDisk' => app(\App\Services\BackupService::class)->lastDiskBackup(),
+    ]))->middleware(['can:superadmin', 'edition.offline']);
 });

@@ -52,7 +52,9 @@ class BackupController extends Controller
             return ApiResponse::fail('Tidak ada flashdisk', 422);
         }
 
-        return ApiResponse::ok(['copied' => $this->backup->copyToDisk($drive)]);
+        $copied = $this->backup->copyToDisk($drive);
+
+        return ApiResponse::ok(['copied' => $copied, 'at' => $this->backup->lastDiskBackup()]);
     }
 
     /**

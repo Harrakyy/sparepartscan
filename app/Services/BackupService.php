@@ -59,8 +59,22 @@ class BackupService
         }
 
         $this->rotateDisk($tujuan);
+        file_put_contents($this->diskStampFile(), now()->toIso8601String());
 
         return array_values(array_unique($disalin));
+    }
+
+    /** Waktu (ISO) backup terakhir ke flashdisk, atau null bila belum pernah. */
+    public function lastDiskBackup(): ?string
+    {
+        $file = $this->diskStampFile();
+
+        return is_file($file) ? trim((string) file_get_contents($file)) : null;
+    }
+
+    private function diskStampFile(): string
+    {
+        return rtrim(config('backup.dir'), '/\\').DIRECTORY_SEPARATOR.'last-flashdisk.txt';
     }
 
     /** Buat satu backup; mengembalikan path file, atau null bila isi database tidak berubah. */
