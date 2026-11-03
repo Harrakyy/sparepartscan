@@ -29,6 +29,12 @@ class Keys
         return is_file($this->secretPath()) || is_file($this->publicPath());
     }
 
+    /** True bila kunci rahasia ada (hanya di laptop Ashira yang bisa menandatangani). */
+    public function hasSecret(): bool
+    {
+        return is_file($this->secretPath());
+    }
+
     /** Tanda tangan detached Ed25519 (base64) atas pesan, memakai kunci rahasia. */
     public function sign(string $msg): string
     {
