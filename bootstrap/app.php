@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\EnsureOfflineEdition;
 use App\Http\Middleware\EnsureUserIsActive;
 use App\Support\ApiResponse;
 use Illuminate\Auth\AuthenticationException;
@@ -28,6 +29,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectUsersTo('/gudang');
         // AuthenticateSession: password diganti superadmin → sesi lama (laptop yang masih terbuka) ikut berakhir.
         $middleware->web(append: [AuthenticateSession::class, EnsureUserIsActive::class]);
+        $middleware->alias(['edition.offline' => EnsureOfflineEdition::class]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $isApi = fn (Request $request) => $request->is('api/*');

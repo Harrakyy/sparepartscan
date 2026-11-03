@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\ReturnController;
 use App\Http\Controllers\Api\ScanController;
 use App\Http\Controllers\Api\UserController;
+use App\Support\ApiResponse;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/invoices', [InvoiceController::class, 'index']);
@@ -39,4 +40,9 @@ Route::middleware('can:superadmin')->group(function () {
     Route::get('/users', [UserController::class, 'index']);
     Route::post('/users', [UserController::class, 'store']);
     Route::patch('/users/{user}', [UserController::class, 'update']);
+
+    // Backup hanya ada di edisi offline (lihat middleware edition.offline). Isi diisi di task berikutnya.
+    Route::middleware('edition.offline')->group(function () {
+        Route::get('/backups', fn () => ApiResponse::ok([]));
+    });
 });

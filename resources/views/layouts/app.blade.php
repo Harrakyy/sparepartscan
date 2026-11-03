@@ -38,6 +38,11 @@
                 <a href="{{ url('/pengguna') }}" @if (request()->is('pengguna*')) aria-current="page" @endif>
                     <i class="bi bi-people" aria-hidden="true"></i><span>Pengguna</span>
                 </a>
+                @if (\App\Support\Edition::isOffline())
+                    <a href="{{ url('/backup') }}" @if (request()->is('backup*')) aria-current="page" @endif>
+                        <i class="bi bi-hdd" aria-hidden="true"></i><span>Backup</span>
+                    </a>
+                @endif
             @endcan
         </nav>
         @if ($currentUser)
