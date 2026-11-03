@@ -33,6 +33,7 @@ komputer scan**, terhubung satu WiFi.
 | Flashdisk | Dicolok di komputer master; tombol di app memilih disk; flashdisk menyimpan 7 hari terakhir |
 | Isi backup | Database saja (file PDF/foto faktur tidak, karena dihapus otomatis setelah 60 hari dan aslinya di Zahir) |
 | Pemulihan | Superadmin pilih versi → Pulihkan; data saat itu dibackup dulu |
+| Proteksi app | Penguncian ke komputer buatan sendiri (gratis): lisensi bertanda tangan Ashira, dicek offline tiap app jalan; kunci rahasia hanya di Ashira. Encoder berbayar di luar cakupan sekarang |
 
 ## Fase dan hasil
 
@@ -88,6 +89,8 @@ komputer scan**, terhubung satu WiFi.
   - Aturan firewall untuk port itu (profil Private); peringatan bila jaringan berstatus Public.
   - Task Scheduler: `schedule:run` tiap menit (akun SYSTEM).
   - Langkah "Buat akun superadmin" (nama, email, password) pada pemasangan pertama.
+  - **Aktivasi lisensi** (lihat bab "Penguncian komputer"): tampilkan ID komputer; isi file
+    `license.lic` dari Ashira; app menolak jalan tanpa lisensi yang sah.
   - Ikon desktop "Verifikasi Faktur" (Edge mode aplikasi) + "Reset superadmin".
   - Halaman akhir: alamat server (IP) + kode pemasangan; peringatan bila IP belum dikunci.
   - **Update**: Setup versi baru mendeteksi pemasangan lama → backup `sebelum-update` → ganti
@@ -105,6 +108,42 @@ komputer scan**, terhubung satu WiFi.
   catatan rilis dan ditampilkan di halaman "Tentang" app. Bila ada celah kritis PHP, kirim Setup
   versi baru (alur update tanpa kehilangan data); hal ini disepakati dengan MGI karena edisi
   offline tanpa maintenance.
+
+## Penguncian komputer (lisensi offline bertanda tangan)
+
+Tujuan: edisi offline hanya jalan di komputer master yang diizinkan Ashira, dan **tidak boleh
+"telepon ke rumah"** — app tetap offline, hanya file lisensi yang dicek. Mencegah penyalinan
+folder ke komputer lain; bukan proteksi terhadap pembongkaran kode (itu perlu encoder, di luar
+cakupan). Hanya aktif di `APP_EDITION=offline`.
+
+**Kunci:** sepasang Ed25519. **Kunci publik** disertakan di kode app (`config/license.php` atau
+file di repo); **kunci rahasia hanya di laptop Ashira**, masuk `.gitignore`, tidak pernah di
+installer/app/repo. Dibuat sekali dengan `php artisan license:keygen` (menolak menimpa kunci yang ada).
+
+**ID komputer:** gabungan beberapa nilai hardware Windows yang stabil (UUID motherboard via
+`Win32_ComputerSystemProduct`, serial disk sistem), di-hash → string. `php artisan license:id`
+menampilkannya. Satu-dua nilai boleh berubah tanpa menggagalkan lisensi (lihat toleransi).
+
+**File lisensi** `storage/app/license.lic` (JSON + tanda tangan): `machine_id`, `issued_to`,
+`issued_at`, `expires_at` (opsional/null = selamanya), `edition`, dan `signature` (tanda tangan
+Ed25519 atas isinya).
+
+**Alat pembuat lisensi (sisi Ashira)** `php artisan license:buat {machine_id} --untuk= --sampai=`:
+baca kunci rahasia, susun payload, tandatangani, tulis `license.lic`. Jalan di laptop mana pun yang
+punya kunci rahasia; tanpa kunci → gagal.
+
+**Pengecekan saat jalan** (middleware `web`, hanya edisi offline; di-cache beberapa menit agar ringan):
+tanda tangan sah dengan kunci publik, `machine_id` cocok dengan ID komputer sekarang, dan belum
+kedaluwarsa. Gagal → halaman "Aktivasi diperlukan" berisi ID komputer + cara menghubungi Ashira
+(bukan 500, bukan login). Rute `/aktivasi` (unggah/tempel `license.lic`) tetap terbuka saat belum
+aktif; rute lain diblokir.
+
+**Aktivasi di installer master:** tampilkan ID komputer untuk disalin; terima `license.lic` (file
+atau tempel teks) lalu verifikasi. Edisi online tidak memeriksa lisensi.
+
+**Pemulihan/pindah komputer:** ganti hardware → ID berubah → minta lisensi baru ke Ashira
+(disebut di panduan; disepakati dengan MGI). Toleransi: ID dari ≥ N dari M nilai hardware cocok,
+supaya ganti satu disk data tidak langsung mematikan.
 
 ### Fase 4 — Uji coba lokal
 Laptop pengembang (master) + komputer teman (scan), satu WiFi, dipasang dengan installer:
@@ -127,9 +166,13 @@ cetak Edge), panduan 1 halaman per peran (admin upload, petugas scan, superadmin
   (rotasi 7 hari, disk tidak ada), `/backup/latest` (kode salah 403, batas percobaan), reset
   superadmin.
 - Uji beban SQLite dua klien bersamaan (skrip).
+- Lisensi: tanda tangan sah diterima; tanda tangan diubah/palsu ditolak; `machine_id` beda ditolak
+  (simulasi folder disalin); kedaluwarsa ditolak; tanpa `license.lic` → halaman aktivasi, rute lain
+  diblokir; edisi online tidak memeriksa lisensi; `license:buat` tanpa kunci rahasia gagal.
 - Installer: dipasang di Windows 11 (master) dan Windows 10/11 (scan) dengan checklist Fase 4.
 
 ## Di luar cakupan
 
 Pemasangan di lokasi MGI (setelah uji lokal lulus), versi online di Hostinger, update otomatis
-lewat internet, backup file PDF/foto, aplikasi HP khusus.
+lewat internet, backup file PDF/foto, aplikasi HP khusus, encoder/obfuscator PHP (kode tetap
+terbaca; dipertimbangkan bila produk dijual ke banyak klien), server lisensi online.
