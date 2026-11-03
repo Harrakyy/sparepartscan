@@ -1,16 +1,10 @@
 import { apiGet, apiPatch, apiPost } from '../api.js';
 import { formatWib } from '../format.js';
+import { el } from '../dom.js';
 
 const ROLE_LABEL = { superadmin: 'Superadmin', admin: 'Admin' };
 const MIN_PASSWORD = 8;
 const $ = id => document.getElementById(id);
-
-function el(tag, className, text) {
-  const node = document.createElement(tag);
-  if (className) node.className = className;
-  if (text !== undefined) node.textContent = text;
-  return node;
-}
 
 function showStatus(text, kind) {
   $('status').textContent = text;

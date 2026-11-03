@@ -6,6 +6,7 @@ import { setupScanInput } from '../scan-input.js';
 import { setupAdjust, setupDelete } from './session-admin.js';
 import { suggestCode } from '../similar-code.js';
 import { beepOk, buzzError } from '../sound.js';
+import { el } from '../dom.js';
 
 const TOAST_MS = 3000;
 const POLL_MS = 5000;
@@ -20,13 +21,6 @@ let invoice = null;
 let stage = 'pick';
 let toastTimer = null;
 let queue = Promise.resolve();
-
-function el(tag, className, text) {
-  const node = document.createElement(tag);
-  if (className) node.className = className;
-  if (text !== undefined) node.textContent = text;
-  return node;
-}
 
 function iconCell(icon) {
   const td = el('td', 'icon');

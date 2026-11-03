@@ -1,4 +1,5 @@
 import { apiDelete, apiPost } from '../api.js';
+import { el } from '../dom.js';
 
 // Aksi khusus superadmin di halaman sesi. Tombolnya hanya dirender untuk superadmin,
 // server juga menolak admin (403), jadi modul ini cukup diam bila tombolnya tidak ada.
@@ -10,13 +11,6 @@ export function readOutQty(value, max) {
   if (!/^\d+$/.test(text)) return null;
   const qty = Number(text);
   return qty <= max ? qty : null;
-}
-
-function el(tag, className, text) {
-  const node = document.createElement(tag);
-  if (className) node.className = className;
-  if (text !== undefined) node.textContent = text;
-  return node;
 }
 
 /**

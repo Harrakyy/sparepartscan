@@ -1,5 +1,3 @@
-const rupiah = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 });
-
 const wibParts = new Intl.DateTimeFormat('en-GB', {
   timeZone: 'Asia/Jakarta',
   day: '2-digit',
@@ -9,16 +7,6 @@ const wibParts = new Intl.DateTimeFormat('en-GB', {
   minute: '2-digit',
   hourCycle: 'h23',
 });
-
-// "50.000" → 50000. Titik adalah pemisah ribuan; selain digit, hasilnya NaN.
-export function parseWholeNumber(raw) {
-  const digits = String(raw).replace(/[\s.]/g, '');
-  return /^\d+$/.test(digits) ? Number(digits) : NaN;
-}
-
-export function formatRupiah(n) {
-  return rupiah.format(n);
-}
 
 export function formatWib(iso) {
   const p = Object.fromEntries(wibParts.formatToParts(new Date(iso)).map(x => [x.type, x.value]));

@@ -15,6 +15,10 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    // Edisi aplikasi: 'online' (hosting) atau 'offline' (LAN/WiFi di komputer master MGI).
+    // Edisi offline mengaktifkan menu/fitur Backup dan penguncian lisensi komputer.
+    'edition' => env('APP_EDITION', 'online'),
+
     // Proxy yang dipercaya untuk header X-Forwarded-* (tunnel/proxy HTTPS): "*" atau daftar IP
     // dipisah koma. Kosong = tidak ada proxy (hosting biasa).
     'trusted_proxies' => env('TRUSTED_PROXIES'),

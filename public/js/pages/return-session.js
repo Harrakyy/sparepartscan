@@ -3,6 +3,7 @@ import { flashError } from '../flash.js';
 import { formatWib } from '../format.js';
 import { setupScanInput } from '../scan-input.js';
 import { beepOk, buzzError } from '../sound.js';
+import { el } from '../dom.js';
 
 const TOAST_MS = 3000;
 const FLASH_MS = 900;
@@ -20,13 +21,6 @@ let noteDirty = false; // catatan diketik tapi belum tersimpan: jangan ditimpa s
 
 const isOpen = () => ret?.status === 'open';
 const sum = key => ret.items.reduce((s, i) => s + i[key], 0);
-
-function el(tag, className, text) {
-  const node = document.createElement(tag);
-  if (className) node.className = className;
-  if (text !== undefined) node.textContent = text;
-  return node;
-}
 
 function showToast(text, kind = 'bad') {
   const t = $('toast');

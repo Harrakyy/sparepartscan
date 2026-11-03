@@ -21,6 +21,11 @@ const copies = [
   ['node_modules/flatpickr/dist/flatpickr.min.js', 'public/vendor/flatpickr/flatpickr.min.js'],
   ['node_modules/flatpickr/dist/flatpickr.min.css', 'public/vendor/flatpickr/flatpickr.min.css'],
   ['node_modules/flatpickr/dist/l10n/id.js', 'public/vendor/flatpickr/l10n/id.js'],
+  // Font Inter lokal (tanpa Google Fonts) supaya tampilan tetap benar saat offline.
+  ['node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2', 'public/vendor/inter/inter-latin-400-normal.woff2'],
+  ['node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2', 'public/vendor/inter/inter-latin-500-normal.woff2'],
+  ['node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2', 'public/vendor/inter/inter-latin-600-normal.woff2'],
+  ['node_modules/@fontsource/inter/files/inter-latin-700-normal.woff2', 'public/vendor/inter/inter-latin-700-normal.woff2'],
 ];
 
 for (const [from, to] of copies) {

@@ -6,6 +6,7 @@
     "vendor": "node scripts/copy-vendor.mjs"
   },
   "devDependencies": {
+    "@fontsource/inter": "5.3.0",
     "@tesseract.js-data/eng": "1.0.0",
     "bootstrap-icons": "1.11.3",
     "flatpickr": "4.6.13",

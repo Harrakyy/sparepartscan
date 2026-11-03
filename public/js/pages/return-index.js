@@ -1,17 +1,11 @@
 import { apiGet } from '../api.js';
 import { formatWib } from '../format.js';
+import { el } from '../dom.js';
 
 const TABS = ['open', 'done', 'zahir_pending'];
 const $ = id => document.getElementById(id);
 
 let tab = 'open';
-
-function el(tag, className, text) {
-  const node = document.createElement(tag);
-  if (className) node.className = className;
-  if (text !== undefined) node.textContent = text;
-  return node;
-}
 
 function zahirCell(ret) {
   if (ret.status === 'open') return el('td', 'muted', '–');
