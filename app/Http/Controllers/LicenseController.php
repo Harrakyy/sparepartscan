@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Services\License\LicenseFile;
 use App\Services\License\MachineId;
 use Illuminate\Http\RedirectResponse;
@@ -50,7 +51,13 @@ class LicenseController extends Controller
         file_put_contents($license->path(), $content);
         Cache::forget('license.ok');
 
-        return redirect('/')->with('status', 'Lisensi aktif. Aplikasi siap dipakai.');
+        return redirect($this->afterActivationPath())->with('status', 'Lisensi aktif. Aplikasi siap dipakai.');
+    }
+
+    /** Setelah lisensi aktif: pemasangan baru lanjut membuat akun superadmin, selain itu ke halaman masuk. */
+    public function afterActivationPath(): string
+    {
+        return User::exists() ? '/login' : '/akun-pertama';
     }
 
     /** Ambil isi lisensi dari file unggahan atau teks yang ditempel. */

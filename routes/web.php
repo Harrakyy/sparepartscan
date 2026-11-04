@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\BackupController;
+use App\Http\Controllers\Auth\FirstAccountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\LicenseController;
 use App\Models\GoodsReturn;
@@ -17,6 +18,10 @@ Route::get('/backup/latest', [BackupController::class, 'latest'])
 Route::middleware('edition.offline')->group(function () {
     Route::get('/aktivasi', [LicenseController::class, 'show'])->name('aktivasi');
     Route::post('/aktivasi', [LicenseController::class, 'store'])->name('aktivasi.store');
+
+    // Akun superadmin pertama lewat web (setelah lisensi aktif); tertutup begitu ada akun.
+    Route::get('/akun-pertama', [FirstAccountController::class, 'show'])->name('akun-pertama');
+    Route::post('/akun-pertama', [FirstAccountController::class, 'store']);
 });
 
 Route::middleware('guest')->group(function () {

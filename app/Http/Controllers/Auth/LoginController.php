@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\LoginLockout;
+use App\Support\Edition;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,8 +15,13 @@ use Illuminate\View\View;
 
 class LoginController extends Controller
 {
-    public function show(): View
+    public function show(): View|RedirectResponse
     {
+        // Edisi offline yang baru dipasang belum punya akun: buat superadmin pertama dulu.
+        if (Edition::isOffline() && ! User::exists()) {
+            return redirect('/akun-pertama');
+        }
+
         return view('auth.login');
     }
 
