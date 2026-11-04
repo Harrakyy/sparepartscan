@@ -9,3 +9,9 @@
 /.github export-ignore
 CHANGELOG.md export-ignore
 .styleci.yml export-ignore
+
+# Tidak ikut paket installer (git archive): alat Ashira, tes, dokumen.
+/tools export-ignore
+/tests export-ignore
+/docs export-ignore
+*.bat eol=crlf

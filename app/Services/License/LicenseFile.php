@@ -22,8 +22,17 @@ class LicenseFile
         return $this->path ?? storage_path('app/license.lic');
     }
 
-    /** Terbitkan lisensi: bangun payload, tandatangani, tulis ke file, kembalikan isinya. */
+    /** Terbitkan lisensi: bangun & tandatangani, tulis ke file, kembalikan isinya. */
     public function issue(array $data): string
+    {
+        $content = $this->build($data);
+        file_put_contents($this->path(), $content);
+
+        return $content;
+    }
+
+    /** Isi file lisensi yang sudah ditandatangani (tanpa menulis ke disk). */
+    public function build(array $data): string
     {
         $payload = [
             'machine_id' => (string) ($data['machine_id'] ?? ''),
@@ -32,14 +41,10 @@ class LicenseFile
             'expires_at' => (string) ($data['expires_at'] ?? ''),
         ];
 
-        $content = json_encode([
+        return json_encode([
             'payload' => $payload,
             'signature' => $this->keys->sign($this->canonical($payload)),
         ], self::FLAGS | JSON_PRETTY_PRINT);
-
-        file_put_contents($this->path(), $content);
-
-        return $content;
     }
 
     /** @return array{payload: array, signature: string} */
