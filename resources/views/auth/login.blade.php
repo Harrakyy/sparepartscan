@@ -37,6 +37,9 @@
                 Ingat saya
             </label>
             <button class="btn btn-primary btn-big" type="submit"><i class="bi bi-box-arrow-in-right" aria-hidden="true"></i> Masuk</button>
+            @if (\App\Http\Controllers\Auth\RegisterController::isOpen())
+                <a class="btn btn-big" href="{{ url('/daftar') }}"><i class="bi bi-person-plus" aria-hidden="true"></i> Belum punya akun? Daftar</a>
+            @endif
             <p class="muted login-help">Lupa password? Hubungi superadmin untuk dibuatkan password baru.</p>
         </form>
     </main>

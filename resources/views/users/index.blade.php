@@ -10,6 +10,14 @@
         </div>
     </div>
 
+    @if (\App\Support\Edition::isOffline())
+        <label class="card row" for="allow-registration">
+            <input id="allow-registration" type="checkbox">
+            <span><strong>Izinkan petugas mendaftar sendiri</strong><br>
+                <span class="muted">Tombol "Daftar" di halaman masuk. Akun baru menjadi petugas gudang; matikan bila tidak dipakai.</span></span>
+        </label>
+    @endif
+
     <form id="add-form" class="card row" autocomplete="off" novalidate>
         <div class="field">
             <label for="name">Nama</label>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\PrintController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\ReturnController;
 use App\Http\Controllers\Api\ScanController;
+use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\Api\UserController;
 use App\Support\ApiResponse;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,8 @@ Route::middleware('can:superadmin')->group(function () {
     Route::middleware('edition.offline')->group(function () {
         Route::get('/backups', [BackupController::class, 'index']);
         Route::post('/backups/restore', [BackupController::class, 'restore']);
+        Route::get('/settings', [SettingController::class, 'show']);
+        Route::patch('/settings', [SettingController::class, 'update']);
         Route::get('/backups/disks', [BackupController::class, 'disks']);
         Route::post('/backups/to-disk', [BackupController::class, 'toDisk']);
     });

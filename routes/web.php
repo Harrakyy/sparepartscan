@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\BackupController;
 use App\Http\Controllers\Auth\FirstAccountController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\LicenseController;
 use App\Models\GoodsReturn;
 use App\Models\Invoice;
@@ -27,6 +28,12 @@ Route::middleware('edition.offline')->group(function () {
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'show'])->name('login');
     Route::post('/login', [LoginController::class, 'login']);
+
+    // Petugas mendaftar sendiri (edisi offline, bila diizinkan superadmin).
+    Route::middleware('edition.offline')->group(function () {
+        Route::get('/daftar', [RegisterController::class, 'show']);
+        Route::post('/daftar', [RegisterController::class, 'store'])->middleware('throttle:5,1');
+    });
 });
 
 Route::middleware('auth')->group(function () {

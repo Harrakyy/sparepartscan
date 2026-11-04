@@ -118,4 +118,19 @@ $('add-form').addEventListener('submit', async e => {
   }
 });
 
+// Sakelar pendaftaran mandiri (hanya ada di edisi offline).
+const registration = $('allow-registration');
+if (registration) {
+  apiGet('/api/settings').then(s => { registration.checked = s.allow_registration; }).catch(err => showStatus(err.message, 'bad'));
+  registration.addEventListener('change', async () => {
+    try {
+      const s = await apiPatch('/api/settings', { allow_registration: registration.checked });
+      showStatus(s.allow_registration ? 'Petugas bisa mendaftar sendiri.' : 'Pendaftaran mandiri dimatikan.', 'ok');
+    } catch (err) {
+      registration.checked = !registration.checked;
+      showStatus(err.message, 'bad');
+    }
+  });
+}
+
 load();
