@@ -50,7 +50,32 @@ class SqliteConcurrencyTest extends TestCase
     {
         // Transaksi DEFERRED membaca dulu lalu minta kunci tulis; bila titik scan lain sudah menulis di
         // antaranya, SQLite langsung "database is locked" tanpa menunggu busy_timeout (terbukti di uji
-        // beban 2 x 60 scan). IMMEDIATE mengambil kunci di awal, jadi permintaan kedua mengantre.
-        $this->assertSame('IMMEDIATE', config('database.connections.sqlite.transaction_mode'));
+        // beban 2 x 60 scan). Transaksi harus memegang kunci tulis sejak awal — diuji perilakunya, bukan
+        // konfigurasinya: Laravel hanya memakai transaction_mode di PHP >= 8.4, paket kita PHP 8.3.
+        $file = tempnam(sys_get_temp_dir(), 'sqlite').'.sqlite';
+        touch($file);
+        config(['database.connections.sqlite_file' => [
+            'driver' => 'sqlite', 'database' => $file, 'prefix' => '', 'transaction_mode' => 'IMMEDIATE',
+        ]]);
+        DB::connection('sqlite_file')->statement('CREATE TABLE migrations (id INTEGER PRIMARY KEY, migration TEXT, batch INTEGER)');
+
+        $otherGotLock = null;
+        try {
+            DB::connection('sqlite_file')->transaction(function () use ($file, &$otherGotLock) {
+                $other = new \PDO('sqlite:'.$file, null, null, [\PDO::ATTR_TIMEOUT => 0, \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION]);
+                try {
+                    $other->exec('BEGIN IMMEDIATE');
+                    $otherGotLock = true;
+                    $other->exec('ROLLBACK');
+                } catch (\PDOException) {
+                    $otherGotLock = false;
+                }
+            });
+        } finally {
+            DB::disconnect('sqlite_file');
+            @unlink($file);
+        }
+
+        $this->assertFalse($otherGotLock, 'Transaksi Laravel belum memegang kunci tulis (masih DEFERRED).');
     }
 }
