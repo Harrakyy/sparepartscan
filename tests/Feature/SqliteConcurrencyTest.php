@@ -45,4 +45,12 @@ class SqliteConcurrencyTest extends TestCase
 
         $this->assertSame(1, $invoice->items()->first()->picked_qty);
     }
+
+    public function test_write_transactions_take_the_write_lock_up_front(): void
+    {
+        // Transaksi DEFERRED membaca dulu lalu minta kunci tulis; bila titik scan lain sudah menulis di
+        // antaranya, SQLite langsung "database is locked" tanpa menunggu busy_timeout (terbukti di uji
+        // beban 2 x 60 scan). IMMEDIATE mengambil kunci di awal, jadi permintaan kedua mengantre.
+        $this->assertSame('IMMEDIATE', config('database.connections.sqlite.transaction_mode'));
+    }
 }
