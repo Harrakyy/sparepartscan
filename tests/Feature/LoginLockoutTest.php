@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * Penguncian per akun saat password salah: 3x → 5 menit, 6x → 10 menit, 9x → 15 menit,
- * 12x → sampai besok 00.00 WIB. Email yang tidak terdaftar tidak menghitung apa pun.
+ * 12x → sampai besok 00.00 WIB. Username yang tidak terdaftar tidak menghitung apa pun.
  */
 class LoginLockoutTest extends TestCase
 {
@@ -24,12 +24,12 @@ class LoginLockoutTest extends TestCase
         parent::setUp();
         // 30 Okt 2026 10:00 WIB.
         $this->travelTo(Carbon::parse('2026-10-30 03:00:00', 'UTC'));
-        $this->user = User::factory()->admin()->create(['email' => 'gudang@contoh.test', 'password' => 'rahasia123']);
+        $this->user = User::factory()->admin()->create(['username' => 'gudang', 'password' => 'rahasia123']);
     }
 
-    private function attempt(string $password, string $email = 'gudang@contoh.test')
+    private function attempt(string $password, string $email = 'gudang')
     {
-        return $this->post('/login', ['email' => $email, 'password' => $password]);
+        return $this->post('/login', ['username' => $email, 'password' => $password]);
     }
 
     private function failTimes(int $times): void
@@ -41,13 +41,13 @@ class LoginLockoutTest extends TestCase
 
     private function lastError(): string
     {
-        return session('errors')->first('email');
+        return session('errors')->first('username');
     }
 
     public function test_three_wrong_passwords_lock_the_account_for_five_minutes(): void
     {
         $this->failTimes(2);
-        $this->assertSame('Email atau password salah', $this->lastError());
+        $this->assertSame('Username atau password salah', $this->lastError());
 
         $this->attempt('salah-salah');
         $this->assertSame('Password salah 3 kali. Akun dikunci 5 menit.', $this->lastError());
@@ -122,7 +122,7 @@ class LoginLockoutTest extends TestCase
             $this->attempt('apa-saja', 'tidak-ada@contoh.test');
         }
 
-        $this->assertSame('Email atau password salah', $this->lastError());
+        $this->assertSame('Username atau password salah', $this->lastError());
         $this->attempt('rahasia123')->assertRedirect('/gudang');
     }
 
@@ -145,7 +145,7 @@ class LoginLockoutTest extends TestCase
         $this->failTimes(3);
         $this->actingAs(User::factory()->superadmin()->create());
 
-        $row = collect($this->getJson('/api/users')->json('data'))->firstWhere('email', 'gudang@contoh.test');
+        $row = collect($this->getJson('/api/users')->json('data'))->firstWhere('username', 'gudang');
         $this->assertNotNull($row['locked_until']);
     }
 }

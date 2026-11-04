@@ -22,27 +22,26 @@ class LoginController extends Controller
     public function login(Request $request, LoginLockout $lockout): RedirectResponse
     {
         $credentials = $request->validate([
-            'email' => ['required', 'string', 'email', 'max:255'],
+            'username' => ['required', 'string', 'max:60'],
             'password' => ['required', 'string'],
         ], [
-            'email.required' => 'Email wajib diisi',
-            'email.email' => 'Format email tidak valid',
+            'username.required' => 'Username wajib diisi',
             'password.required' => 'Password wajib diisi',
         ]);
 
-        $user = User::where('email', $credentials['email'])->first();
+        $user = User::where('username', User::normalizeUsername($credentials['username']))->first();
         if (! $user) {
-            throw ValidationException::withMessages(['email' => 'Email atau password salah']);
+            throw ValidationException::withMessages(['username' => 'Username atau password salah']);
         }
         // Akun yang sedang dikunci ditolak sebelum password dicek, termasuk password yang benar.
         if ($message = $lockout->lockedMessage($user)) {
-            throw ValidationException::withMessages(['email' => $message]);
+            throw ValidationException::withMessages(['username' => $message]);
         }
         if (! Hash::check($credentials['password'], $user->password)) {
-            throw ValidationException::withMessages(['email' => $lockout->recordFailure($user)]);
+            throw ValidationException::withMessages(['username' => $lockout->recordFailure($user)]);
         }
         if (! $user->is_active) {
-            throw ValidationException::withMessages(['email' => 'Akun ini dinonaktifkan, hubungi superadmin']);
+            throw ValidationException::withMessages(['username' => 'Akun ini dinonaktifkan, hubungi superadmin']);
         }
 
         $lockout->reset($user);

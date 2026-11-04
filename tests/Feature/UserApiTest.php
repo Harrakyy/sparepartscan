@@ -15,7 +15,7 @@ class UserApiTest extends TestCase
     private function newUser(array $overrides = [])
     {
         return $this->postJson('/api/users', array_merge([
-            'name' => 'Budi Gudang', 'email' => 'budi@contoh.test', 'role' => 'admin', 'password' => 'rahasia123',
+            'name' => 'Budi Gudang', 'username' => 'budi', 'role' => 'admin', 'password' => 'rahasia123',
         ], $overrides));
     }
 
@@ -26,7 +26,7 @@ class UserApiTest extends TestCase
         $this->getJson('/api/users')->assertStatus(403)->assertJsonPath('error', 'Hanya superadmin yang boleh melakukan ini');
         $this->newUser()->assertStatus(403);
         $this->get('/pengguna')->assertForbidden();
-        $this->assertDatabaseMissing('users', ['email' => 'budi@contoh.test']);
+        $this->assertDatabaseMissing('users', ['username' => 'budi']);
     }
 
     public function test_superadmin_lists_users_without_secrets(): void
@@ -34,15 +34,15 @@ class UserApiTest extends TestCase
         User::factory()->admin()->create(['name' => 'Ani']);
 
         $r = $this->getJson('/api/users')->assertOk()->assertJsonCount(2, 'data');
-        $this->assertSame(['id', 'name', 'email', 'role', 'is_active', 'last_login_at', 'locked_until'], array_keys($r->json('data.0')));
+        $this->assertSame(['id', 'name', 'username', 'role', 'is_active', 'last_login_at', 'locked_until'], array_keys($r->json('data.0')));
         $this->get('/pengguna')->assertOk();
     }
 
     public function test_superadmin_adds_a_user_who_can_then_sign_in(): void
     {
-        $this->newUser()->assertCreated()->assertJsonPath('data.email', 'budi@contoh.test')->assertJsonPath('data.role', 'admin');
+        $this->newUser()->assertCreated()->assertJsonPath('data.username', 'budi')->assertJsonPath('data.role', 'admin');
 
-        $this->assertTrue(Hash::check('rahasia123', User::where('email', 'budi@contoh.test')->value('password')));
+        $this->assertTrue(Hash::check('rahasia123', User::where('username', 'budi')->value('password')));
     }
 
     public function test_new_user_is_validated(): void
@@ -51,7 +51,12 @@ class UserApiTest extends TestCase
         $this->newUser(['password' => 'pendek'])->assertStatus(422)->assertJsonPath('error', 'Password minimal 8 karakter');
         $this->newUser(['role' => 'raja'])->assertStatus(422)->assertJsonPath('error', 'Peran tidak dikenal');
         $this->newUser()->assertCreated();
-        $this->newUser(['name' => 'Budi Lain'])->assertStatus(422)->assertJsonPath('error', 'Email sudah terdaftar');
+        $this->newUser(['name' => 'Budi Lain'])->assertStatus(422)->assertJsonPath('error', 'Username sudah dipakai');
+        foreach (['ab', 'Budi Santoso', 'budi@x.com', str_repeat('a', 31)] as $bad) {
+            $this->newUser(['username' => $bad])->assertStatus(422)
+                ->assertJsonPath('error', 'Username 3–30 karakter: huruf kecil, angka, titik, minus, garis bawah');
+        }
+        $this->newUser(['username' => 'BUDI'])->assertStatus(422)->assertJsonPath('error', 'Username sudah dipakai');
     }
 
     public function test_superadmin_changes_role_and_deactivates(): void

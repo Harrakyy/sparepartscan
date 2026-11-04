@@ -7,7 +7,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * Penguncian per akun saat password salah: setiap 3 kali salah akun dikunci makin lama
- * (5, 10, 15 menit), lalu sampai besok 00.00 WIB. Hanya akun yang ada yang dihitung; email
+ * (5, 10, 15 menit), lalu sampai besok 00.00 WIB. Hanya akun yang ada yang dihitung; username
  * tak terdaftar tidak bisa mengunci siapa pun. Superadmin bisa membuka kunci di menu Pengguna.
  */
 class LoginLockout
@@ -51,7 +51,7 @@ class LoginLockout
         $user->forceFill(['failed_logins' => $failures, 'last_failed_login_at' => now(), 'locked_until' => $lockedUntil])->save();
 
         if ($lockedUntil === null) {
-            return 'Email atau password salah';
+            return 'Username atau password salah';
         }
 
         return "Password salah {$failures} kali. Akun dikunci "

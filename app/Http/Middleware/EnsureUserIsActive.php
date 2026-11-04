@@ -26,7 +26,7 @@ class EnsureUserIsActive
                 return ApiResponse::fail('Sesi berakhir, silakan masuk lagi', 401);
             }
 
-            return redirect('/login')->withErrors(['email' => 'Akun ini dinonaktifkan, hubungi superadmin']);
+            return redirect('/login')->withErrors(['username' => 'Akun ini dinonaktifkan, hubungi superadmin']);
         }
 
         return $next($request);

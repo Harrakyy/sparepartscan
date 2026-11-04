@@ -83,7 +83,7 @@ function row(user) {
   name.style.fontWeight = '600';
   tr.append(
     name,
-    el('td', 'muted', user.email),
+    el('td', 'muted', user.username),
     role,
     statusCell(user),
     el('td', 'muted', user.last_login_at ? formatWib(user.last_login_at) : 'Belum pernah'),
@@ -106,12 +106,12 @@ $('add-form').addEventListener('submit', async e => {
   try {
     const user = await apiPost('/api/users', {
       name: $('name').value.trim(),
-      email: $('email').value.trim(),
+      username: $('username').value.trim().toLowerCase(),
       role: $('role').value,
       password: $('password').value,
     });
     $('add-form').reset();
-    showStatus(`${user.name} ditambahkan. Ia bisa masuk dengan email dan password tadi.`, 'ok');
+    showStatus(`${user.name} ditambahkan. Ia bisa masuk dengan username dan password tadi.`, 'ok');
     load();
   } catch (err) {
     showStatus(err.message, 'bad');

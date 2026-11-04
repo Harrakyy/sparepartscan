@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 /**
- * Akun superadmin pertama (dipakai installer), atau --reset darurat bila password superadmin lupa /
- * akunnya terkunci (ikon "Reset superadmin" di komputer master). Password diketik saat dijalankan,
- * tidak pernah ditulis di kode.
+ * Akun superadmin (darurat / tanpa halaman web), atau --reset bila password superadmin lupa / akunnya
+ * terkunci (ikon "Reset superadmin" di komputer master). Password diketik saat dijalankan, tidak pernah
+ * ditulis di kode.
  */
 class CreateSuperadmin extends Command
 {
-    protected $signature = 'app:superadmin {email? : Email superadmin (ditanyakan bila kosong)}
+    protected $signature = 'app:superadmin {username? : Username superadmin (ditanyakan bila kosong)}
         {--name=Superadmin}
         {--reset : Ganti password superadmin yang sudah ada, aktifkan, dan buka kuncinya}';
 
@@ -23,20 +23,32 @@ class CreateSuperadmin extends Command
 
     private const MIN_PASSWORD = 8;
 
+    /** Di komputer master, folder data hanya bisa dibuka administrator; SQLite lalu melaporkan "tidak ada". */
+    private const NO_ACCESS = '/unable to open database|does not exist|permission denied|access is denied/i';
+
     public function handle(LoginLockout $lockout): int
     {
-        $email = (string) ($this->argument('email') ?? $this->ask('Email superadmin'));
+        $username = User::normalizeUsername($this->argument('username') ?? $this->ask('Username superadmin'));
 
-        return $this->option('reset') ? $this->reset($email, $lockout) : $this->create($email);
+        try {
+            return $this->option('reset') ? $this->reset($username, $lockout) : $this->create($username);
+        } catch (\Throwable $e) {
+            if (! preg_match(self::NO_ACCESS, $e->getMessage())) {
+                throw $e;
+            }
+            $this->error('Database tidak bisa dibuka. Jalankan sebagai administrator (klik kanan Command Prompt → Run as administrator), lalu ulangi.');
+
+            return self::FAILURE;
+        }
     }
 
-    private function create(string $email): int
+    private function create(string $username): int
     {
         $password = $this->askPassword();
         $validator = Validator::make(
-            ['email' => $email, 'name' => $this->option('name'), 'password' => $password],
-            ['email' => ['required', 'email', 'max:255', 'unique:users,email'], 'name' => ['required', 'max:100'], 'password' => ['required', 'min:'.self::MIN_PASSWORD]],
-            ['email.unique' => 'Email sudah terdaftar', 'email.email' => 'Format email tidak valid', 'password.min' => 'Password minimal '.self::MIN_PASSWORD.' karakter'],
+            ['username' => $username, 'name' => $this->option('name'), 'password' => $password],
+            ['username' => ['required', User::USERNAME_RULE, 'unique:users,username'], 'name' => ['required', 'max:100'], 'password' => ['required', 'min:'.self::MIN_PASSWORD]],
+            ['username.unique' => 'Username sudah dipakai', 'username.regex' => User::USERNAME_MESSAGE, 'password.min' => 'Password minimal '.self::MIN_PASSWORD.' karakter'],
         );
         if ($password === null || $validator->fails()) {
             $this->error($password === null ? 'Password tidak sama' : $validator->errors()->first());
@@ -46,21 +58,21 @@ class CreateSuperadmin extends Command
 
         User::create([
             'name' => $this->option('name'),
-            'email' => $email,
+            'username' => $username,
             'password' => $password,
             'role' => 'superadmin',
             'is_active' => true,
         ]);
-        $this->info('Superadmin '.$email.' dibuat.');
+        $this->info('Superadmin '.$username.' dibuat.');
 
         return self::SUCCESS;
     }
 
-    private function reset(string $email, LoginLockout $lockout): int
+    private function reset(string $username, LoginLockout $lockout): int
     {
-        $user = User::where('email', $email)->first();
+        $user = User::where('username', $username)->first();
         if ($user === null || ! $user->isSuperadmin()) {
-            $this->error('Tidak ada superadmin dengan email '.$email);
+            $this->error('Tidak ada superadmin dengan username '.$username);
 
             return self::FAILURE;
         }
@@ -75,7 +87,7 @@ class CreateSuperadmin extends Command
         // Sama seperti ganti password di menu Pengguna: sesi lama berakhir (remember token baru).
         $user->forceFill(['password' => $password, 'is_active' => true, 'remember_token' => Str::random(60)])->save();
         $lockout->reset($user);
-        $this->info('Password superadmin '.$email.' diganti; akun aktif dan tidak terkunci.');
+        $this->info('Password superadmin '.$username.' diganti; akun aktif dan tidak terkunci.');
 
         return self::SUCCESS;
     }

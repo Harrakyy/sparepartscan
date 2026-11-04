@@ -15,18 +15,18 @@ class CreateSuperadminTest extends TestCase
 
     public function test_it_creates_a_superadmin(): void
     {
-        $this->artisan('app:superadmin', ['email' => 'bos@mgi.test', '--name' => 'Bos'])
+        $this->artisan('app:superadmin', ['username' => 'bos', '--name' => 'Bos'])
             ->expectsQuestion('Password (min. 8 karakter)', 'rahasia123')
             ->expectsQuestion('Ulangi password', 'rahasia123')
             ->assertSuccessful();
 
-        $this->assertTrue(User::where('email', 'bos@mgi.test')->first()->isSuperadmin());
+        $this->assertTrue(User::where('username', 'bos')->first()->isSuperadmin());
     }
 
     public function test_reset_sets_a_new_password_and_unlocks(): void
     {
         $user = User::factory()->superadmin()->create([
-            'email' => 'bos@mgi.test',
+            'username' => 'bos',
             'is_active' => false,
             'failed_logins' => 9,
             'last_failed_login_at' => now(),
@@ -35,7 +35,7 @@ class CreateSuperadminTest extends TestCase
         $oldToken = $user->remember_token;
 
         $this->artisan('app:superadmin', ['--reset' => true])
-            ->expectsQuestion('Email superadmin', 'bos@mgi.test')
+            ->expectsQuestion('Username superadmin', 'bos')
             ->expectsQuestion('Password (min. 8 karakter)', 'baru12345')
             ->expectsQuestion('Ulangi password', 'baru12345')
             ->assertSuccessful();
@@ -51,9 +51,9 @@ class CreateSuperadminTest extends TestCase
 
     public function test_reset_refuses_an_unknown_or_non_superadmin_email(): void
     {
-        User::factory()->admin()->create(['email' => 'gudang@mgi.test']);
+        User::factory()->admin()->create(['username' => 'gudang']);
 
-        $this->artisan('app:superadmin', ['email' => 'gudang@mgi.test', '--reset' => true])->assertFailed();
-        $this->artisan('app:superadmin', ['email' => 'tidak-ada@mgi.test', '--reset' => true])->assertFailed();
+        $this->artisan('app:superadmin', ['username' => 'gudang', '--reset' => true])->assertFailed();
+        $this->artisan('app:superadmin', ['username' => 'tidak-ada', '--reset' => true])->assertFailed();
     }
 }

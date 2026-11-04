@@ -25,8 +25,8 @@
                 <p class="msg msg-bad" role="alert">{{ $errors->first() }}</p>
             @endif
             <div class="field">
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" value="{{ old('email') }}" autocomplete="username" required autofocus>
+                <label for="username">Username</label>
+                <input id="username" name="username" value="{{ old('username') }}" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="30" required autofocus>
             </div>
             <div class="field">
                 <label for="password">Password</label>

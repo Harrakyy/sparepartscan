@@ -16,8 +16,8 @@
             <input id="name" maxlength="100" required>
         </div>
         <div class="field">
-            <label for="email">Email</label>
-            <input id="email" type="email" maxlength="255" required>
+            <label for="username">Username</label>
+            <input id="username" maxlength="30" autocapitalize="none" spellcheck="false" placeholder="mis. budi" required>
         </div>
         <div class="field">
             <label for="role">Peran</label>
@@ -41,7 +41,7 @@
                 <thead>
                     <tr>
                         <th>Nama</th>
-                        <th>Email</th>
+                        <th>Username</th>
                         <th>Peran</th>
                         <th>Status</th>
                         <th>Masuk terakhir</th>
