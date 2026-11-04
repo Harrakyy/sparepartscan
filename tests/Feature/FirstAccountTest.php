@@ -41,7 +41,9 @@ class FirstAccountTest extends TestCase
         $this->post('/akun-pertama', self::FORM);
         auth()->logout();
 
-        $this->post('/akun-pertama', array_merge(self::FORM, ['username' => 'penyusup']))->assertNotFound();
+        // Klik dua kali / tab kedua: arahkan ke halaman masuk dengan pesan jelas, bukan 404.
+        $this->post('/akun-pertama', array_merge(self::FORM, ['username' => 'penyusup']))
+            ->assertRedirect('/login')->assertSessionHas('status', 'Akun superadmin sudah dibuat, silakan masuk.');
         $this->get('/akun-pertama')->assertNotFound();
         $this->get('/login')->assertOk();
         $this->assertSame(1, User::count());

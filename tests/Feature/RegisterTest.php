@@ -58,6 +58,16 @@ class RegisterTest extends TestCase
         $this->post('/daftar', array_merge(self::FORM, ['username' => 'x']))->assertStatus(429);
     }
 
+    public function test_sign_up_stays_closed_until_a_superadmin_exists(): void
+    {
+        // Tanpa superadmin, akun daftar akan menutup halaman akun pertama selamanya.
+        User::query()->delete();
+        User::factory()->admin()->create(['username' => 'gudang']);
+
+        $this->get('/daftar')->assertNotFound();
+        $this->post('/daftar', self::FORM)->assertNotFound();
+    }
+
     public function test_online_edition_has_no_sign_up(): void
     {
         config(['app.edition' => 'online']);

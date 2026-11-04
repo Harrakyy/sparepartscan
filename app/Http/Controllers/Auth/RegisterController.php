@@ -19,7 +19,9 @@ class RegisterController extends Controller
 {
     public static function isOpen(): bool
     {
-        return Edition::isOffline() && Setting::get('allow_registration', '1') === '1';
+        // Tanpa superadmin, akun daftar akan menutup halaman akun pertama selamanya: tunggu superadmin dulu.
+        return Edition::isOffline() && Setting::get('allow_registration', '1') === '1'
+            && User::where('role', 'superadmin')->exists();
     }
 
     public function show(): View

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AccountFormRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -23,29 +24,43 @@ class FirstAccountController extends Controller
         return view('auth.first-account');
     }
 
-    public function store(AccountFormRequest $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        $data = $request->validated();
+        // Klik dua kali / tab kedua: dicek SEBELUM validasi (username yang sama akan ditolak "sudah dipakai"
+        // dan dikembalikan ke halaman yang sudah tertutup), langsung ke halaman masuk dengan pesan jelas.
+        if (User::exists()) {
+            return $this->alreadyCreated();
+        }
+        $data = app(AccountFormRequest::class)->validated();
 
-        // Dua tab dikirim hampir bersamaan: SQLite menulis berurutan, jadi yang kedua melihat akun pertama.
+        // Dua permintaan hampir bersamaan: transaksi memegang kunci tulis sejak awal, jadi yang kedua
+        // melihat akun pertama dan dibatalkan.
         $user = DB::transaction(function () use ($data) {
-            abort_if(User::exists(), 404);
-            $user = User::create([
+            if (User::exists()) {
+                return null;
+            }
+
+            return User::create([
                 'name' => $data['name'],
                 'username' => $data['username'],
                 'password' => $data['password'],
                 'role' => 'superadmin',
                 'is_active' => true,
             ]);
-            abort_if(User::count() > 1, 404);
-
-            return $user;
         });
+        if ($user === null) {
+            return $this->alreadyCreated();
+        }
 
         Auth::login($user);
         $request->session()->regenerate();
         $user->update(['last_login_at' => now()]);
 
         return redirect('/gudang');
+    }
+
+    private function alreadyCreated(): RedirectResponse
+    {
+        return redirect('/login')->with('status', 'Akun superadmin sudah dibuat, silakan masuk.');
     }
 }

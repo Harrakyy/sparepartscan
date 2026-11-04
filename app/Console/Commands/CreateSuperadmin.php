@@ -24,7 +24,7 @@ class CreateSuperadmin extends Command
     private const MIN_PASSWORD = 8;
 
     /** Di komputer master, folder data hanya bisa dibuka administrator; SQLite lalu melaporkan "tidak ada". */
-    private const NO_ACCESS = '/unable to open database|does not exist|permission denied|access is denied/i';
+    private const NO_ACCESS = '/unable to open database|Database file at path .* does not exist|permission denied|access is denied/i';
 
     public function handle(LoginLockout $lockout): int
     {

@@ -23,6 +23,8 @@
             <h1>Masuk</h1>
             @if ($errors->any())
                 <p class="msg msg-bad" role="alert">{{ $errors->first() }}</p>
+            @elseif (session('status'))
+                <p class="msg msg-ok" role="status">{{ session('status') }}</p>
             @endif
             <div class="field">
                 <label for="username">Username</label>

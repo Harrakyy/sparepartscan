@@ -6,9 +6,12 @@
  * Hanya melayani 127.0.0.1. Butuh storage/app/keys/secret.key di repo ini.
  */
 
-if (($_SERVER['REMOTE_ADDR'] ?? '') !== '127.0.0.1') {
+// Host juga dicek: situs jahat di browser yang sama bisa memakai DNS rebinding (REMOTE_ADDR tetap 127.0.0.1)
+// untuk mengirim form ini dan membaca lisensi bertanda tangan.
+$host = strtolower($_SERVER['HTTP_HOST'] ?? '');
+if (($_SERVER['REMOTE_ADDR'] ?? '') !== '127.0.0.1' || ! in_array($host, ['127.0.0.1:8777', 'localhost:8777'], true)) {
     http_response_code(403);
-    exit('Hanya bisa dibuka dari laptop ini.');
+    exit('Hanya bisa dibuka dari laptop ini (http://127.0.0.1:8777).');
 }
 
 $root = dirname(__DIR__, 2);
