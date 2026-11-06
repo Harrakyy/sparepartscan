@@ -23,10 +23,12 @@
             <h1>Masuk</h1>
             @if ($errors->any())
                 <p class="msg msg-bad" role="alert">{{ $errors->first() }}</p>
+            @elseif (session('status'))
+                <p class="msg msg-ok" role="status">{{ session('status') }}</p>
             @endif
             <div class="field">
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" value="{{ old('email') }}" autocomplete="username" required autofocus>
+                <label for="username">Username</label>
+                <input id="username" name="username" value="{{ old('username') }}" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="30" required autofocus>
             </div>
             <div class="field">
                 <label for="password">Password</label>
@@ -37,6 +39,9 @@
                 Ingat saya
             </label>
             <button class="btn btn-primary btn-big" type="submit"><i class="bi bi-box-arrow-in-right" aria-hidden="true"></i> Masuk</button>
+            @if (\App\Http\Controllers\Auth\RegisterController::isOpen())
+                <a class="btn btn-big" href="{{ url('/daftar') }}"><i class="bi bi-person-plus" aria-hidden="true"></i> Belum punya akun? Daftar</a>
+            @endif
             <p class="muted login-help">Lupa password? Hubungi superadmin untuk dibuatkan password baru.</p>
         </form>
     </main>

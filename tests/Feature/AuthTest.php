@@ -16,12 +16,12 @@ class AuthTest extends TestCase
 
     private function user(array $attributes = []): User
     {
-        return User::factory()->admin()->create(array_merge(['email' => 'gudang@contoh.test', 'password' => 'rahasia123'], $attributes));
+        return User::factory()->admin()->create(array_merge(['username' => 'gudang', 'password' => 'rahasia123'], $attributes));
     }
 
     private function login(string $password = 'rahasia123', bool $remember = false)
     {
-        return $this->post('/login', ['email' => 'gudang@contoh.test', 'password' => $password, 'remember' => $remember ? '1' : null]);
+        return $this->post('/login', ['username' => 'gudang', 'password' => $password, 'remember' => $remember ? '1' : null]);
     }
 
     public function test_guests_are_sent_to_login_and_the_api_answers_401(): void
@@ -48,13 +48,21 @@ class AuthTest extends TestCase
         $this->assertNotNull($user->fresh()->last_login_at);
     }
 
+    public function test_username_is_not_case_sensitive(): void
+    {
+        $user = $this->user();
+
+        $this->post('/login', ['username' => '  Gudang ', 'password' => 'rahasia123'])->assertRedirect('/gudang');
+        $this->assertAuthenticatedAs($user);
+    }
+
     public function test_wrong_password_gets_a_generic_message(): void
     {
         $this->user();
 
         $this->from('/login')->login('salah-salah')
             ->assertRedirect('/login')
-            ->assertSessionHasErrors(['email' => 'Email atau password salah']);
+            ->assertSessionHasErrors(['username' => 'Username atau password salah']);
         $this->assertGuest();
     }
 
@@ -62,7 +70,7 @@ class AuthTest extends TestCase
     {
         $this->user(['is_active' => false]);
 
-        $this->login()->assertSessionHasErrors(['email' => 'Akun ini dinonaktifkan, hubungi superadmin']);
+        $this->login()->assertSessionHasErrors(['username' => 'Akun ini dinonaktifkan, hubungi superadmin']);
         $this->assertGuest();
     }
 
@@ -93,19 +101,19 @@ class AuthTest extends TestCase
 
     public function test_superadmin_command_creates_the_first_account(): void
     {
-        $this->artisan('app:superadmin', ['email' => 'boss@contoh.test', '--name' => 'Pak Bos'])
+        $this->artisan('app:superadmin', ['username' => 'boss', '--name' => 'Pak Bos'])
             ->expectsQuestion('Password (min. 8 karakter)', 'rahasia123')
             ->expectsQuestion('Ulangi password', 'rahasia123')
             ->assertSuccessful();
 
-        $user = User::where('email', 'boss@contoh.test')->first();
+        $user = User::where('username', 'boss')->first();
         $this->assertSame(['Pak Bos', 'superadmin', true], [$user->name, $user->role, $user->is_active]);
         $this->assertTrue(Hash::check('rahasia123', $user->password));
     }
 
     public function test_superadmin_command_rejects_a_short_password(): void
     {
-        $this->artisan('app:superadmin', ['email' => 'boss@contoh.test'])
+        $this->artisan('app:superadmin', ['username' => 'boss'])
             ->expectsQuestion('Password (min. 8 karakter)', 'pendek')
             ->expectsQuestion('Ulangi password', 'pendek')
             ->assertFailed();

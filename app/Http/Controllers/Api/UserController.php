@@ -21,9 +21,9 @@ class UserController extends Controller
     private const MESSAGES = [
         'name.required' => 'Nama wajib diisi',
         'name.max' => 'Nama maksimal 100 karakter',
-        'email.required' => 'Email wajib diisi',
-        'email.email' => 'Format email tidak valid',
-        'email.unique' => 'Email sudah terdaftar',
+        'username.required' => 'Username wajib diisi',
+        'username.regex' => User::USERNAME_MESSAGE,
+        'username.unique' => 'Username sudah dipakai',
         'role.*' => 'Peran tidak dikenal',
         'password.required' => 'Password wajib diisi',
         'password.min' => 'Password minimal 8 karakter',
@@ -37,9 +37,10 @@ class UserController extends Controller
 
     public function store(Request $request): JsonResponse
     {
+        $request->merge(['username' => User::normalizeUsername($request->input('username'))]);
         $data = $request->validate([
             'name' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'username' => ['required', 'string', User::USERNAME_RULE, 'unique:users,username'],
             'role' => ['required', Rule::in(User::ROLES)],
             'password' => ['required', 'string', 'min:'.self::MIN_PASSWORD],
         ], self::MESSAGES);
@@ -87,7 +88,7 @@ class UserController extends Controller
 
     private function row(User $user): array
     {
-        return array_merge($user->only(['id', 'name', 'email', 'role', 'is_active', 'last_login_at']), [
+        return array_merge($user->only(['id', 'name', 'username', 'role', 'is_active', 'last_login_at']), [
             'locked_until' => $user->locked_until?->isFuture() ? $user->locked_until : null,
         ]);
     }

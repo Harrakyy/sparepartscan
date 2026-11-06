@@ -15,6 +15,11 @@ class User extends Authenticatable
 
     public const ROLES = ['superadmin', 'admin'];
 
+    /** Username: 3–30 karakter huruf kecil, angka, titik, minus, garis bawah (mis. budi, ana.k_1). */
+    public const USERNAME_RULE = 'regex:/^[a-z0-9._-]{3,30}$/';
+
+    public const USERNAME_MESSAGE = 'Username 3–30 karakter: huruf kecil, angka, titik, minus, garis bawah';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -22,7 +27,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
+        'username',
         'password',
         'role',
         'is_active',
@@ -47,7 +52,6 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'is_active' => 'boolean',
             'last_login_at' => 'datetime',
@@ -55,6 +59,12 @@ class User extends Authenticatable
             'last_failed_login_at' => 'datetime',
             'locked_until' => 'datetime',
         ];
+    }
+
+    /** Username dibandingkan tanpa beda huruf besar/kecil dan tanpa spasi di tepi. */
+    public static function normalizeUsername(?string $username): string
+    {
+        return strtolower(trim((string) $username));
     }
 
     /** Superadmin: hapus faktur, edit jumlah keluar, dan kelola pengguna. */

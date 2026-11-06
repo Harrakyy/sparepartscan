@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
  */
 class BackupService
 {
-    private const JENIS = ['perjam', 'harian', 'manual', 'sebelum-pulihkan'];
+    private const JENIS = ['perjam', 'harian', 'manual', 'sebelum-pulihkan', 'sebelum-update'];
 
     /** Folder backup di flashdisk, dan berapa hari file di sana dipertahankan. */
     private const FOLDER_DISK = 'VerifikasiFaktur-Backup';

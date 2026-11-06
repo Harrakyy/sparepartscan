@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\BackupController;
+use App\Http\Controllers\Auth\FirstAccountController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\LicenseController;
 use App\Models\GoodsReturn;
 use App\Models\Invoice;
@@ -17,11 +19,21 @@ Route::get('/backup/latest', [BackupController::class, 'latest'])
 Route::middleware('edition.offline')->group(function () {
     Route::get('/aktivasi', [LicenseController::class, 'show'])->name('aktivasi');
     Route::post('/aktivasi', [LicenseController::class, 'store'])->name('aktivasi.store');
+
+    // Akun superadmin pertama lewat web (setelah lisensi aktif); tertutup begitu ada akun.
+    Route::get('/akun-pertama', [FirstAccountController::class, 'show'])->name('akun-pertama');
+    Route::post('/akun-pertama', [FirstAccountController::class, 'store']);
 });
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'show'])->name('login');
     Route::post('/login', [LoginController::class, 'login']);
+
+    // Petugas mendaftar sendiri (edisi offline, bila diizinkan superadmin).
+    Route::middleware('edition.offline')->group(function () {
+        Route::get('/daftar', [RegisterController::class, 'show']);
+        Route::post('/daftar', [RegisterController::class, 'store'])->middleware('throttle:5,1');
+    });
 });
 
 Route::middleware('auth')->group(function () {

@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Contracts\HardwareFingerprint;
 use App\Contracts\RemovableDisks;
+use App\Database\ImmediateSQLiteConnection;
+use Illuminate\Database\Connection;
 use App\Models\Invoice;
 use App\Models\User;
 use App\Support\WindowsHardwareFingerprint;
@@ -23,6 +25,9 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(RemovableDisks::class, WindowsRemovableDisks::class);
         $this->app->bind(HardwareFingerprint::class, WindowsHardwareFingerprint::class);
+
+        // Transaksi SQLite memegang kunci tulis sejak awal (juga di PHP 8.3): dua titik scan mengantre.
+        Connection::resolverFor('sqlite', fn ($pdo, $database, $prefix, $config) => new ImmediateSQLiteConnection($pdo, $database, $prefix, $config));
     }
 
     /**

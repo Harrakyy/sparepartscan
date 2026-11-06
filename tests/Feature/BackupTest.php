@@ -46,6 +46,14 @@ class BackupTest extends TestCase
         $this->assertSame('ok', $pdo->query('PRAGMA integrity_check')->fetchColumn());
     }
 
+    public function test_backup_accepts_sebelum_update(): void
+    {
+        $path = $this->backup->create('sebelum-update');
+
+        $this->assertNotNull($path);
+        $this->assertSame('sebelum-update', basename(dirname($path)));
+    }
+
     public function test_an_unchanged_database_is_not_backed_up_twice(): void
     {
         $this->backup->create('harian');

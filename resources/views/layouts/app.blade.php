@@ -48,7 +48,7 @@
         @if ($currentUser)
             <form class="user-menu" method="POST" action="{{ url('/logout') }}">
                 @csrf
-                <span class="user-name" title="{{ $currentUser->email }}">
+                <span class="user-name" title="{{ $currentUser->username }}">
                     <i class="bi bi-person-circle" aria-hidden="true"></i> {{ $currentUser->name }}
                     <span class="badge {{ $currentUser->isSuperadmin() ? 'badge-qc_done' : 'badge-waiting' }}">{{ $currentUser->isSuperadmin() ? 'Superadmin' : 'Admin' }}</span>
                 </span>

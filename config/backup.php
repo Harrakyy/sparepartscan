@@ -9,5 +9,6 @@ return [
         'perjam' => 48,
         'harian' => 30,
         'manual' => 30,
+        'sebelum-update' => 10,
     ],
 ];
